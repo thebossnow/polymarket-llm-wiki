@@ -3,9 +3,6 @@
 > Retrieves a specific order by its ID (order hash) for the authenticated user.
 Builder-authenticated clients can also use this endpoint to retrieve orders attributed to their builder account.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /data/order/{orderID}

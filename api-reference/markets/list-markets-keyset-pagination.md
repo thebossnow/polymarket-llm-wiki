@@ -2,9 +2,6 @@
 
 > Returns markets using cursor-based (keyset) pagination for stable, efficient paging through large result sets. Use `next_cursor` from each response as `after_cursor` in the next request. The `offset` parameter is explicitly rejected; use `after_cursor` instead.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /markets/keyset

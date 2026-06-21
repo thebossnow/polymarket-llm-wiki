@@ -1,7 +1,5 @@
 # Search markets, events, and profiles
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /public-search

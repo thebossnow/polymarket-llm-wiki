@@ -4,7 +4,7 @@
 
 All market data is available through public REST endpoints. No API key, no authentication, no wallet required.
 
-```bash theme={null}
+```bash
 curl "https://gamma-api.polymarket.com/events?limit=5"
 ```
 
@@ -14,17 +14,13 @@ curl "https://gamma-api.polymarket.com/events?limit=5"
 
 Polymarket structures data using two organizational models. The most fundamental element is always markets—events simply provide additional organization.
 
-<Steps>
-  <Step title="Event">
-    A top-level object representing a question (e.g., "Who will win the 2024
-    Presidential Election?"). Contains one or more markets.
-  </Step>
+### Event
+A top-level object representing a question (e.g., "Who will win the 2024
+Presidential Election?"). Contains one or more markets.
 
-  <Step title="Market">
-    A specific tradable binary outcome within an event. Maps to a pair of CLOB
-    token IDs, a market address, a question ID, and a condition ID.
-  </Step>
-</Steps>
+### Market
+A specific tradable binary outcome within an event. Maps to a pair of CLOB
+token IDs, a market address, a question ID, and a condition ID.
 
 ### Single-Market Events vs Multi-Market Events
 
@@ -37,7 +33,7 @@ Polymarket structures data using two organizational models. The most fundamental
 
 Each market has `outcomes` and `outcomePrices` arrays that map 1:1. Prices represent implied probabilities:
 
-```json theme={null}
+```json
 {
   "outcomes": "[\"Yes\", \"No\"]",
   "outcomePrices": "[\"0.20\", \"0.80\"]"
@@ -46,7 +42,7 @@ Each market has `outcomes` and `outcomePrices` arrays that map 1:1. Prices repre
 // Index 1: "No" → 0.80 (80% probability)
 ```
 
-<Info>Markets can be traded via the CLOB if `enableOrderBook` is `true`.</Info>
+> **Info:** Markets can be traded via the CLOB if `enableOrderBook` is `true`.
 
 ***
 
@@ -96,12 +92,6 @@ Endpoints are split across three APIs. See the [API Reference](/api-reference/in
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Fetching Markets" icon="magnifying-glass" href="/market-data/fetching-markets">
-    Three strategies for discovering and querying markets.
-  </Card>
+- **[Fetching Markets](/market-data/fetching-markets)** — Three strategies for discovering and querying markets.
 
-  <Card title="API Reference" icon="code" href="/api-reference/introduction">
-    Full endpoint documentation with parameters and response schemas.
-  </Card>
-</CardGroup>
+- **[API Reference](/api-reference/introduction)** — Full endpoint documentation with parameters and response schemas.

@@ -1,7 +1,5 @@
 # Get a quote
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/bridge-openapi.yaml post /quote

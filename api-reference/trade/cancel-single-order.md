@@ -2,9 +2,6 @@
 
 > Cancels a single order by its ID. Works even in cancel-only mode.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml delete /order

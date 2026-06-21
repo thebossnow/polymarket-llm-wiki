@@ -3,9 +3,6 @@
 > Retrieves market prices for multiple token IDs and sides using a request body.
 Each request must include both token_id and side.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /prices

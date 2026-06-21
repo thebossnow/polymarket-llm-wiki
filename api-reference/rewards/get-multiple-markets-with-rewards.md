@@ -6,9 +6,6 @@ Supports text search, tag filtering, numeric filters, and sorting.
 Results are paginated (100 items per page by default). Use next_cursor to fetch subsequent pages.
 A next_cursor value of "LTE=" indicates the last page.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/markets/multi
@@ -49,7 +46,6 @@ paths:
         Returns a list of active markets with their reward configurations.
 
         Supports text search, tag filtering, numeric filters, and sorting.
-
 
         Results are paginated (100 items per page by default). Use next_cursor
         to fetch subsequent pages.

@@ -1,7 +1,5 @@
 # Get daily builder volume time-series
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/builders/volume

@@ -12,33 +12,17 @@ Withdraw pUSD from your Polymarket wallet to any supported chain and token. Fund
 4. Funds are automatically bridged and swapped to your desired token
 5. Funds arrive at your destination wallet
 
-<Warning>
-  Do not pre-generate withdrawal addresses. Only generate them when you are
-  ready to execute the withdrawal. Each address is configured for a specific
-  destination.
-</Warning>
+> **Warning:** Do not pre-generate withdrawal addresses. Only generate them when you are ready to execute the withdrawal. Each address is configured for a specific destination.
 
-<Warning>
-  When withdrawing, pUSD is unwrapped to USDC via the Collateral Offramp and swapped through the
-  [Uniswap v3 pool](https://polygonscan.com/address/0xd36ec33c8bed5a9f7b6630855f1533455b98a418)
-  for USDC (native). The UI enforces less than 10bp difference in output amount.
-  At times, this pool may be exhausted. If you are having withdraw issues, try
-  breaking your withdraw into smaller amounts or waiting for the pool to be
-  rebalanced. Alternatively, you can withdraw pUSD directly, which does not
-  require Uniswap liquidity — just be aware that some exchanges no longer accept
-  pUSD deposits directly.
-</Warning>
+> **Warning:** When withdrawing, pUSD is unwrapped to USDC via the Collateral Offramp and swapped through the [Uniswap v3 pool](https://polygonscan.com/address/0xd36ec33c8bed5a9f7b6630855f1533455b98a418) for USDC (native). The UI enforces less than 10bp difference in output amount. At times, this pool may be exhausted. If you are having withdraw issues, try breaking your withdraw into smaller amounts or waiting for the pool to be rebalanced. Alternatively, you can withdraw pUSD directly, which does not require Uniswap liquidity — just be aware that some exchanges no longer accept pUSD deposits directly.
 
-<Tip>
-  For very large withdrawals (over \$50,000), consider breaking the withdrawal
-  into smaller amounts or using a third-party bridge to minimize slippage.
-</Tip>
+> **Tip:** For very large withdrawals (over \$50,000), consider breaking the withdrawal into smaller amounts or using a third-party bridge to minimize slippage.
 
 ## Create Withdrawal Addresses
 
 Generate bridge addresses configured for your withdrawal destination. See the [Bridge API Reference](/api-reference/introduction) for full request and response schemas.
 
-```bash theme={null}
+```bash
 curl -X POST https://bridge.polymarket.com/withdraw \
   -H "Content-Type: application/json" \
   -d '{
@@ -62,37 +46,25 @@ Withdrawals are **instant** and **free** — Polymarket does not charge withdraw
 
 ## Withdrawal Flow
 
-<Steps>
-  <Step title="Check Supported Assets">
-    Verify your destination chain and token are supported via
-    `/supported-assets`.
-  </Step>
+### Check Supported Assets
+Verify your destination chain and token are supported via
+`/supported-assets`.
 
-  <Step title="Get a Quote">
-    Preview fees and estimated output via `POST /quote`.
-  </Step>
+### Get a Quote
+Preview fees and estimated output via `POST /quote`.
 
-  <Step title="Create Withdrawal Addresses">
-    Call `POST /withdraw` with your wallet address, destination chain, token,
-    and recipient.
-  </Step>
+### Create Withdrawal Addresses
+Call `POST /withdraw` with your wallet address, destination chain, token,
+and recipient.
 
-  <Step title="Send pUSD">
-    Transfer pUSD from your Polymarket wallet to the appropriate bridge
-    address.
-  </Step>
+### Send pUSD
+Transfer pUSD from your Polymarket wallet to the appropriate bridge
+address.
 
-  <Step title="Track Status">Monitor progress using `/status/{address}`.</Step>
-</Steps>
+### Track StatusMonitor progress using `/status/{address}`.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Get a Quote" icon="calculator" href="/trading/bridge/quote">
-    Preview fees and estimated output before withdrawing.
-  </Card>
+- **[Get a Quote](/trading/bridge/quote)** — Preview fees and estimated output before withdrawing.
 
-  <Card title="Check Status" icon="clock" href="/trading/bridge/status">
-    Track your withdrawal progress.
-  </Card>
-</CardGroup>
+- **[Check Status](/trading/bridge/status)** — Track your withdrawal progress.

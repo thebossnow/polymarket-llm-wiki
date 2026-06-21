@@ -8,9 +8,6 @@ Entries in `position_ids`, `outcomes`, and `outcome_prices` correspond by
 array index (`[0]` is YES, `[1]` is NO). Use `next_cursor` unchanged in
 the next request; a value of `null` indicates the final page.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/combos-rfq-openapi.yaml get /v1/rfq/combo-markets
@@ -20,13 +17,11 @@ info:
   description: >
     REST API for the combinatorial RFQ (Request for Quote) system.
 
-
     This spec covers the publicly documented endpoints used by quoters (market
 
     makers): the combo-market catalog and the authenticated maker commands for
 
     submitting, cancelling, and confirming quotes.
-
 
     Conventions:
 
@@ -63,7 +58,6 @@ paths:
         descending. This endpoint is public and does not require CLOB
 
         authentication.
-
 
         Entries in `position_ids`, `outcomes`, and `outcome_prices` correspond
         by

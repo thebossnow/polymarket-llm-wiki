@@ -3,9 +3,6 @@
 > Retrieves last trade prices for multiple token IDs using query parameters.
 Maximum 500 token IDs can be requested per call.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /last-trades-prices

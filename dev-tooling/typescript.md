@@ -4,60 +4,49 @@
 
 The unified TypeScript SDK gives you a consistent surface across Polymarket discovery, market data, trading, account data, and realtime streams.
 
-<Note>
-  The TypeScript SDK is currently in beta. We are keeping it in this beta phase
-  while we address issues and harden the SDK before transitioning to a more
-  stable release.
-</Note>
+> **Note:** The TypeScript SDK is currently in beta. We are keeping it in this beta phase while we address issues and harden the SDK before transitioning to a more stable release.
 
 ## Quickstart
 
-<Steps>
-  <Step title="Install the Package">
-    Install the SDK from your package manager.
+### Install the Package
+Install the SDK from your package manager.
 
-    <CodeGroup>
-      ```bash pnpm theme={null}
-      pnpm add @polymarket/client@beta
-      ```
+```bash pnpm
+pnpm add @polymarket/client@beta
+```
 
-      ```bash npm theme={null}
-      npm install @polymarket/client@beta
-      ```
+```bash npm
+npm install @polymarket/client@beta
+```
 
-      ```bash yarn theme={null}
-      yarn add @polymarket/client@beta
-      ```
-    </CodeGroup>
-  </Step>
+```bash yarn
+yarn add @polymarket/client@beta
+```
 
-  <Step title="Create a Public Client">
-    Create an instance of the `PublicClient`.
+### Create a Public Client
+Create an instance of the `PublicClient`.
 
-    ```ts theme={null}
-    import { createPublicClient } from "@polymarket/client";
+```ts
+import { createPublicClient } from "@polymarket/client";
 
-    const client = createPublicClient();
-    ```
-  </Step>
+const client = createPublicClient();
+```
 
-  <Step title="Fetch Markets">
-    Fetch a page of markets to discover active trading opportunities.
+### Fetch Markets
+Fetch a page of markets to discover active trading opportunities.
 
-    ```ts theme={null}
-    const markets = client.listMarkets({
-      closed: false,
-      pageSize: 5,
-    });
+```ts
+const markets = client.listMarkets({
+  closed: false,
+  pageSize: 5,
+});
 
-    const firstPage = await markets.firstPage();
+const firstPage = await markets.firstPage();
 
-    for (const market of firstPage.items) {
-      // market: Market
-    }
-    ```
-  </Step>
-</Steps>
+for (const market of firstPage.items) {
+  // market: Market
+}
+```
 
 ## SDK Patterns
 
@@ -67,7 +56,7 @@ The SDK normalizes data across API seams and uses consistent patterns for pagina
 
 Common primitives such as IDs, decimal values, date/time strings, and EVM addresses are represented with explicit SDK types so integrations can avoid treating every value as a plain string.
 
-```ts theme={null}
+```ts
 type Market = {
   id: MarketId;
   conditionId: ConditionId | null;
@@ -92,63 +81,61 @@ type Market = {
 
 Market and event responses use normalized field names and TypeScript shapes instead of service-specific response formats.
 
-<CodeGroup>
-  ```ts Market theme={null}
-  type Market = {
-    id: MarketId;
-    slug?: string | null;
-    conditionId: ConditionId | null;
-    question?: string | null;
-    description?: string | null;
-    category?: string | null;
-    image?: string | null;
-    icon?: string | null;
-    state: MarketState;
-    outcomes: MarketOutcomes;
-    metrics: MarketMetrics;
-    prices: MarketPrices;
-    trading: MarketTrading;
-    resolution: MarketResolution;
-    rewards: MarketRewards;
-    sports: MarketSportsMetadata;
-    tags: MarketTag[];
-    // …
-  };
-  ```
+```ts Market
+type Market = {
+  id: MarketId;
+  slug?: string | null;
+  conditionId: ConditionId | null;
+  question?: string | null;
+  description?: string | null;
+  category?: string | null;
+  image?: string | null;
+  icon?: string | null;
+  state: MarketState;
+  outcomes: MarketOutcomes;
+  metrics: MarketMetrics;
+  prices: MarketPrices;
+  trading: MarketTrading;
+  resolution: MarketResolution;
+  rewards: MarketRewards;
+  sports: MarketSportsMetadata;
+  tags: MarketTag[];
+  // …
+};
+```
 
-  ```ts Event theme={null}
-  type Event = {
-    id: EventId;
-    slug?: string | null;
-    title?: string | null;
-    subtitle?: string | null;
-    description?: string | null;
-    category?: string | null;
-    subcategory?: string | null;
-    image?: string | null;
-    icon?: string | null;
-    createdAt?: IsoDateTimeString | null;
-    updatedAt?: IsoDateTimeString | null;
-    publishedAt?: IsoDateTimeString | null;
-    state: EventState;
-    schedule: EventSchedule;
-    metrics: EventMetrics;
-    trading: EventTrading;
-    estimation: EventEstimation;
-    sports: EventSportsMetadata;
-    partners: EventPartner[];
-    markets: Market[];
-    series: EventSeries[];
-    // …
-  };
-  ```
-</CodeGroup>
+```ts Event
+type Event = {
+  id: EventId;
+  slug?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  description?: string | null;
+  category?: string | null;
+  subcategory?: string | null;
+  image?: string | null;
+  icon?: string | null;
+  createdAt?: IsoDateTimeString | null;
+  updatedAt?: IsoDateTimeString | null;
+  publishedAt?: IsoDateTimeString | null;
+  state: EventState;
+  schedule: EventSchedule;
+  metrics: EventMetrics;
+  trading: EventTrading;
+  estimation: EventEstimation;
+  sports: EventSportsMetadata;
+  partners: EventPartner[];
+  markets: Market[];
+  series: EventSeries[];
+  // …
+};
+```
 
 ### Pagination
 
 List methods return a consistent paginator interface across paginated endpoints. Use `for await` to iterate through pages.
 
-```ts theme={null}
+```ts
 const markets = client.listMarkets({
   closed: false,
   pageSize: 10,
@@ -161,7 +148,7 @@ for await (const page of markets) {
 
 You can also fetch the first page directly and resume later from a cursor.
 
-```ts theme={null}
+```ts
 const firstPage = await markets.firstPage();
 // firstPage.items: Market[]
 
@@ -174,12 +161,9 @@ for await (const page of markets.from(firstPage.nextCursor)) {
 
 Each public action exposes a matching error guard. Use it to handle expected SDK errors and rethrow anything unexpected.
 
-<Note>
-  Error guards make exhaustive checks easier and help surface newly added SDK
-  error cases during upgrades.
-</Note>
+> **Note:** Error guards make exhaustive checks easier and help surface newly added SDK error cases during upgrades.
 
-```ts theme={null}
+```ts
 import { ListMarketsError } from "@polymarket/client";
 
 try {
@@ -212,234 +196,221 @@ try {
 
 Use market data methods to fetch market and event details, order books, current prices, historical prices, and batch quotes.
 
-<CodeGroup>
-  ```ts Market theme={null}
-  const market = await client.fetchMarket({
-    url: "https://polymarket.com/market/eth-flipped-in-2026",
-  });
+```ts Market
+const market = await client.fetchMarket({
+  url: "https://polymarket.com/market/eth-flipped-in-2026",
+});
 
-  const market = await client.fetchMarket({
-    slug: "eth-flipped-in-2026",
-  });
+const market = await client.fetchMarket({
+  slug: "eth-flipped-in-2026",
+});
 
-  const market = await client.fetchMarket({
-    id: "12345",
-  });
-  ```
+const market = await client.fetchMarket({
+  id: "12345",
+});
+```
 
-  ```ts Event theme={null}
-  const event = await client.fetchEvent({
-    url: "https://polymarket.com/event/presidential-election-2028",
-  });
+```ts Event
+const event = await client.fetchEvent({
+  url: "https://polymarket.com/event/presidential-election-2028",
+});
 
-  const event = await client.fetchEvent({
-    slug: "presidential-election-2028",
-  });
+const event = await client.fetchEvent({
+  slug: "presidential-election-2028",
+});
 
-  const event = await client.fetchEvent({
-    id: "12345",
-  });
-  ```
-</CodeGroup>
+const event = await client.fetchEvent({
+  id: "12345",
+});
+```
 
 Then fetch related tags, order books, prices, and history.
 
-<CodeGroup>
-  ```ts Tags theme={null}
-  const marketTags = await client.fetchMarketTags({
-    id: market.id,
-  });
+```ts Tags
+const marketTags = await client.fetchMarketTags({
+  id: market.id,
+});
 
-  const eventTags = await client.fetchEventTags({
-    id: event.id,
-  });
-  ```
+const eventTags = await client.fetchEventTags({
+  id: event.id,
+});
+```
 
-  ```ts Order Book theme={null}
-  const book = await client.fetchOrderBook({
-    tokenId: market.outcomes.yes.tokenId!,
-  });
-  ```
+```ts Order Book
+const book = await client.fetchOrderBook({
+  tokenId: market.outcomes.yes.tokenId!,
+});
+```
 
-  ```ts Prices theme={null}
-  import { OrderSide } from "@polymarket/client";
+```ts Prices
+import { OrderSide } from "@polymarket/client";
 
-  const buyPrice = await client.fetchPrice({
+const buyPrice = await client.fetchPrice({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+});
+
+const midpoint = await client.fetchMidpoint({
+  tokenId: market.outcomes.yes.tokenId!,
+});
+
+const spread = await client.fetchSpread({
+  tokenId: market.outcomes.yes.tokenId!,
+});
+
+const lastTrade = await client.fetchLastTradePrice({
+  tokenId: market.outcomes.yes.tokenId!,
+});
+```
+
+```ts History
+const history = await client.fetchPriceHistory({
+  tokenId: market.outcomes.yes.tokenId!,
+  interval: "1d",
+});
+```
+
+```ts Batch Reads
+import { OrderSide } from "@polymarket/client";
+
+const prices = await client.fetchPrices([
+  {
     tokenId: market.outcomes.yes.tokenId!,
     side: OrderSide.BUY,
-  });
+  },
+  {
+    tokenId: market.outcomes.no.tokenId!,
+    side: OrderSide.BUY,
+  },
+]);
 
-  const midpoint = await client.fetchMidpoint({
+const midpoints = await client.fetchMidpoints([
+  {
     tokenId: market.outcomes.yes.tokenId!,
-  });
-
-  const spread = await client.fetchSpread({
-    tokenId: market.outcomes.yes.tokenId!,
-  });
-
-  const lastTrade = await client.fetchLastTradePrice({
-    tokenId: market.outcomes.yes.tokenId!,
-  });
-  ```
-
-  ```ts History theme={null}
-  const history = await client.fetchPriceHistory({
-    tokenId: market.outcomes.yes.tokenId!,
-    interval: "1d",
-  });
-  ```
-
-  ```ts Batch Reads theme={null}
-  import { OrderSide } from "@polymarket/client";
-
-  const prices = await client.fetchPrices([
-    {
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-    },
-    {
-      tokenId: market.outcomes.no.tokenId!,
-      side: OrderSide.BUY,
-    },
-  ]);
-
-  const midpoints = await client.fetchMidpoints([
-    {
-      tokenId: market.outcomes.yes.tokenId!,
-    },
-    {
-      tokenId: market.outcomes.no.tokenId!,
-    },
-  ]);
-  ```
-</CodeGroup>
+  },
+  {
+    tokenId: market.outcomes.no.tokenId!,
+  },
+]);
+```
 
 ## Discovery
 
 Use discovery methods to browse events, markets, teams, tags, comments, sports metadata, and search results. The examples below show a few common entry points.
 
-<Tabs>
-  <Tab title="Events">
-    ```ts theme={null}
-    const events = client.listEvents({
-      pageSize: 10,
-    });
+**Events**
+```ts
+const events = client.listEvents({
+  pageSize: 10,
+});
 
-    for await (const page of events) {
-      // page.items: Event[]
-    }
-    ```
-  </Tab>
+for await (const page of events) {
+  // page.items: Event[]
+}
+```
 
-  <Tab title="Markets">
-    ```ts theme={null}
-    const markets = client.listMarkets({
-      closed: false,
-      pageSize: 10,
-    });
+**Markets**
+```ts
+const markets = client.listMarkets({
+  closed: false,
+  pageSize: 10,
+});
 
-    for await (const page of markets) {
-      // page.items: Market[]
-    }
-    ```
-  </Tab>
+for await (const page of markets) {
+  // page.items: Market[]
+}
+```
 
-  <Tab title="Teams">
-    ```ts theme={null}
-    const teams = client.listTeams({
-      league: ["NBA"],
-      pageSize: 10,
-    });
+**Teams**
+```ts
+const teams = client.listTeams({
+  league: ["NBA"],
+  pageSize: 10,
+});
 
-    for await (const page of teams) {
-      // page.items: Team[]
-    }
-    ```
-  </Tab>
+for await (const page of teams) {
+  // page.items: Team[]
+}
+```
 
-  <Tab title="Tags">
-    ```ts theme={null}
-    const tags = client.listTags({
-      pageSize: 10,
-    });
+**Tags**
+```ts
+const tags = client.listTags({
+  pageSize: 10,
+});
 
-    for await (const page of tags) {
-      // page.items: Tag[]
-    }
+for await (const page of tags) {
+  // page.items: Tag[]
+}
 
-    const tag = await client.fetchTag({
-      slug: "politics",
-    });
+const tag = await client.fetchTag({
+  slug: "politics",
+});
 
-    const relatedTags = await client.fetchRelatedTags({
-      slug: "politics",
-    });
+const relatedTags = await client.fetchRelatedTags({
+  slug: "politics",
+});
 
-    const relatedResources = await client.fetchRelatedTagResources({
-      slug: "politics",
-      status: "active",
-    });
-    ```
-  </Tab>
+const relatedResources = await client.fetchRelatedTagResources({
+  slug: "politics",
+  status: "active",
+});
+```
 
-  <Tab title="Comments">
-    ```ts theme={null}
-    const comments = client.listComments({
-      parentEntityId: "12345",
-      parentEntityType: "Event",
-      pageSize: 20,
-    });
+**Comments**
+```ts
+const comments = client.listComments({
+  parentEntityId: "12345",
+  parentEntityType: "Event",
+  pageSize: 20,
+});
 
-    for await (const page of comments) {
-      // page.items: Comment[]
-    }
+for await (const page of comments) {
+  // page.items: Comment[]
+}
 
-    const thread = await client.fetchCommentsById({
-      id: "456",
-      getPositions: true,
-    });
+const thread = await client.fetchCommentsById({
+  id: "456",
+  getPositions: true,
+});
 
-    const userComments = client.listCommentsByUserAddress({
-      address: "0x1234…",
-      pageSize: 10,
-      order: "DESC",
-    });
+const userComments = client.listCommentsByUserAddress({
+  address: "0x1234…",
+  pageSize: 10,
+  order: "DESC",
+});
 
-    for await (const page of userComments) {
-      // page.items: Comment[]
-    }
-    ```
-  </Tab>
+for await (const page of userComments) {
+  // page.items: Comment[]
+}
+```
 
-  <Tab title="Sports">
-    ```ts theme={null}
-    const sports = await client.listSports();
+**Sports**
+```ts
+const sports = await client.listSports();
 
-    // sports: SportsMetadata[]
-    ```
-  </Tab>
+// sports: SportsMetadata[]
+```
 
-  <Tab title="Search">
-    ```ts theme={null}
-    const results = client.search({
-      q: "ethereum",
-      pageSize: 10,
-    });
+**Search**
+```ts
+const results = client.search({
+  q: "ethereum",
+  pageSize: 10,
+});
 
-    for await (const page of results) {
-      // page.items.events: Event[]
-      // page.items.tags: SearchTag[]
-      // page.items.profiles: Profile[]
-    }
-    ```
-  </Tab>
-</Tabs>
+for await (const page of results) {
+  // page.items.events: Event[]
+  // page.items.tags: SearchTag[]
+  // page.items.profiles: Profile[]
+}
+```
 
 ## Realtime Streams
 
 Subscribe through one SDK interface even when events are served by different websocket surfaces. The SDK routes each subscription spec to the right stream and merges the results into one stream.
 
-```ts theme={null}
+```ts
 const stream = await client.subscribe([
   {
     topic: "market",
@@ -482,121 +453,105 @@ The examples below pass `wallet` to make account selection explicit. Omit
 
 The SDK is intended to support a variety of wallet libraries. At launch, we support [Viem](https://viem.sh), [Privy](https://www.privy.io/docs), and [Ethers v5](https://docs.ethers.org/v5/). We will expand support for more libraries based on demand.
 
-<Tabs>
-  <Tab title="Viem">
-    <Steps>
-      <Step title="Install the Packages">
-        Install the SDK and Viem wallet tools.
+**Viem**
 
-        ```bash theme={null}
-        pnpm add @polymarket/client@beta viem
-        ```
-      </Step>
+### Install the Packages
+Install the SDK and Viem wallet tools.
 
-      <Step title="Create the Secure Client">
-        Use the private-key helper, or adapt an existing `viem` wallet client.
+```bash
+pnpm add @polymarket/client@beta viem
+```
 
-        <CodeGroup>
-          ```ts Private Key theme={null}
-          import { createSecureClient } from "@polymarket/client";
-          import { privateKey } from "@polymarket/client/viem";
+### Create the Secure Client
+Use the private-key helper, or adapt an existing `viem` wallet client.
 
-          const secureClient = await createSecureClient({
-            wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-            signer: privateKey(process.env.PRIVATE_KEY),
-          });
-          ```
+```ts Private Key
+import { createSecureClient } from "@polymarket/client";
+import { privateKey } from "@polymarket/client/viem";
 
-          ```ts Wallet Client theme={null}
-          import { createSecureClient } from "@polymarket/client";
-          import { signerFrom } from "@polymarket/client/viem";
-          import { createWalletClient, http } from "viem";
-          import { privateKeyToAccount } from "viem/accounts";
-          import { polygon } from "viem/chains";
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer: privateKey(process.env.PRIVATE_KEY),
+});
+```
 
-          const walletClient = createWalletClient({
-            account: privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`),
-            chain: polygon,
-            transport: http(),
-          });
+```ts Wallet Client
+import { createSecureClient } from "@polymarket/client";
+import { signerFrom } from "@polymarket/client/viem";
+import { createWalletClient, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { polygon } from "viem/chains";
 
-          const secureClient = await createSecureClient({
-            wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-            signer: signerFrom(walletClient),
-          });
-          ```
-        </CodeGroup>
-      </Step>
-    </Steps>
-  </Tab>
+const walletClient = createWalletClient({
+  account: privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`),
+  chain: polygon,
+  transport: http(),
+});
 
-  <Tab title="Privy">
-    <Steps>
-      <Step title="Install the Packages">
-        Install the SDK and Privy Node client.
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer: signerFrom(walletClient),
+});
+```
 
-        ```bash theme={null}
-        pnpm add @polymarket/client@beta @privy-io/node
-        ```
-      </Step>
+**Privy**
 
-      <Step title="Create the Secure Client">
-        Use the Privy Node client with the SDK's Privy signer adapter.
+### Install the Packages
+Install the SDK and Privy Node client.
 
-        ```ts theme={null}
-        import { createSecureClient } from "@polymarket/client";
-        import { signerFrom } from "@polymarket/client/privy";
-        import { PrivyClient } from "@privy-io/node";
+```bash
+pnpm add @polymarket/client@beta @privy-io/node
+```
 
-        const privy = new PrivyClient({
-          appId: process.env.PRIVY_APP_ID!,
-          appSecret: process.env.PRIVY_APP_SECRET!,
-        });
+### Create the Secure Client
+Use the Privy Node client with the SDK's Privy signer adapter.
 
-        const secureClient = await createSecureClient({
-          wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-          signer: signerFrom({
-            privy,
-            walletId: process.env.PRIVY_WALLET_ID!,
-          }),
-        });
-        ```
-      </Step>
-    </Steps>
-  </Tab>
+```ts
+import { createSecureClient } from "@polymarket/client";
+import { signerFrom } from "@polymarket/client/privy";
+import { PrivyClient } from "@privy-io/node";
 
-  <Tab title="Ethers v5">
-    <Steps>
-      <Step title="Install the Packages">
-        Install the SDK and the Ethers v5 package alias used by the adapter.
+const privy = new PrivyClient({
+  appId: process.env.PRIVY_APP_ID!,
+  appSecret: process.env.PRIVY_APP_SECRET!,
+});
 
-        ```bash theme={null}
-        pnpm add @polymarket/client@beta ethers-v5@npm:ethers@^5.8.0
-        ```
-      </Step>
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer: signerFrom({
+    privy,
+    walletId: process.env.PRIVY_WALLET_ID!,
+  }),
+});
+```
 
-      <Step title="Create the Secure Client">
-        Use the Ethers v5 signer adapter when your integration already manages an `ethers.Signer`.
+**Ethers v5**
 
-        ```ts theme={null}
-        import { createSecureClient } from "@polymarket/client";
-        import { signerFrom } from "@polymarket/client/ethers-v5";
-        import { ethers } from "ethers-v5";
+### Install the Packages
+Install the SDK and the Ethers v5 package alias used by the adapter.
 
-        const provider = new ethers.providers.JsonRpcProvider(
-          process.env.POLYGON_RPC_URL,
-        );
-        const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+```bash
+pnpm add @polymarket/client@beta ethers-v5@npm:ethers@^5.8.0
+```
 
-        const secureClient = await createSecureClient({
-          wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-          signer: signerFrom(wallet),
-        });
-        ```
-      </Step>
-    </Steps>
-  </Tab>
-</Tabs>
+### Create the Secure Client
+Use the Ethers v5 signer adapter when your integration already manages an `ethers.Signer`.
+
+```ts
+import { createSecureClient } from "@polymarket/client";
+import { signerFrom } from "@polymarket/client/ethers-v5";
+import { ethers } from "ethers-v5";
+
+const provider = new ethers.providers.JsonRpcProvider(
+  process.env.POLYGON_RPC_URL,
+);
+const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
+
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer: signerFrom(wallet),
+});
+```
 
 ### Trading Setup
 
@@ -604,60 +559,50 @@ Before placing orders, make sure the authenticated wallet is deployed and has
 the required trading approvals. `createSecureClient` resolves the signer's
 deterministic Deposit Wallet by default and deploys it if needed.
 
-<Steps>
-  <Step title="Configure API Key Authorization">
-    Configure API key authorization when the SDK needs to deploy a Deposit Wallet or
-    submit approval transactions.
+### Configure API Key Authorization
+Configure API key authorization when the SDK needs to deploy a Deposit Wallet or
+submit approval transactions.
 
-    <CodeGroup>
-      ```ts Relayer API Key theme={null}
-      import { createSecureClient, relayerApiKey } from "@polymarket/client";
+```ts Relayer API Key
+import { createSecureClient, relayerApiKey } from "@polymarket/client";
 
-      const secureClient = await createSecureClient({
-        wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-        signer,
-        apiKey: relayerApiKey({
-          key: process.env.RELAYER_API_KEY!,
-          address: process.env.RELAYER_API_KEY_ADDRESS!,
-        }),
-      });
-      ```
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer,
+  apiKey: relayerApiKey({
+    key: process.env.RELAYER_API_KEY!,
+    address: process.env.RELAYER_API_KEY_ADDRESS!,
+  }),
+});
+```
 
-      ```ts Builder API Key theme={null}
-      import { createSecureClient } from "@polymarket/client";
-      import { builderApiKey } from "@polymarket/client/node";
+```ts Builder API Key
+import { createSecureClient } from "@polymarket/client";
+import { builderApiKey } from "@polymarket/client/node";
 
-      const secureClient = await createSecureClient({
-        wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-        signer,
-        apiKey: builderApiKey({
-          key: process.env.BUILDER_API_KEY!,
-          secret: process.env.BUILDER_SECRET!,
-          passphrase: process.env.BUILDER_PASSPHRASE!,
-        }),
-      });
-      ```
-    </CodeGroup>
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer,
+  apiKey: builderApiKey({
+    key: process.env.BUILDER_API_KEY!,
+    secret: process.env.BUILDER_SECRET!,
+    passphrase: process.env.BUILDER_PASSPHRASE!,
+  }),
+});
+```
 
-    <Note>
-      Builder API keys are supported for backwards compatibility with builders that
-      still use them for wallet operations. They are not used for order attribution.
-      Use `builderCode` on orders for attribution.
-    </Note>
-  </Step>
+> **Note:** Builder API keys are supported for backwards compatibility with builders that still use them for wallet operations. They are not used for order attribution. Use `builderCode` on orders for attribution.
 
-  <Step title="Set Up Trading Approvals">
-    Then set up trading approvals.
+### Set Up Trading Approvals
+Then set up trading approvals.
 
-    ```ts theme={null}
-    await secureClient.setupTradingApprovals();
-    ```
+```ts
+await secureClient.setupTradingApprovals();
+```
 
-    `setupTradingApprovals()` waits for the setup transaction internally and is
-    idempotent. If the wallet already has the required approvals, it returns without
-    submitting a transaction.
-  </Step>
-</Steps>
+`setupTradingApprovals()` waits for the setup transaction internally and is
+idempotent. If the wallet already has the required approvals, it returns without
+submitting a transaction.
 
 ### Trading
 
@@ -667,169 +612,158 @@ Order placement returns a discriminated response. Check `response.ok` before rea
 
 #### Place Orders
 
-<Tabs>
-  <Tab title="Limit Order">
-    ```ts theme={null}
-    import { OrderSide } from "@polymarket/client";
+**Limit Order**
+```ts
+import { OrderSide } from "@polymarket/client";
 
-    const response = await secureClient.placeLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-      price: 0.52,
-      size: 10,
-    });
+const response = await secureClient.placeLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+  price: 0.52,
+  size: 10,
+});
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
-  <Tab title="Expiring Limit Order">
-    ```ts theme={null}
-    import { OrderSide } from "@polymarket/client";
+**Expiring Limit Order**
+```ts
+import { OrderSide } from "@polymarket/client";
 
-    const response = await secureClient.placeLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.SELL,
-      price: 0.52,
-      size: 10,
-      expiration: Math.floor(Date.now() / 1000) + 60 * 60,
-    });
+const response = await secureClient.placeLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.SELL,
+  price: 0.52,
+  size: 10,
+  expiration: Math.floor(Date.now() / 1000) + 60 * 60,
+});
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
-  <Tab title="Partial-Fill Market Order">
-    ```ts theme={null}
-    import { OrderSide, OrderType } from "@polymarket/client";
+**Partial-Fill Market Order**
+```ts
+import { OrderSide, OrderType } from "@polymarket/client";
 
-    const response = await secureClient.placeMarketOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-      amount: 10,
-      maxSpend: 11,
-      orderType: OrderType.FAK,
-    });
+const response = await secureClient.placeMarketOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+  amount: 10,
+  maxSpend: 11,
+  orderType: OrderType.FAK,
+});
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
-  <Tab title="All-Or-Nothing Market Order">
-    ```ts theme={null}
-    import { OrderSide, OrderType } from "@polymarket/client";
+**All-Or-Nothing Market Order**
+```ts
+import { OrderSide, OrderType } from "@polymarket/client";
 
-    const response = await secureClient.placeMarketOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.SELL,
-      shares: 10,
-      orderType: OrderType.FOK,
-    });
+const response = await secureClient.placeMarketOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.SELL,
+  shares: 10,
+  orderType: OrderType.FOK,
+});
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
-  <Tab title="Builder Code">
-    ```ts theme={null}
-    import { OrderSide } from "@polymarket/client";
+**Builder Code**
+```ts
+import { OrderSide } from "@polymarket/client";
 
-    const response = await secureClient.placeLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-      price: 0.52,
-      size: 10,
-      builderCode: "0xabc123…",
-    });
+const response = await secureClient.placeLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+  price: 0.52,
+  size: 10,
+  builderCode: "0xabc123…",
+});
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
-</Tabs>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
 #### Create, Then Post
 
 Create signed orders separately when you want to review, store, or batch them before submitting.
 
-<Tabs>
-  <Tab title="Single Order">
-    ```ts theme={null}
-    import { OrderSide } from "@polymarket/client";
+**Single Order**
+```ts
+import { OrderSide } from "@polymarket/client";
 
-    const order = await secureClient.createLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-      price: 0.52,
-      size: 10,
-    });
+const order = await secureClient.createLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+  price: 0.52,
+  size: 10,
+});
 
-    const response = await secureClient.postOrder(order);
+const response = await secureClient.postOrder(order);
 
-    if (response.ok) {
-      // response.orderId: string
-    } else {
-      // response.code: OrderResponseErrorCode
-      // response.message: string
-    }
-    ```
-  </Tab>
+if (response.ok) {
+  // response.orderId: string
+} else {
+  // response.code: OrderResponseErrorCode
+  // response.message: string
+}
+```
 
-  <Tab title="Batch Orders">
-    ```ts theme={null}
-    import { OrderSide } from "@polymarket/client";
+**Batch Orders**
+```ts
+import { OrderSide } from "@polymarket/client";
 
-    const firstOrder = await secureClient.createLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.BUY,
-      price: 0.52,
-      size: 10,
-    });
+const firstOrder = await secureClient.createLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.BUY,
+  price: 0.52,
+  size: 10,
+});
 
-    const secondOrder = await secureClient.createLimitOrder({
-      tokenId: market.outcomes.yes.tokenId!,
-      side: OrderSide.SELL,
-      price: 0.58,
-      size: 5,
-    });
+const secondOrder = await secureClient.createLimitOrder({
+  tokenId: market.outcomes.yes.tokenId!,
+  side: OrderSide.SELL,
+  price: 0.58,
+  size: 5,
+});
 
-    const responses = await secureClient.postOrders([firstOrder, secondOrder]);
+const responses = await secureClient.postOrders([firstOrder, secondOrder]);
 
-    for (const response of responses) {
-      if (response.ok) {
-        // response.orderId: string
-      } else {
-        // response.code: OrderResponseErrorCode
-        // response.message: string
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
+for (const response of responses) {
+  if (response.ok) {
+    // response.orderId: string
+  } else {
+    // response.code: OrderResponseErrorCode
+    // response.message: string
+  }
+}
+```
 
 ### Position Lifecycle
 
@@ -837,52 +771,47 @@ Use position lifecycle methods to split collateral into outcome tokens, merge
 complete sets back into collateral, or redeem resolved positions. These examples
 assume you created a secure client and set up trading approvals as shown above.
 
-<Tabs>
-  <Tab title="Split Position">
-    ```ts theme={null}
-    const handle = await secureClient.splitPosition({
-      conditionId: market.conditionId!,
-      amount: 1n,
-    });
+**Split Position**
+```ts
+const handle = await secureClient.splitPosition({
+  conditionId: market.conditionId!,
+  amount: 1n,
+});
 
-    const outcome = await handle.wait();
+const outcome = await handle.wait();
 
-    // outcome.transactionHash: TxHash
-    ```
-  </Tab>
+// outcome.transactionHash: TxHash
+```
 
-  <Tab title="Merge Positions">
-    ```ts theme={null}
-    const handle = await secureClient.mergePositions({
-      conditionId: market.conditionId!,
-      amount: "max",
-    });
+**Merge Positions**
+```ts
+const handle = await secureClient.mergePositions({
+  conditionId: market.conditionId!,
+  amount: "max",
+});
 
-    const outcome = await handle.wait();
+const outcome = await handle.wait();
 
-    // outcome.transactionHash: TxHash
-    ```
-  </Tab>
+// outcome.transactionHash: TxHash
+```
 
-  <Tab title="Redeem Positions">
-    ```ts theme={null}
-    const handle = await secureClient.redeemPositions({
-      marketId: market.id,
-    });
+**Redeem Positions**
+```ts
+const handle = await secureClient.redeemPositions({
+  marketId: market.id,
+});
 
-    const outcome = await handle.wait();
+const outcome = await handle.wait();
 
-    // outcome.transactionHash: TxHash
-    ```
-  </Tab>
-</Tabs>
+// outcome.transactionHash: TxHash
+```
 
 ### Wallet Operations
 
 Use wallet operation methods for direct token movements from the authenticated
 wallet. These examples assume you created a secure client as shown above.
 
-```ts theme={null}
+```ts
 const handle = await secureClient.transferErc20({
   amount: 1n,
   recipientAddress: "RECIPIENT_ADDRESS",
@@ -898,204 +827,181 @@ const outcome = await handle.wait();
 
 Manage open orders for the authenticated wallet after placement. These examples assume `orderId` comes from an accepted order response.
 
-<Tabs>
-  <Tab title="Fetch Order">
-    ```ts theme={null}
-    const order = await secureClient.fetchOrder({
-      orderId,
-    });
+**Fetch Order**
+```ts
+const order = await secureClient.fetchOrder({
+  orderId,
+});
 
-    // order: OpenOrder
-    ```
-  </Tab>
+// order: OpenOrder
+```
 
-  <Tab title="List Open Orders">
-    ```ts theme={null}
-    const openOrders = secureClient.listOpenOrders({
-      market: market.id, // Or market.conditionId
-    });
+**List Open Orders**
+```ts
+const openOrders = secureClient.listOpenOrders({
+  market: market.id, // Or market.conditionId
+});
 
-    for await (const page of openOrders) {
-      // page.items: OpenOrder[]
-    }
-    ```
-  </Tab>
+for await (const page of openOrders) {
+  // page.items: OpenOrder[]
+}
+```
 
-  <Tab title="Cancel Order">
-    ```ts theme={null}
-    const response = await secureClient.cancelOrder({
-      orderId,
-    });
+**Cancel Order**
+```ts
+const response = await secureClient.cancelOrder({
+  orderId,
+});
 
-    // response.canceled: string[]
-    ```
-  </Tab>
+// response.canceled: string[]
+```
 
-  <Tab title="Cancel Market Orders">
-    ```ts theme={null}
-    const response = await secureClient.cancelMarketOrders({
-      tokenId: market.outcomes.yes.tokenId!,
-    });
+**Cancel Market Orders**
+```ts
+const response = await secureClient.cancelMarketOrders({
+  tokenId: market.outcomes.yes.tokenId!,
+});
 
-    // response.canceled: string[]
-    ```
-  </Tab>
-</Tabs>
+// response.canceled: string[]
+```
 
 ### Rewards and Scoring
 
 Use rewards methods to inspect active reward programs and scoring methods to check whether orders are eligible for scoring.
 
-<Tabs>
-  <Tab title="Current Rewards">
-    ```ts theme={null}
-    const rewards = client.listCurrentRewards();
+**Current Rewards**
+```ts
+const rewards = client.listCurrentRewards();
 
-    for await (const page of rewards) {
-      // page.items: CurrentReward[]
-    }
-    ```
-  </Tab>
+for await (const page of rewards) {
+  // page.items: CurrentReward[]
+}
+```
 
-  <Tab title="Market Rewards">
-    ```ts theme={null}
-    const rewards = client.listMarketRewards({
-      conditionId: market.conditionId!,
-    });
+**Market Rewards**
+```ts
+const rewards = client.listMarketRewards({
+  conditionId: market.conditionId!,
+});
 
-    for await (const page of rewards) {
-      // page.items: MarketReward[]
-    }
-    ```
-  </Tab>
+for await (const page of rewards) {
+  // page.items: MarketReward[]
+}
+```
 
-  <Tab title="Order Scoring">
-    ```ts theme={null}
-    const scoring = await secureClient.fetchOrderScoring({
-      orderId,
-    });
+**Order Scoring**
+```ts
+const scoring = await secureClient.fetchOrderScoring({
+  orderId,
+});
 
-    // scoring: boolean
-    ```
-  </Tab>
+// scoring: boolean
+```
 
-  <Tab title="Batch Order Scoring">
-    ```ts theme={null}
-    const scoring = await secureClient.fetchOrdersScoring({
-      orderIds: [firstOrderId, secondOrderId],
-    });
+**Batch Order Scoring**
+```ts
+const scoring = await secureClient.fetchOrdersScoring({
+  orderIds: [firstOrderId, secondOrderId],
+});
 
-    // scoring: OrdersScoringResponse
-    ```
-  </Tab>
-</Tabs>
+// scoring: OrdersScoringResponse
+```
 
 ### Account Data
 
 Secure clients can read account-scoped data for the authenticated wallet.
 
-<Tabs>
-  <Tab title="Positions">
-    ```ts theme={null}
-    const positions = secureClient.listPositions({
-      market: [market.id], // Or market.conditionId
-      pageSize: 10,
-    });
+**Positions**
+```ts
+const positions = secureClient.listPositions({
+  market: [market.id], // Or market.conditionId
+  pageSize: 10,
+});
 
-    for await (const page of positions) {
-      // page.items: Position[]
+for await (const page of positions) {
+  // page.items: Position[]
+}
+```
+
+**Portfolio Value**
+```ts
+const value = await secureClient.fetchPortfolioValue({
+  market: [market.id], // Or market.conditionId
+});
+
+// value: Value[]
+```
+
+**Activity**
+```ts
+import { ActivityType } from "@polymarket/client";
+
+const activity = secureClient.listActivity({
+  market: [market.id], // Or market.conditionId
+  pageSize: 10,
+});
+
+for await (const page of activity) {
+  for (const item of page.items) {
+    switch (item.type) {
+      case ActivityType.TRADE:
+        // item.tokenId: TokenId
+        // item.shares: DecimalString
+        break;
+      case ActivityType.REWARD:
+        // item.amount: DecimalString
+        break;
+      default:
+      // …
     }
-    ```
-  </Tab>
+  }
+}
+```
 
-  <Tab title="Portfolio Value">
-    ```ts theme={null}
-    const value = await secureClient.fetchPortfolioValue({
-      market: [market.id], // Or market.conditionId
-    });
+**Trades**
+```ts
+const yesTokenId = market.outcomes.yes.tokenId!;
 
-    // value: Value[]
-    ```
-  </Tab>
+const trades = secureClient.listAccountTrades({
+  tokenId: yesTokenId,
+});
 
-  <Tab title="Activity">
-    ```ts theme={null}
-    import { ActivityType } from "@polymarket/client";
+for await (const page of trades) {
+  // page.items: ClobTrade[]
+}
+```
 
-    const activity = secureClient.listActivity({
-      market: [market.id], // Or market.conditionId
-      pageSize: 10,
-    });
+**Notifications**
+```ts
+const notifications = await secureClient.fetchNotifications();
 
-    for await (const page of activity) {
-      for (const item of page.items) {
-        switch (item.type) {
-          case ActivityType.TRADE:
-            // item.tokenId: TokenId
-            // item.shares: DecimalString
-            break;
-          case ActivityType.REWARD:
-            // item.amount: DecimalString
-            break;
-          default:
-          // …
-        }
-      }
-    }
-    ```
-  </Tab>
-
-  <Tab title="Trades">
-    ```ts theme={null}
-    const yesTokenId = market.outcomes.yes.tokenId!;
-
-    const trades = secureClient.listAccountTrades({
-      tokenId: yesTokenId,
-    });
-
-    for await (const page of trades) {
-      // page.items: ClobTrade[]
-    }
-    ```
-  </Tab>
-
-  <Tab title="Notifications">
-    ```ts theme={null}
-    const notifications = await secureClient.fetchNotifications();
-
-    // notifications: Notification[]
-    ```
-  </Tab>
-</Tabs>
+// notifications: Notification[]
+```
 
 ### Authentication Sessions
 
 Secure clients expose the API credentials created for the authenticated session. Store them securely if you want to reuse the session later without requiring a new authentication signature while the credentials remain valid.
 
-<Tabs>
-  <Tab title="Save Credentials">
-    ```ts theme={null}
-    const secureClient = await createSecureClient({
-      wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-      signer,
-    });
+**Save Credentials**
+```ts
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer,
+});
 
-    await storage.set("polymarketCredentials", secureClient.credentials);
-    ```
-  </Tab>
+await storage.set("polymarketCredentials", secureClient.credentials);
+```
 
-  <Tab title="Reuse Credentials">
-    ```ts theme={null}
-    const credentials = await storage.get("polymarketCredentials");
+**Reuse Credentials**
+```ts
+const credentials = await storage.get("polymarketCredentials");
 
-    const secureClient = await createSecureClient({
-      wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
-      signer,
-      credentials,
-    });
-    ```
-  </Tab>
-</Tabs>
+const secureClient = await createSecureClient({
+  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
+  signer,
+  credentials,
+});
+```
 
 ## Changelog
 
@@ -1124,7 +1030,7 @@ Secure clients expose the API credentials created for the authenticated session.
 * Added Combos support for multi-leg RFQ positions. See [Combos](/market-makers/combos).
 * Reject whitespace-only search queries and trim leading or trailing search input.
 * `ConditionId` is now deprecated in favor of `CtfConditionId`; existing
-  `ConditionId` exports remain available as deprecated aliases.
+`ConditionId` exports remain available as deprecated aliases.
 
 ### `0.1.0-beta.3`
 
@@ -1134,7 +1040,7 @@ Secure clients expose the API credentials created for the authenticated session.
 Wallet when you omit `wallet`. If you already know which Polymarket wallet you
 want to use, keep passing `wallet`.
 
-```diff theme={null}
+```diff
 const secureClient = await createSecureClient({
 -  wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
    signer,
@@ -1143,7 +1049,7 @@ const secureClient = await createSecureClient({
 
 If you want to keep account selection explicit, no change is required:
 
-```ts theme={null}
+```ts
 const secureClient = await createSecureClient({
   wallet: "YOUR_POLYMARKET_WALLET_ADDRESS",
   signer,
@@ -1155,7 +1061,7 @@ const secureClient = await createSecureClient({
 You no longer need to wait on the returned handle. Call the method once before
 trading; it is safe to call again if approvals are already set.
 
-```diff theme={null}
+```diff
 -const handle = await secureClient.setupTradingApprovals();
 -await handle.wait();
 +await secureClient.setupTradingApprovals();
@@ -1166,7 +1072,7 @@ trading; it is safe to call again if approvals are already set.
 You no longer need to call `isGaslessReady()` or `setupGaslessWallet()` in the
 normal setup path. Create the secure client, then set up trading approvals.
 
-```diff theme={null}
+```diff
 -const ready = await secureClient.isGaslessReady();
 -
 -if (!ready) {
@@ -1181,6 +1087,6 @@ normal setup path. Create the secure client, then set up trading approvals.
 First beta release of the unified TypeScript SDK. Install the beta package with
 your package manager:
 
-```bash theme={null}
+```bash
 pnpm add @polymarket/client@beta
 ```

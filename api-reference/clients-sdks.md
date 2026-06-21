@@ -6,60 +6,56 @@ Polymarket provides official open-source clients in TypeScript, Python, and Rust
 
 ## Installation
 
-<CodeGroup>
-  ```bash TypeScript theme={null}
-  npm install @polymarket/clob-client-v2 viem
-  ```
+```bash TypeScript
+npm install @polymarket/clob-client-v2 viem
+```
 
-  ```bash Python theme={null}
-  pip install py-clob-client-v2
-  ```
+```bash Python
+pip install py-clob-client-v2
+```
 
-  ```bash Rust theme={null}
-  cargo add polymarket_client_sdk_v2 --features clob
-  ```
-</CodeGroup>
+```bash Rust
+cargo add polymarket_client_sdk_v2 --features clob
+```
 
 ## Quick Example
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import { ClobClient } from "@polymarket/clob-client-v2";
+```typescript TypeScript
+import { ClobClient } from "@polymarket/clob-client-v2";
 
-  const client = new ClobClient({
-    host: "https://clob.polymarket.com",
-    chain: 137,
-    signer,
-    creds: apiCreds,
-  });
+const client = new ClobClient({
+  host: "https://clob.polymarket.com",
+  chain: 137,
+  signer,
+  creds: apiCreds,
+});
 
-  const markets = await client.getMarkets();
-  ```
+const markets = await client.getMarkets();
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import ClobClient
+```python Python
+from py_clob_client_v2 import ClobClient
 
-  client = ClobClient(
-      "https://clob.polymarket.com",
-      key=private_key,
-      chain_id=137,
-      creds=api_creds,
-  )
+client = ClobClient(
+    "https://clob.polymarket.com",
+    key=private_key,
+    chain_id=137,
+    creds=api_creds,
+)
 
-  markets = client.get_markets()
-  ```
+markets = client.get_markets()
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::{Client, Config};
+```rust Rust
+use polymarket_client_sdk_v2::clob::{Client, Config};
 
-  let client = Client::new("https://clob.polymarket.com", Config::default())?
-      .authentication_builder(&signer)
-      .authenticate()
-      .await?;
+let client = Client::new("https://clob.polymarket.com", Config::default())?
+    .authentication_builder(&signer)
+    .authenticate()
+    .await?;
 
-  let markets = client.markets(None).await?;
-  ```
-</CodeGroup>
+let markets = client.markets(None).await?;
+```
 
 ## Source Code
 
@@ -84,12 +80,6 @@ Proxy wallet flows remain supported.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Set up your client and place your first order.
-  </Card>
+- **[Quickstart](/quickstart)** — Set up your client and place your first order.
 
-  <Card title="Authentication" icon="lock" href="/api-reference/authentication">
-    Understand L1/L2 auth and API credentials.
-  </Card>
-</CardGroup>
+- **[Authentication](/api-reference/authentication)** — Understand L1/L2 auth and API credentials.

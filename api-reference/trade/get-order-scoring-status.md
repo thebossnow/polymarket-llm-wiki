@@ -8,9 +8,6 @@ An order is considered "scoring" if it meets all the criteria for earning maker 
 - The order is within the valid spread range
 - The order has been live for the required duration
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /order-scoring
@@ -49,7 +46,6 @@ paths:
       summary: Get order scoring status
       description: >
         Checks if a specific order is currently scoring for rewards.
-
 
         An order is considered "scoring" if it meets all the criteria for
         earning maker rewards:

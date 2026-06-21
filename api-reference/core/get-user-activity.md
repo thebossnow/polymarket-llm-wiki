@@ -1,7 +1,5 @@
 # Get user activity
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /activity

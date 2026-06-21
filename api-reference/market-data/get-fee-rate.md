@@ -3,9 +3,6 @@
 > Retrieves the base fee rate for a specific token ID.
 The fee rate can be provided either as a query parameter or as a path parameter.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /fee-rate

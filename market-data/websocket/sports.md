@@ -4,12 +4,7 @@
 
 The Sports WebSocket provides real-time sports results updates, including scores, periods, and game status. No authentication required.
 
-<Warning>
-  This feed is provided for informational purposes only. It may be delayed,
-  contain errors, or omit recent events. Polymarket does not provide trading or
-  investment advice, and this content should not be used as the basis for any
-  trading decision.
-</Warning>
+> **Warning:** This feed is provided for informational purposes only. It may be delayed, contain errors, or omit recent events. Polymarket does not provide trading or investment advice, and this content should not be used as the basis for any trading decision.
 
 ## Endpoint
 
@@ -23,7 +18,7 @@ No subscription message required — connect and start receiving data for all ac
 
 The server sends `ping` every 5 seconds. Respond with `pong` within 10 seconds or the connection will close.
 
-```javascript theme={null}
+```javascript
 ws.onmessage = (event) => {
   if (event.data === "ping") {
     ws.send("pong");
@@ -50,7 +45,7 @@ Emitted when:
 
 **NFL (in progress):**
 
-```json theme={null}
+```json
 {
   "gameId": 19439,
   "leagueAbbreviation": "nfl",
@@ -69,7 +64,7 @@ Emitted when:
 
 **Esports — CS2 (finished):**
 
-```json theme={null}
+```json
 {
   "gameId": 1317359,
   "leagueAbbreviation": "cs2",

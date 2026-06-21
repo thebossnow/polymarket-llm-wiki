@@ -4,9 +4,7 @@
 
 The Polymarket Real-Time Data Socket (RTDS) is a WebSocket-based streaming service that provides real-time updates for **comments**, **crypto prices**, and **equity prices**.
 
-<Card title="TypeScript client" icon="github" href="https://github.com/Polymarket/real-time-data-client">
-  Official RTDS TypeScript client (`real-time-data-client`).
-</Card>
+- **[TypeScript client](https://github.com/Polymarket/real-time-data-client)** — Official RTDS TypeScript client (`real-time-data-client`).
 
 ## Endpoint
 
@@ -20,7 +18,7 @@ Some user-specific streams may require `gamma_auth` with your wallet address.
 
 Send a JSON message to subscribe to data streams:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -40,13 +38,13 @@ To unsubscribe, send the same structure with `"action": "unsubscribe"`.
 
 Subscriptions can be added, removed, and modified without disconnecting. Send `PING` messages every 5 seconds to maintain the connection.
 
-<Note>Only the subscription types documented below are supported.</Note>
+> **Note:** Only the subscription types documented below are supported.
 
 ## Message Structure
 
 All messages follow this structure:
 
-```json theme={null}
+```json
 {
   "topic": "string",
   "type": "string",
@@ -70,7 +68,7 @@ Real-time cryptocurrency price data from two sources: **Binance** and **Chainlin
 
 Subscribe to all symbols:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -84,7 +82,7 @@ Subscribe to all symbols:
 
 Subscribe to specific symbols with a comma-separated filter:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -101,7 +99,7 @@ Symbols use lowercase concatenated format (e.g., `solusdt`, `btcusdt`).
 
 **Solana price update:**
 
-```json theme={null}
+```json
 {
   "topic": "crypto_prices",
   "type": "update",
@@ -116,7 +114,7 @@ Symbols use lowercase concatenated format (e.g., `solusdt`, `btcusdt`).
 
 **Bitcoin price update:**
 
-```json theme={null}
+```json
 {
   "topic": "crypto_prices",
   "type": "update",
@@ -131,13 +129,11 @@ Symbols use lowercase concatenated format (e.g., `solusdt`, `btcusdt`).
 
 ### Chainlink Source
 
-<Tip>
-  **Trading 15m Crypto Markets?** Get a sponsored Chainlink API key with onboarding support from Chainlink. Fill out [this form](https://pm-ds-request.streams.chain.link/).
-</Tip>
+> **Tip:** **Trading 15m Crypto Markets?** Get a sponsored Chainlink API key with onboarding support from Chainlink. Fill out [this form](https://pm-ds-request.streams.chain.link/).
 
 Subscribe to all symbols:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -152,7 +148,7 @@ Subscribe to all symbols:
 
 Subscribe to a specific symbol with a JSON filter:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -169,7 +165,7 @@ Symbols use slash-separated format (e.g., `eth/usd`, `btc/usd`).
 
 **Ethereum price update:**
 
-```json theme={null}
+```json
 {
   "topic": "crypto_prices_chainlink",
   "type": "update",
@@ -184,7 +180,7 @@ Symbols use slash-separated format (e.g., `eth/usd`, `btc/usd`).
 
 **Bitcoin price update:**
 
-```json theme={null}
+```json
 {
   "topic": "crypto_prices_chainlink",
   "type": "update",
@@ -225,9 +221,7 @@ Symbols use slash-separated format (e.g., `eth/usd`, `btc/usd`).
 
 Real-time price data for stocks, ETFs, forex pairs, precious metals, and commodities sourced from **Pyth Network**. No authentication required.
 
-<Tip>
-  **Trading Equity Markets?** Get a Pyth Network data feed - first 30 days free, then \$99/month. [Subscribe here](https://buy.stripe.com/cNi8wPeiq76FgQrbsD4ZG09).
-</Tip>
+> **Tip:** **Trading Equity Markets?** Get a Pyth Network data feed - first 30 days free, then \$99/month. [Subscribe here](https://buy.stripe.com/cNi8wPeiq76FgQrbsD4ZG09).
 
 All asset classes stream through a single `equity_prices` topic. When you subscribe with a symbol filter, the server sends a historical snapshot (last 2 minutes of data), then continues streaming live updates.
 
@@ -235,7 +229,7 @@ All asset classes stream through a single `equity_prices` topic. When you subscr
 
 Subscribe to a specific symbol with a JSON filter:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -250,7 +244,7 @@ Subscribe to a specific symbol with a JSON filter:
 
 Subscribe to multiple symbols across asset classes:
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -264,7 +258,7 @@ Subscribe to multiple symbols across asset classes:
 
 Use `type: "*"` to receive all message types (live updates and snapshots):
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -279,19 +273,13 @@ Use `type: "*"` to receive all message types (live updates and snapshots):
 
 Filter values are case-insensitive on subscribe, but the `symbol` field in payloads is always returned lowercase.
 
-<Tip>
-  **Need the price-to-beat value?** Pass the market slug to the price-to-beat endpoint:
-
-  `GET https://polymarket.com/api/equity/price-to-beat/{slug}`
-
-  Example: `https://polymarket.com/api/equity/price-to-beat/wti-up-or-down-on-april-7-2026`
-</Tip>
+> **Tip:** **Need the price-to-beat value?** Pass the market slug to the price-to-beat endpoint: `GET https://polymarket.com/api/equity/price-to-beat/{slug}` Example: `https://polymarket.com/api/equity/price-to-beat/wti-up-or-down-on-april-7-2026`
 
 ### Live Price Update
 
 **Apple stock update:**
 
-```json theme={null}
+```json
 {
   "topic": "equity_prices",
   "type": "update",
@@ -308,7 +296,7 @@ Filter values are case-insensitive on subscribe, but the `symbol` field in paylo
 
 **Gold price update (market closed):**
 
-```json theme={null}
+```json
 {
   "topic": "equity_prices",
   "type": "update",
@@ -328,7 +316,7 @@ Filter values are case-insensitive on subscribe, but the `symbol` field in paylo
 
 On subscribe, the server delivers a backfill of the last 2 minutes of price data. Use the `type` field to distinguish: `"subscribe"` for the initial snapshot vs `"update"` for live ticks.
 
-```json theme={null}
+```json
 {
   "topic": "equity_prices",
   "type": "subscribe",
@@ -420,7 +408,7 @@ Real-time comment events on the Polymarket platform, including new comments, rep
 
 ### Subscribe
 
-```json theme={null}
+```json
 {
   "action": "subscribe",
   "subscriptions": [
@@ -445,7 +433,7 @@ Real-time comment events on the Polymarket platform, including new comments, rep
 
 Emitted when a user posts a new comment or replies to an existing one.
 
-```json theme={null}
+```json
 {
   "topic": "comments",
   "type": "comment_created",
@@ -474,7 +462,7 @@ Emitted when a user posts a new comment or replies to an existing one.
 
 A reply to the above comment — note `parentCommentID` references the parent:
 
-```json theme={null}
+```json
 {
   "topic": "comments",
   "type": "comment_created",
@@ -537,14 +525,11 @@ Comments support nested threading:
 
 ## Troubleshooting
 
-<Accordion title="Connection drops unexpectedly">
-  Send `PING` messages every 5 seconds to keep the connection alive. Connection errors will trigger automatic reconnection attempts.
-</Accordion>
+#### Connection drops unexpectedly
+Send `PING` messages every 5 seconds to keep the connection alive. Connection errors will trigger automatic reconnection attempts.
 
-<Accordion title="Not receiving messages after subscribing">
-  Verify your subscription message is valid JSON with the correct `action`, `topic`, and `type` fields. Invalid subscription messages may result in connection closure.
-</Accordion>
+#### Not receiving messages after subscribing
+Verify your subscription message is valid JSON with the correct `action`, `topic`, and `type` fields. Invalid subscription messages may result in connection closure.
 
-<Accordion title="Authentication failures">
-  If subscribing to user-specific streams, ensure your `gamma_auth` object includes a valid wallet `address`. Authentication failures will prevent subscription to protected topics.
-</Accordion>
+#### Authentication failures
+If subscribing to user-specific streams, ensure your `gamma_auth` object includes a valid wallet `address`. Authentication failures will prevent subscription to protected topics.

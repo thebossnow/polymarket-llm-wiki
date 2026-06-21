@@ -1,7 +1,5 @@
 # Get aggregated builder leaderboard
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/builders/leaderboard

@@ -1,7 +1,5 @@
 # Get positions for a market
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/market-positions

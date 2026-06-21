@@ -4,11 +4,7 @@
 
 **pUSD** (Polymarket USD) is the collateral token used for all trading on Polymarket. It's a standard ERC-20 token on Polygon, backed by USDC. The smart contract — which enables the withdrawal functionality — enforces the backing. No algorithmic peg, no fractional reserve.
 
-<Note>
-  **Day to day, nothing changes.** You load funds, see a balance, trade, and
-  withdraw. pUSD is the technical settlement layer underneath the same
-  experience you're used to.
-</Note>
+> **Note:** **Day to day, nothing changes.** You load funds, see a balance, trade, and withdraw. pUSD is the technical settlement layer underneath the same experience you're used to.
 
 ***
 
@@ -40,7 +36,7 @@ See the [Contracts](/resources/contracts) page for all collateral-related contra
 
 Use the **CollateralOnramp** to wrap USDC.e into pUSD.
 
-```solidity theme={null}
+```solidity
 function wrap(address _asset, address _to, uint256 _amount) external
 ```
 
@@ -57,74 +53,72 @@ function wrap(address _asset, address _to, uint256 _amount) external
 
 ### Example
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import {
-    createWalletClient,
-    createPublicClient,
-    http,
-    parseAbi,
-    parseUnits,
-  } from "viem";
-  import { polygon } from "viem/chains";
-  import { privateKeyToAccount } from "viem/accounts";
+```typescript TypeScript
+import {
+  createWalletClient,
+  createPublicClient,
+  http,
+  parseAbi,
+  parseUnits,
+} from "viem";
+import { polygon } from "viem/chains";
+import { privateKeyToAccount } from "viem/accounts";
 
-  const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
-  const walletClient = createWalletClient({ account, chain: polygon, transport: http() });
-  const publicClient = createPublicClient({ chain: polygon, transport: http() });
+const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
+const walletClient = createWalletClient({ account, chain: polygon, transport: http() });
+const publicClient = createPublicClient({ chain: polygon, transport: http() });
 
-  const ONRAMP = "0x93070a847efEf7F70739046A929D47a521F5B8ee" as const;
-  const USDCE = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174" as const; // USDC.e on Polygon
+const ONRAMP = "0x93070a847efEf7F70739046A929D47a521F5B8ee" as const;
+const USDCE = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174" as const; // USDC.e on Polygon
 
-  const amount = parseUnits("100", 6); // 100 USDC.e
+const amount = parseUnits("100", 6); // 100 USDC.e
 
-  // 1. Approve the Onramp to spend your USDC.e
-  const approveHash = await walletClient.writeContract({
-    address: USDCE,
-    abi: parseAbi(["function approve(address spender, uint256 amount) returns (bool)"]),
-    functionName: "approve",
-    args: [ONRAMP, amount],
-  });
-  await publicClient.waitForTransactionReceipt({ hash: approveHash });
+// 1. Approve the Onramp to spend your USDC.e
+const approveHash = await walletClient.writeContract({
+  address: USDCE,
+  abi: parseAbi(["function approve(address spender, uint256 amount) returns (bool)"]),
+  functionName: "approve",
+  args: [ONRAMP, amount],
+});
+await publicClient.waitForTransactionReceipt({ hash: approveHash });
 
-  // 2. Wrap USDC.e → pUSD
-  const wrapHash = await walletClient.writeContract({
-    address: ONRAMP,
-    abi: parseAbi(["function wrap(address _asset, address _to, uint256 _amount)"]),
-    functionName: "wrap",
-    args: [USDCE, account.address, amount],
-  });
-  await publicClient.waitForTransactionReceipt({ hash: wrapHash });
-  ```
+// 2. Wrap USDC.e → pUSD
+const wrapHash = await walletClient.writeContract({
+  address: ONRAMP,
+  abi: parseAbi(["function wrap(address _asset, address _to, uint256 _amount)"]),
+  functionName: "wrap",
+  args: [USDCE, account.address, amount],
+});
+await publicClient.waitForTransactionReceipt({ hash: wrapHash });
+```
 
-  ```python Python theme={null}
-  from web3 import Web3
+```python Python
+from web3 import Web3
 
-  ONRAMP = "0x93070a847efEf7F70739046A929D47a521F5B8ee"
-  USDCE = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+ONRAMP = "0x93070a847efEf7F70739046A929D47a521F5B8ee"
+USDCE = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
 
-  amount = 100 * 10**6  # 100 USDC.e
+amount = 100 * 10**6  # 100 USDC.e
 
-  # 1. Approve the Onramp to spend your USDC.e
-  usdce = w3.eth.contract(address=USDCE, abi=[{
-      "name": "approve", "type": "function",
-      "inputs": [{"name": "spender", "type": "address"},
-                 {"name": "amount", "type": "uint256"}],
-      "outputs": [{"type": "bool"}],
-  }])
-  usdce.functions.approve(ONRAMP, amount).transact({"from": address})
+# 1. Approve the Onramp to spend your USDC.e
+usdce = w3.eth.contract(address=USDCE, abi=[{
+    "name": "approve", "type": "function",
+    "inputs": [{"name": "spender", "type": "address"},
+               {"name": "amount", "type": "uint256"}],
+    "outputs": [{"type": "bool"}],
+}])
+usdce.functions.approve(ONRAMP, amount).transact({"from": address})
 
-  # 2. Wrap USDC.e → pUSD
-  onramp = w3.eth.contract(address=ONRAMP, abi=[{
-      "name": "wrap", "type": "function",
-      "inputs": [{"name": "_asset", "type": "address"},
-                 {"name": "_to", "type": "address"},
-                 {"name": "_amount", "type": "uint256"}],
-      "outputs": [],
-  }])
-  onramp.functions.wrap(USDCE, address, amount).transact({"from": address})
-  ```
-</CodeGroup>
+# 2. Wrap USDC.e → pUSD
+onramp = w3.eth.contract(address=ONRAMP, abi=[{
+    "name": "wrap", "type": "function",
+    "inputs": [{"name": "_asset", "type": "address"},
+               {"name": "_to", "type": "address"},
+               {"name": "_amount", "type": "uint256"}],
+    "outputs": [],
+}])
+onramp.functions.wrap(USDCE, address, amount).transact({"from": address})
+```
 
 ***
 
@@ -132,7 +126,7 @@ function wrap(address _asset, address _to, uint256 _amount) external
 
 Use the **CollateralOfframp** to unwrap pUSD back into USDC.e.
 
-```solidity theme={null}
+```solidity
 function unwrap(address _asset, address _to, uint256 _amount) external
 ```
 
@@ -151,12 +145,6 @@ function unwrap(address _asset, address _to, uint256 _amount) external
 
 ## Next steps
 
-<CardGroup cols={2}>
-  <Card title="Contracts" icon="file-contract" href="/resources/contracts">
-    All Polymarket contract addresses and audits
-  </Card>
+- **[Contracts](/resources/contracts)** — All Polymarket contract addresses and audits
 
-  <Card title="Bridge" icon="arrow-right-arrow-left" href="/trading/bridge/deposit">
-    Deposit from other chains — auto-wraps to pUSD
-  </Card>
-</CardGroup>
+- **[Bridge](/trading/bridge/deposit)** — Deposit from other chains — auto-wraps to pUSD

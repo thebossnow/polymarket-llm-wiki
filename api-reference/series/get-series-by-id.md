@@ -1,7 +1,5 @@
 # Get series by id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /series/{id}

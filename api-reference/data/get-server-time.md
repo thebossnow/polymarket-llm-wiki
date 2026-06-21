@@ -3,9 +3,6 @@
 > Returns the current Unix timestamp of the server.
 This can be used to synchronize client time with server time.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /time

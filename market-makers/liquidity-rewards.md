@@ -12,16 +12,9 @@ The program is designed to:
 * Encourage trading activity
 * Discourage blatantly exploitative behaviors
 
-<Note>
-  The minimum reward payout is **\$1**; amounts below this will not be paid.
-</Note>
+> **Note:** The minimum reward payout is **\$1**; amounts below this will not be paid.
 
-<Tip>
-  Both `min_incentive_size` and `max_incentive_spread` can be fetched alongside
-  full market objects via the CLOB API and [Markets
-  API](/market-data/fetching-markets). Reward allocations for an epoch can also
-  be fetched via the Markets API.
-</Tip>
+> **Tip:** Both `min_incentive_size` and `max_incentive_spread` can be fetched alongside full market objects via the CLOB API and [Markets API](/market-data/fetching-markets). Reward allocations for an epoch can also be fetched via the Markets API.
 
 ***
 
@@ -145,10 +138,7 @@ Q<sub>no</sub> is calculated every minute using random sampling.
 
 Polymarket is distributing liquidity incentives for World Cup 2026 markets from June 11 through July 19, 2026. Rewards are split into **Pre** (pre-game) and **Live** (in-play) periods per game.
 
-<Note>
-  The values below are configured reward caps. Actual payouts depend on eligible
-  quoting and the reward methodology above.
-</Note>
+> **Note:** The values below are configured reward caps. Actual payouts depend on eligible quoting and the reward methodology above.
 
 ### Stage Pools
 
@@ -167,12 +157,6 @@ Polymarket is distributing liquidity incentives for World Cup 2026 markets from 
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Trading" icon="chart-line" href="/market-makers/trading">
-    Order entry and quoting best practices
-  </Card>
+- **[Trading](/market-makers/trading)** — Order entry and quoting best practices
 
-  <Card title="Maker Rebates" icon="receipt" href="/market-makers/maker-rebates">
-    Earn USDC rebates on eligible crypto and sports markets
-  </Card>
-</CardGroup>
+- **[Maker Rebates](/market-makers/maker-rebates)** — Earn USDC rebates on eligible crypto and sports markets

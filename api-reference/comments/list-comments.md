@@ -1,7 +1,5 @@
 # List comments
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /comments

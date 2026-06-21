@@ -1,7 +1,5 @@
 # Get open interest
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /oi

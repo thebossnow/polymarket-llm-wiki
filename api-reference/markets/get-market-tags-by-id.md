@@ -1,7 +1,5 @@
 # Get market tags by id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /markets/{id}/tags

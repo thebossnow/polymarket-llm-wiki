@@ -1,7 +1,5 @@
 # List teams
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /teams

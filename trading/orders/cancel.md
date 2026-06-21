@@ -8,68 +8,64 @@ All cancel endpoints require [L2 authentication](/trading/overview#authenticatio
 
 ## Cancel a Single Order
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const resp = await client.cancelOrder("0xb816482a...");
-  console.log(resp);
-  // { canceled: ["0xb816482a..."], not_canceled: {} }
-  ```
+```typescript TypeScript
+const resp = await client.cancelOrder("0xb816482a...");
+console.log(resp);
+// { canceled: ["0xb816482a..."], not_canceled: {} }
+```
 
-  ```python Python theme={null}
-  resp = client.cancel(order_id="0xb816482a...")
-  print(resp)
-  # {"canceled": ["0xb816482a..."], "not_canceled": {}}
-  ```
+```python Python
+resp = client.cancel(order_id="0xb816482a...")
+print(resp)
+# {"canceled": ["0xb816482a..."], "not_canceled": {}}
+```
 
-  ```rust Rust theme={null}
-  let resp = client.cancel_order("0xb816482a...").await?;
-  println!("{:?}", resp);
-  // CancelOrdersResponse { canceled: ["0xb816482a..."], not_canceled: {} }
-  ```
+```rust Rust
+let resp = client.cancel_order("0xb816482a...").await?;
+println!("{:?}", resp);
+// CancelOrdersResponse { canceled: ["0xb816482a..."], not_canceled: {} }
+```
 
-  ```bash REST theme={null}
-  curl -X DELETE "https://clob.polymarket.com/order" \
-    -H "Content-Type: application/json" \
-    -H "POLY_ADDRESS: ..." \
-    -H "POLY_SIGNATURE: ..." \
-    -H "POLY_TIMESTAMP: ..." \
-    -H "POLY_API_KEY: ..." \
-    -H "POLY_PASSPHRASE: ..." \
-    -d '{"orderID": "0xb816482a..."}'
-  ```
-</CodeGroup>
+```bash REST
+curl -X DELETE "https://clob.polymarket.com/order" \
+  -H "Content-Type: application/json" \
+  -H "POLY_ADDRESS: ..." \
+  -H "POLY_SIGNATURE: ..." \
+  -H "POLY_TIMESTAMP: ..." \
+  -H "POLY_API_KEY: ..." \
+  -H "POLY_PASSPHRASE: ..." \
+  -d '{"orderID": "0xb816482a..."}'
+```
 
 ***
 
 ## Cancel Multiple Orders
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const resp = await client.cancelOrders(["0xb816482a...", "0xc927593b..."]);
-  ```
+```typescript TypeScript
+const resp = await client.cancelOrders(["0xb816482a...", "0xc927593b..."]);
+```
 
-  ```python Python theme={null}
-  resp = client.cancel_orders([
-      "0xb816482a...",
-      "0xc927593b...",
-  ])
-  ```
+```python Python
+resp = client.cancel_orders([
+    "0xb816482a...",
+    "0xc927593b...",
+])
+```
 
-  ```rust Rust theme={null}
-  let resp = client.cancel_orders(&["0xb816482a...", "0xc927593b..."]).await?;
-  ```
+```rust Rust
+let resp = client.cancel_orders(&["0xb816482a...", "0xc927593b..."]).await?;
+```
 
-  ```bash REST theme={null}
-  curl -X DELETE "https://clob.polymarket.com/orders" \
-    -H "Content-Type: application/json" \
-    -H "POLY_ADDRESS: ..." \
-    -H "POLY_SIGNATURE: ..." \
-    -H "POLY_TIMESTAMP: ..." \
-    -H "POLY_API_KEY: ..." \
-    -H "POLY_PASSPHRASE: ..." \
-    -d '["0xb816482a...", "0xc927593b..."]'
-  ```
-</CodeGroup>
+```bash REST
+curl -X DELETE "https://clob.polymarket.com/orders" \
+  -H "Content-Type: application/json" \
+  -H "POLY_ADDRESS: ..." \
+  -H "POLY_SIGNATURE: ..." \
+  -H "POLY_TIMESTAMP: ..." \
+  -H "POLY_API_KEY: ..." \
+  -H "POLY_PASSPHRASE: ..." \
+  -d '["0xb816482a...", "0xc927593b..."]'
+```
 
 ***
 
@@ -77,28 +73,26 @@ All cancel endpoints require [L2 authentication](/trading/overview#authenticatio
 
 Cancel every open order across all markets:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const resp = await client.cancelAll();
-  ```
+```typescript TypeScript
+const resp = await client.cancelAll();
+```
 
-  ```python Python theme={null}
-  resp = client.cancel_all()
-  ```
+```python Python
+resp = client.cancel_all()
+```
 
-  ```rust Rust theme={null}
-  let resp = client.cancel_all_orders().await?;
-  ```
+```rust Rust
+let resp = client.cancel_all_orders().await?;
+```
 
-  ```bash REST theme={null}
-  curl -X DELETE "https://clob.polymarket.com/cancel-all" \
-    -H "POLY_ADDRESS: ..." \
-    -H "POLY_SIGNATURE: ..." \
-    -H "POLY_TIMESTAMP: ..." \
-    -H "POLY_API_KEY: ..." \
-    -H "POLY_PASSPHRASE: ..."
-  ```
-</CodeGroup>
+```bash REST
+curl -X DELETE "https://clob.polymarket.com/cancel-all" \
+  -H "POLY_ADDRESS: ..." \
+  -H "POLY_SIGNATURE: ..." \
+  -H "POLY_TIMESTAMP: ..." \
+  -H "POLY_API_KEY: ..." \
+  -H "POLY_PASSPHRASE: ..."
+```
 
 ***
 
@@ -106,42 +100,40 @@ Cancel every open order across all markets:
 
 Cancel all orders for a specific market, optionally filtered to a single token. Both `market` and `asset_id` are optional — omit both to cancel all orders.
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const resp = await client.cancelMarketOrders({
-    market: "0xbd31dc8a...", // optional: condition ID
-    asset_id: "52114319501245...", // optional: specific token
-  });
-  ```
+```typescript TypeScript
+const resp = await client.cancelMarketOrders({
+  market: "0xbd31dc8a...", // optional: condition ID
+  asset_id: "52114319501245...", // optional: specific token
+});
+```
 
-  ```python Python theme={null}
-  resp = client.cancel_market_orders(
-      market="0xbd31dc8a...",
-      asset_id="52114319501245...",  # optional
-  )
-  ```
+```python Python
+resp = client.cancel_market_orders(
+    market="0xbd31dc8a...",
+    asset_id="52114319501245...",  # optional
+)
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::types::request::CancelMarketOrderRequest;
+```rust Rust
+use polymarket_client_sdk_v2::clob::types::request::CancelMarketOrderRequest;
 
-  let request = CancelMarketOrderRequest::builder()
-      .market("0xbd31dc8a...".parse()?)
-      .asset_id("52114319501245...".parse()?)
-      .build();
-  let resp = client.cancel_market_orders(&request).await?;
-  ```
+let request = CancelMarketOrderRequest::builder()
+    .market("0xbd31dc8a...".parse()?)
+    .asset_id("52114319501245...".parse()?)
+    .build();
+let resp = client.cancel_market_orders(&request).await?;
+```
 
-  ```bash REST theme={null}
-  curl -X DELETE "https://clob.polymarket.com/cancel-market-orders" \
-    -H "Content-Type: application/json" \
-    -H "POLY_ADDRESS: ..." \
-    -H "POLY_SIGNATURE: ..." \
-    -H "POLY_TIMESTAMP: ..." \
-    -H "POLY_API_KEY: ..." \
-    -H "POLY_PASSPHRASE: ..." \
-    -d '{"market": "0xbd31dc8a...", "asset_id": "52114319501245..."}'
-  ```
-</CodeGroup>
+```bash REST
+curl -X DELETE "https://clob.polymarket.com/cancel-market-orders" \
+  -H "Content-Type: application/json" \
+  -H "POLY_ADDRESS: ..." \
+  -H "POLY_SIGNATURE: ..." \
+  -H "POLY_TIMESTAMP: ..." \
+  -H "POLY_API_KEY: ..." \
+  -H "POLY_PASSPHRASE: ..." \
+  -d '{"market": "0xbd31dc8a...", "asset_id": "52114319501245..."}'
+```
 
 ***
 
@@ -149,68 +141,64 @@ Cancel all orders for a specific market, optionally filtered to a single token. 
 
 ### Get a Single Order
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const order = await client.getOrder("0xb816482a...");
-  console.log(order.status, order.size_matched);
-  ```
+```typescript TypeScript
+const order = await client.getOrder("0xb816482a...");
+console.log(order.status, order.size_matched);
+```
 
-  ```python Python theme={null}
-  order = client.get_order("0xb816482a...")
-  print(order["status"], order["size_matched"])
-  ```
+```python Python
+order = client.get_order("0xb816482a...")
+print(order["status"], order["size_matched"])
+```
 
-  ```rust Rust theme={null}
-  let order = client.order("0xb816482a...").await?;
-  println!("{:?} {}", order.status, order.size_matched);
-  ```
-</CodeGroup>
+```rust Rust
+let order = client.order("0xb816482a...").await?;
+println!("{:?} {}", order.status, order.size_matched);
+```
 
 ### Get Open Orders
 
 Retrieve all open orders, optionally filtered by market or token:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // All open orders
-  const orders = await client.getOpenOrders();
+```typescript TypeScript
+// All open orders
+const orders = await client.getOpenOrders();
 
-  // Filtered by market
-  const marketOrders = await client.getOpenOrders({
-    market: "0xbd31dc8a...",
-  });
+// Filtered by market
+const marketOrders = await client.getOpenOrders({
+  market: "0xbd31dc8a...",
+});
 
-  // Filtered by token
-  const tokenOrders = await client.getOpenOrders({
-    asset_id: "52114319501245...",
-  });
-  ```
+// Filtered by token
+const tokenOrders = await client.getOpenOrders({
+  asset_id: "52114319501245...",
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OpenOrderParams
+```python Python
+from py_clob_client_v2 import OpenOrderParams
 
-  # All open orders
-  orders = client.get_orders()
+# All open orders
+orders = client.get_orders()
 
-  # Filtered by market
-  market_orders = client.get_orders(
-      OpenOrderParams(market="0xbd31dc8a...")
-  )
-  ```
+# Filtered by market
+market_orders = client.get_orders(
+    OpenOrderParams(market="0xbd31dc8a...")
+)
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::types::request::OrdersRequest;
+```rust Rust
+use polymarket_client_sdk_v2::clob::types::request::OrdersRequest;
 
-  // All open orders
-  let orders = client.orders(&OrdersRequest::default(), None).await?;
+// All open orders
+let orders = client.orders(&OrdersRequest::default(), None).await?;
 
-  // Filtered by market
-  let request = OrdersRequest::builder()
-      .market("0xbd31dc8a...".parse()?)
-      .build();
-  let market_orders = client.orders(&request, None).await?;
-  ```
-</CodeGroup>
+// Filtered by market
+let request = OrdersRequest::builder()
+    .market("0xbd31dc8a...".parse()?)
+    .build();
+let market_orders = client.orders(&request, None).await?;
+```
 
 ### OpenOrder Object
 
@@ -246,64 +234,60 @@ When an order is matched, it creates a trade. Trades progress through these stat
 | `RETRYING`  | No       | Transaction failed — being retried      |
 | `FAILED`    | Yes      | Failed permanently                      |
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // All trades
-  const trades = await client.getTrades();
+```typescript TypeScript
+// All trades
+const trades = await client.getTrades();
 
-  // Filtered by market
-  const marketTrades = await client.getTrades({
-    market: "0xbd31dc8a...",
-  });
-  ```
+// Filtered by market
+const marketTrades = await client.getTrades({
+  market: "0xbd31dc8a...",
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import TradeParams
+```python Python
+from py_clob_client_v2 import TradeParams
 
-  trades = client.get_trades()
+trades = client.get_trades()
 
-  market_trades = client.get_trades(
-      TradeParams(market="0xbd31dc8a...")
-  )
-  ```
+market_trades = client.get_trades(
+    TradeParams(market="0xbd31dc8a...")
+)
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::types::request::TradesRequest;
+```rust Rust
+use polymarket_client_sdk_v2::clob::types::request::TradesRequest;
 
-  // All trades
-  let trades = client.trades(&TradesRequest::default(), None).await?;
+// All trades
+let trades = client.trades(&TradesRequest::default(), None).await?;
 
-  // Filtered by market
-  let request = TradesRequest::builder()
-      .market("0xbd31dc8a...".parse()?)
-      .build();
-  let market_trades = client.trades(&request, None).await?;
-  ```
-</CodeGroup>
+// Filtered by market
+let request = TradesRequest::builder()
+    .market("0xbd31dc8a...".parse()?)
+    .build();
+let market_trades = client.trades(&request, None).await?;
+```
 
 Additional filter parameters: `id`, `maker_address`, `asset_id`, `before`, `after`.
 
 The Rust SDK uses cursor-based pagination via the `next_cursor` parameter:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const page = await client.getTradesPaginated({ market: "0xbd31dc8a..." });
-  console.log(page.trades, page.count); // trades array + total count
-  ```
+```typescript TypeScript
+const page = await client.getTradesPaginated({ market: "0xbd31dc8a..." });
+console.log(page.trades, page.count); // trades array + total count
+```
 
-  ```python Python theme={null}
-  page = client.get_trades_paginated(TradeParams(market="0xbd31dc8a..."))
-  ```
+```python Python
+page = client.get_trades_paginated(TradeParams(market="0xbd31dc8a..."))
+```
 
-  ```rust Rust theme={null}
-  // First page
-  let page = client.trades(&request, None).await?;
-  println!("{} trades, cursor: {}", page.data.len(), page.next_cursor);
+```rust Rust
+// First page
+let page = client.trades(&request, None).await?;
+println!("{} trades, cursor: {}", page.data.len(), page.next_cursor);
 
-  // Next page
-  let page2 = client.trades(&request, Some(page.next_cursor)).await?;
-  ```
-</CodeGroup>
+// Next page
+let page2 = client.trades(&request, Some(page.next_cursor)).await?;
+```
 
 ### Trade Object
 
@@ -328,11 +312,7 @@ The Rust SDK uses cursor-based pagination via the `next_cursor` parameter:
 | `trader_side`      | string        | `TAKER` or `MAKER`                   |
 | `maker_orders`     | MakerOrder\[] | Maker orders that filled this trade  |
 
-<Note>
-  A single trade can be split across multiple onchain transactions due to gas
-  limits. Use `bucket_index` and `match_time` to reconcile related transactions
-  back to a single logical trade.
-</Note>
+> **Note:** A single trade can be split across multiple onchain transactions due to gas limits. Use `bucket_index` and `match_time` to reconcile related transactions back to a single logical trade.
 
 ***
 
@@ -340,48 +320,40 @@ The Rust SDK uses cursor-based pagination via the `next_cursor` parameter:
 
 Check if your resting orders are eligible for [maker rebates](/market-makers/maker-rebates) scoring:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // Single order
-  const scoring = await client.isOrderScoring({ orderId: "0x..." });
+```typescript TypeScript
+// Single order
+const scoring = await client.isOrderScoring({ orderId: "0x..." });
 
-  // Multiple orders
-  const batch = await client.areOrdersScoring({
-    orderIds: ["0x...", "0x..."],
-  });
-  ```
+// Multiple orders
+const batch = await client.areOrdersScoring({
+  orderIds: ["0x...", "0x..."],
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OrderScoringParams, OrdersScoringParams
+```python Python
+from py_clob_client_v2 import OrderScoringParams, OrdersScoringParams
 
-  scoring = client.is_order_scoring(
-      OrderScoringParams(orderId="0x...")
-  )
+scoring = client.is_order_scoring(
+    OrderScoringParams(orderId="0x...")
+)
 
-  batch = client.are_orders_scoring(
-      OrdersScoringParams(orderIds=["0x...", "0x..."])
-  )
-  ```
+batch = client.are_orders_scoring(
+    OrdersScoringParams(orderIds=["0x...", "0x..."])
+)
+```
 
-  ```rust Rust theme={null}
-  // Single order
-  let scoring = client.is_order_scoring("0x...").await?;
+```rust Rust
+// Single order
+let scoring = client.is_order_scoring("0x...").await?;
 
-  // Multiple orders
-  let batch = client.are_orders_scoring(&["0x...", "0x..."]).await?;
-  ```
-</CodeGroup>
+// Multiple orders
+let batch = client.are_orders_scoring(&["0x...", "0x..."]).await?;
+```
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Order Attribution" icon="tag" href="/trading/orders/attribution">
-    Attribute orders to your builder account for volume credit
-  </Card>
+- **[Order Attribution](/trading/orders/attribution)** — Attribute orders to your builder account for volume credit
 
-  <Card title="Fees" icon="receipt" href="/trading/fees">
-    Understand fee structures and maker rebates
-  </Card>
-</CardGroup>
+- **[Fees](/trading/fees)** — Understand fee structures and maker rebates

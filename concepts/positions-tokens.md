@@ -4,12 +4,6 @@
 
 Every prediction on Polymarket is represented by **outcome tokens**. When you trade, you're buying and selling these tokens. Your **position** is simply your balance of tokens for a given market.
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/token-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=cad279109c43c68c541123c2d348c4c5" alt="" className="dark:hidden" width="1596" height="952" data-path="images/core-concepts/token-lifecycle.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/token-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=204d16c1d89892a3c8573060aa04780e" alt="" className="hidden dark:block" width="1596" height="952" data-path="images/dark/core-concepts/token-lifecycle.png" />
-</Frame>
-
 ## Outcome Tokens
 
 Each market has exactly two outcome tokens:
@@ -21,10 +15,7 @@ Each market has exactly two outcome tokens:
 
 Tokens are **ERC1155** assets on Polygon, using the [Gnosis Conditional Token Framework](https://github.com/gnosis/conditional-tokens-contracts/) (CTF). This means they're fully onchain and function as standard ERC1155 tokens.
 
-<Note>
-  Outcome tokens are always fully backed. Every Yes/No pair in existence is
-  backed by exactly `$1` of pUSD collateral locked in the CTF contract.
-</Note>
+> **Note:** Outcome tokens are always fully backed. Every Yes/No pair in existence is backed by exactly `$1` of pUSD collateral locked in the CTF contract.
 
 ### Split
 

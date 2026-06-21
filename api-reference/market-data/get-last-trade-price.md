@@ -3,9 +3,6 @@
 > Retrieves the last trade price and side for a specific token ID.
 Returns default values of "0.5" for price and empty string for side if no trades found.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /last-trade-price

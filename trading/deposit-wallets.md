@@ -8,11 +8,7 @@ Proxy users are unaffected and can continue using their current wallet setup.
 For newly-created polymarket.com accounts using the deposit wallet flow, a
 deposit wallet is automatically deployed for you.
 
-<Info>
-  This guide is for developers integrating directly with the APIs or SDKs. It
-  does not change existing user balances, existing proxy wallets, or existing
-  Safes.
-</Info>
+> **Info:** This guide is for developers integrating directly with the APIs or SDKs. It does not change existing user balances, existing proxy wallets, or existing Safes.
 
 ## Where Deposit Wallets Fit
 
@@ -35,9 +31,9 @@ factory. The wallet holds pUSD and conditional tokens on-chain.
 The owner or session signer signs two different kinds of payloads:
 
 1. A **deposit wallet Batch** for on-chain wallet calls. This is submitted to the
-   relayer as a `WALLET` transaction.
+relayer as a `WALLET` transaction.
 2. A **CLOB order** with `signatureType = 3`. The CLOB validates this through
-   ERC-1271 on the deposit wallet.
+ERC-1271 on the deposit wallet.
 
 These signatures are not interchangeable. A `WALLET` batch uses a normal
 65-byte EIP-712 signature over the `DepositWallet` `Batch` type. A CLOB order
@@ -46,45 +42,37 @@ signature.
 
 ## Integration Flow
 
-<Steps>
-  <Step title="Create or identify the owner signer">
-    Use the EOA or session signer that will own the deposit wallet. This signer is
-    also the key that signs deposit wallet batches and CLOB order payloads unless
-    your session signer flow delegates signing elsewhere.
-  </Step>
+### Create or identify the owner signer
+Use the EOA or session signer that will own the deposit wallet. This signer is
+also the key that signs deposit wallet batches and CLOB order payloads unless
+your session signer flow delegates signing elsewhere.
 
-  <Step title="Deploy the deposit wallet">
-    Submit a relayer `WALLET-CREATE` request. The body only needs the transaction
-    type, owner address, and deposit wallet factory address.
+### Deploy the deposit wallet
+Submit a relayer `WALLET-CREATE` request. The body only needs the transaction
+type, owner address, and deposit wallet factory address.
 
-    The deposit wallet address is deterministic. TypeScript relayer users can call
-    `deriveDepositWalletAddress()`, and Python relayer users can call
-    `get_expected_deposit_wallet()`. Other integrations should store the address
-    returned by onboarding or derive it with the deterministic formula below.
-  </Step>
+The deposit wallet address is deterministic. TypeScript relayer users can call
+`deriveDepositWalletAddress()`, and Python relayer users can call
+`get_expected_deposit_wallet()`. Other integrations should store the address
+returned by onboarding or derive it with the deterministic formula below.
 
-  <Step title="Fund the deposit wallet">
-    Transfer pUSD to the deposit wallet address. pUSD held by the EOA does not count
-    as CLOB buying power for deposit wallet orders.
-  </Step>
+### Fund the deposit wallet
+Transfer pUSD to the deposit wallet address. pUSD held by the EOA does not count
+as CLOB buying power for deposit wallet orders.
 
-  <Step title="Approve trading contracts from the wallet">
-    Approvals must be made **from the deposit wallet**, not from the owner EOA. Build
-    ERC-20 or ERC-1155 approval calldata and submit it through a relayer `WALLET`
-    batch.
-  </Step>
+### Approve trading contracts from the wallet
+Approvals must be made **from the deposit wallet**, not from the owner EOA. Build
+ERC-20 or ERC-1155 approval calldata and submit it through a relayer `WALLET`
+batch.
 
-  <Step title="Sync CLOB balances">
-    After funding or changing allowances, call the CLOB balance allowance update
-    endpoint through the SDK or API. The request must use `signature_type = 3`.
-  </Step>
+### Sync CLOB balances
+After funding or changing allowances, call the CLOB balance allowance update
+endpoint through the SDK or API. The request must use `signature_type = 3`.
 
-  <Step title="Place orders with POLY_1271">
-    Initialize the CLOB client with the deposit wallet as the funder and
-    `POLY_1271` as the signature type. Orders must have both `maker` and `signer`
-    set to the deposit wallet address.
-  </Step>
-</Steps>
+### Place orders with POLY_1271
+Initialize the CLOB client with the deposit wallet as the funder and
+`POLY_1271` as the signature type. Orders must have both `maker` and `signer`
+set to the deposit wallet address.
 
 ## SDK Users
 
@@ -92,335 +80,330 @@ Use a relayer client or the raw relayer API for wallet deployment and wallet
 batches. Use the CLOB client for order signing, posting, cancelling, balances,
 and account data.
 
-<Tabs>
-  <Tab title="TypeScript">
-    Use the TypeScript clients with deposit wallet support:
-    [@polymarket/builder-relayer-client](https://www.npmjs.com/package/@polymarket/builder-relayer-client)
-    and
-    [@polymarket/clob-client-v2](https://www.npmjs.com/package/@polymarket/clob-client-v2).
+**TypeScript**
+Use the TypeScript clients with deposit wallet support:
+[@polymarket/builder-relayer-client](https://www.npmjs.com/package/@polymarket/builder-relayer-client)
+and
+[@polymarket/clob-client-v2](https://www.npmjs.com/package/@polymarket/clob-client-v2).
 
-    ```bash theme={null}
-    npm install @polymarket/builder-relayer-client @polymarket/clob-client-v2 @polymarket/builder-signing-sdk viem
-    ```
+```bash
+npm install @polymarket/builder-relayer-client @polymarket/clob-client-v2 @polymarket/builder-signing-sdk viem
+```
 
-    ### Deploy the Wallet
+### Deploy the Wallet
 
-    ```typescript theme={null}
-    import {
-      BuilderApiKeyCreds,
-      BuilderConfig,
-    } from "@polymarket/builder-signing-sdk";
-    import { RelayClient } from "@polymarket/builder-relayer-client";
-    import { createWalletClient, Hex, http } from "viem";
-    import { privateKeyToAccount } from "viem/accounts";
-    import { polygon } from "viem/chains";
+```typescript
+import {
+  BuilderApiKeyCreds,
+  BuilderConfig,
+} from "@polymarket/builder-signing-sdk";
+import { RelayClient } from "@polymarket/builder-relayer-client";
+import { createWalletClient, Hex, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { polygon } from "viem/chains";
 
-    const relayerUrl = process.env.RELAYER_URL!;
-    const chainId = Number(process.env.CHAIN_ID ?? 137);
-    const account = privateKeyToAccount(process.env.PRIVATE_KEY as Hex);
-    const walletClient = createWalletClient({
-      account,
-      chain: polygon,
-      transport: http(process.env.RPC_URL),
-    });
+const relayerUrl = process.env.RELAYER_URL!;
+const chainId = Number(process.env.CHAIN_ID ?? 137);
+const account = privateKeyToAccount(process.env.PRIVATE_KEY as Hex);
+const walletClient = createWalletClient({
+  account,
+  chain: polygon,
+  transport: http(process.env.RPC_URL),
+});
 
-    const builderCreds: BuilderApiKeyCreds = {
-      key: process.env.BUILDER_API_KEY!,
-      secret: process.env.BUILDER_SECRET!,
-      passphrase: process.env.BUILDER_PASS_PHRASE!,
-    };
+const builderCreds: BuilderApiKeyCreds = {
+  key: process.env.BUILDER_API_KEY!,
+  secret: process.env.BUILDER_SECRET!,
+  passphrase: process.env.BUILDER_PASS_PHRASE!,
+};
 
-    const builderConfig = new BuilderConfig({
-      localBuilderCreds: builderCreds,
-    });
+const builderConfig = new BuilderConfig({
+  localBuilderCreds: builderCreds,
+});
 
-    const relayer = new RelayClient(
-      relayerUrl,
-      chainId,
-      walletClient,
-      builderConfig,
-    );
+const relayer = new RelayClient(
+  relayerUrl,
+  chainId,
+  walletClient,
+  builderConfig,
+);
 
-    const depositWalletAddress = await relayer.deriveDepositWalletAddress();
-    const response = await relayer.deployDepositWallet();
-    const confirmed = await response.wait();
-    ```
+const depositWalletAddress = await relayer.deriveDepositWalletAddress();
+const response = await relayer.deployDepositWallet();
+const confirmed = await response.wait();
+```
 
-    `deployDepositWallet()` submits a `WALLET-CREATE` transaction. It does not add a
-    user signature to the deployment body.
+`deployDepositWallet()` submits a `WALLET-CREATE` transaction. It does not add a
+user signature to the deployment body.
 
-    ### Execute a Wallet Batch
+### Execute a Wallet Batch
 
-    ```typescript theme={null}
-    import type { DepositWalletCall } from "@polymarket/builder-relayer-client";
+```typescript
+import type { DepositWalletCall } from "@polymarket/builder-relayer-client";
 
-    const calls: DepositWalletCall[] = [
-      {
-        target: process.env.PUSD_ADDRESS!,
-        value: "0",
-        data: approveCalldata,
-      },
-    ];
+const calls: DepositWalletCall[] = [
+  {
+    target: process.env.PUSD_ADDRESS!,
+    value: "0",
+    data: approveCalldata,
+  },
+];
 
-    const deadline = Math.floor(Date.now() / 1000 + 600).toString();
-    const response = await relayer.executeDepositWalletBatch(
-      calls,
-      depositWalletAddress,
-      deadline,
-    );
-    const confirmed = await response.wait();
-    ```
+const deadline = Math.floor(Date.now() / 1000 + 600).toString();
+const response = await relayer.executeDepositWalletBatch(
+  calls,
+  depositWalletAddress,
+  deadline,
+);
+const confirmed = await response.wait();
+```
 
-    The TypeScript relayer client fetches the current `WALLET` nonce before signing
-    and submitting the batch. The SDK signs the batch with this EIP-712 domain before
-    submitting it to the relayer:
+The TypeScript relayer client fetches the current `WALLET` nonce before signing
+and submitting the batch. The SDK signs the batch with this EIP-712 domain before
+submitting it to the relayer:
 
-    ```typescript theme={null}
-    {
-      name: "DepositWallet",
-      version: "1",
-      chainId,
-      verifyingContract: depositWalletAddress,
-    }
-    ```
+```typescript
+{
+  name: "DepositWallet",
+  version: "1",
+  chainId,
+  verifyingContract: depositWalletAddress,
+}
+```
 
-    ### Trade From the Deposit Wallet
+### Trade From the Deposit Wallet
 
-    ```typescript theme={null}
-    import {
-      AssetType,
-      ClobClient,
-      OrderType,
-      Side,
-      SignatureTypeV2,
-    } from "@polymarket/clob-client-v2";
+```typescript
+import {
+  AssetType,
+  ClobClient,
+  OrderType,
+  Side,
+  SignatureTypeV2,
+} from "@polymarket/clob-client-v2";
 
-    const creds = {
-      key: process.env.CLOB_API_KEY!,
-      secret: process.env.CLOB_SECRET!,
-      passphrase: process.env.CLOB_PASS_PHRASE!,
-    };
+const creds = {
+  key: process.env.CLOB_API_KEY!,
+  secret: process.env.CLOB_SECRET!,
+  passphrase: process.env.CLOB_PASS_PHRASE!,
+};
 
-    const clob = new ClobClient({
-      host: process.env.CLOB_API_URL!,
-      chain: chainId,
-      signer: walletClient,
-      creds,
-      signatureType: SignatureTypeV2.POLY_1271,
-      funderAddress: depositWalletAddress,
-    });
+const clob = new ClobClient({
+  host: process.env.CLOB_API_URL!,
+  chain: chainId,
+  signer: walletClient,
+  creds,
+  signatureType: SignatureTypeV2.POLY_1271,
+  funderAddress: depositWalletAddress,
+});
 
-    await clob.updateBalanceAllowance({ asset_type: AssetType.COLLATERAL });
+await clob.updateBalanceAllowance({ asset_type: AssetType.COLLATERAL });
 
-    const order = await clob.createAndPostOrder(
-      {
-        tokenID: process.env.TOKEN_ID!,
-        price: 0.5,
-        size: 10,
-        side: Side.BUY,
-      },
-      { tickSize: "0.01", negRisk: false },
-      OrderType.GTC,
-    );
-    ```
-  </Tab>
+const order = await clob.createAndPostOrder(
+  {
+    tokenID: process.env.TOKEN_ID!,
+    price: 0.5,
+    size: 10,
+    side: Side.BUY,
+  },
+  { tickSize: "0.01", negRisk: false },
+  OrderType.GTC,
+);
+```
 
-  <Tab title="Python">
-    Use the Python builder relayer client with deposit wallet support:
-    [py-builder-relayer-client](https://pypi.org/project/py-builder-relayer-client/).
+**Python**
+Use the Python builder relayer client with deposit wallet support:
+[py-builder-relayer-client](https://pypi.org/project/py-builder-relayer-client/).
 
-    ```bash theme={null}
-    pip install py-builder-relayer-client
-    ```
+```bash
+pip install py-builder-relayer-client
+```
 
-    ### Deploy the Wallet
+### Deploy the Wallet
 
-    ```python theme={null}
-    import os
+```python
+import os
 
-    from py_builder_relayer_client.client import RelayClient
-    from py_builder_signing_sdk.config import BuilderApiKeyCreds, BuilderConfig
+from py_builder_relayer_client.client import RelayClient
+from py_builder_signing_sdk.config import BuilderApiKeyCreds, BuilderConfig
 
-    builder_config = BuilderConfig(
-        local_builder_creds=BuilderApiKeyCreds(
-            key=os.environ["BUILDER_API_KEY"],
-            secret=os.environ["BUILDER_SECRET"],
-            passphrase=os.environ["BUILDER_PASS_PHRASE"],
-        )
+builder_config = BuilderConfig(
+    local_builder_creds=BuilderApiKeyCreds(
+        key=os.environ["BUILDER_API_KEY"],
+        secret=os.environ["BUILDER_SECRET"],
+        passphrase=os.environ["BUILDER_PASS_PHRASE"],
     )
+)
 
-    relayer = RelayClient(
-        os.environ["RELAYER_URL"],
-        int(os.environ.get("CHAIN_ID", "137")),
-        os.environ["PRIVATE_KEY"],
-        builder_config,
-    )
+relayer = RelayClient(
+    os.environ["RELAYER_URL"],
+    int(os.environ.get("CHAIN_ID", "137")),
+    os.environ["PRIVATE_KEY"],
+    builder_config,
+)
 
-    deposit_wallet = relayer.get_expected_deposit_wallet()
-    response = relayer.deploy_deposit_wallet()
-    confirmed = response.wait()
-    ```
+deposit_wallet = relayer.get_expected_deposit_wallet()
+response = relayer.deploy_deposit_wallet()
+confirmed = response.wait()
+```
 
-    `get_expected_deposit_wallet()` derives the deterministic wallet address from
-    the signer and the chain's deposit wallet configuration.
+`get_expected_deposit_wallet()` derives the deterministic wallet address from
+the signer and the chain's deposit wallet configuration.
 
-    ### Execute a Wallet Batch
+### Execute a Wallet Batch
 
-    ```python theme={null}
-    import time
+```python
+import time
 
-    from py_builder_relayer_client.models import DepositWalletCall, TransactionType
+from py_builder_relayer_client.models import DepositWalletCall, TransactionType
 
-    nonce_payload = relayer.get_nonce(
-        relayer.signer.address(),
-        TransactionType.WALLET.value,
-    )
-    wallet_nonce = str(nonce_payload["nonce"])
+nonce_payload = relayer.get_nonce(
+    relayer.signer.address(),
+    TransactionType.WALLET.value,
+)
+wallet_nonce = str(nonce_payload["nonce"])
 
-    call = DepositWalletCall(
-        target=os.environ["PUSD_ADDRESS"],
-        value="0",
-        data=approve_calldata,
-    )
+call = DepositWalletCall(
+    target=os.environ["PUSD_ADDRESS"],
+    value="0",
+    data=approve_calldata,
+)
 
-    response = relayer.execute_deposit_wallet_batch(
-        calls=[call],
-        wallet_address=deposit_wallet,
-        nonce=wallet_nonce,
-        deadline=str(int(time.time()) + 600),
-    )
-    confirmed = response.wait()
-    ```
+response = relayer.execute_deposit_wallet_batch(
+    calls=[call],
+    wallet_address=deposit_wallet,
+    nonce=wallet_nonce,
+    deadline=str(int(time.time()) + 600),
+)
+confirmed = response.wait()
+```
 
-    The Python relayer client mirrors the TypeScript wire format for `WALLET-CREATE`
-    and `WALLET` requests, while keeping builder API key auth in the Python client.
+The Python relayer client mirrors the TypeScript wire format for `WALLET-CREATE`
+and `WALLET` requests, while keeping builder API key auth in the Python client.
 
-    ### Trade From the Deposit Wallet
+### Trade From the Deposit Wallet
 
-    Use the Python CLOB client with deposit wallet order support:
-    [py-clob-client-v2](https://pypi.org/project/py-clob-client-v2/).
+Use the Python CLOB client with deposit wallet order support:
+[py-clob-client-v2](https://pypi.org/project/py-clob-client-v2/).
 
-    ```bash theme={null}
-    pip install py-clob-client-v2
-    ```
+```bash
+pip install py-clob-client-v2
+```
 
-    ```python theme={null}
-    import os
+```python
+import os
 
-    from py_clob_client_v2 import (
-        ApiCreds,
-        AssetType,
-        BalanceAllowanceParams,
-        ClobClient,
-        OrderArgs,
-        OrderType,
-        PartialCreateOrderOptions,
-        Side,
-        SignatureTypeV2,
-    )
+from py_clob_client_v2 import (
+    ApiCreds,
+    AssetType,
+    BalanceAllowanceParams,
+    ClobClient,
+    OrderArgs,
+    OrderType,
+    PartialCreateOrderOptions,
+    Side,
+    SignatureTypeV2,
+)
 
-    creds = ApiCreds(
-        api_key=os.environ["CLOB_API_KEY"],
-        api_secret=os.environ["CLOB_SECRET"],
-        api_passphrase=os.environ["CLOB_PASS_PHRASE"],
-    )
+creds = ApiCreds(
+    api_key=os.environ["CLOB_API_KEY"],
+    api_secret=os.environ["CLOB_SECRET"],
+    api_passphrase=os.environ["CLOB_PASS_PHRASE"],
+)
 
-    clob = ClobClient(
-        host=os.environ["CLOB_API_URL"],
-        chain_id=int(os.environ.get("CHAIN_ID", "137")),
-        key=os.environ["PRIVATE_KEY"],
-        creds=creds,
+clob = ClobClient(
+    host=os.environ["CLOB_API_URL"],
+    chain_id=int(os.environ.get("CHAIN_ID", "137")),
+    key=os.environ["PRIVATE_KEY"],
+    creds=creds,
+    signature_type=SignatureTypeV2.POLY_1271,
+    funder=deposit_wallet,
+)
+
+clob.update_balance_allowance(
+    BalanceAllowanceParams(
+        asset_type=AssetType.COLLATERAL,
         signature_type=SignatureTypeV2.POLY_1271,
-        funder=deposit_wallet,
     )
+)
 
-    clob.update_balance_allowance(
-        BalanceAllowanceParams(
-            asset_type=AssetType.COLLATERAL,
-            signature_type=SignatureTypeV2.POLY_1271,
-        )
+response = clob.create_and_post_order(
+    order_args=OrderArgs(
+        token_id=os.environ["TOKEN_ID"],
+        price=0.50,
+        size=10,
+        side=Side.BUY,
+    ),
+    options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
+    order_type=OrderType.GTC,
+)
+```
+
+**Rust**
+### Deploy the Wallet and Execute Wallet Batches
+
+The Rust SDK supports the CLOB order path for deposit wallets. It does not
+include a builder relayer client. Use the TypeScript or Python relayer client
+above, or the raw API flow below, to submit `WALLET-CREATE` and `WALLET`
+transactions.
+
+Use the Rust CLOB client with deposit wallet support:
+[polymarket\_client\_sdk\_v2](https://crates.io/crates/polymarket_client_sdk_v2).
+
+```bash
+cargo add polymarket_client_sdk_v2 --features clob
+```
+
+Once the deposit wallet is deployed, funded, and approved, pass the deposit
+wallet address as the Rust CLOB client funder.
+
+### Trade From the Deposit Wallet
+
+```rust
+use std::str::FromStr as _;
+
+use polymarket_client_sdk_v2::auth::{LocalSigner, Signer as _};
+use polymarket_client_sdk_v2::clob::types::request::UpdateBalanceAllowanceRequest;
+use polymarket_client_sdk_v2::clob::types::{AssetType, OrderType, Side, SignatureType};
+use polymarket_client_sdk_v2::clob::{Client, Config};
+use polymarket_client_sdk_v2::types::{Address, Decimal, U256};
+use polymarket_client_sdk_v2::{POLYGON, PRIVATE_KEY_VAR};
+
+let host = std::env::var("CLOB_API_URL")?;
+let token_id = U256::from_str(&std::env::var("TOKEN_ID")?)?;
+let deposit_wallet = Address::from_str(&std::env::var("DEPOSIT_WALLET")?)?;
+let signer =
+    LocalSigner::from_str(&std::env::var(PRIVATE_KEY_VAR)?)?.with_chain_id(Some(POLYGON));
+
+let client = Client::new(&host, Config::default())?
+    .authentication_builder(&signer)
+    .funder(deposit_wallet)
+    .signature_type(SignatureType::Poly1271)
+    .authenticate()
+    .await?;
+
+client
+    .update_balance_allowance(
+        UpdateBalanceAllowanceRequest::builder()
+            .asset_type(AssetType::Collateral)
+            .build(),
     )
+    .await?;
 
-    response = clob.create_and_post_order(
-        order_args=OrderArgs(
-            token_id=os.environ["TOKEN_ID"],
-            price=0.50,
-            size=10,
-            side=Side.BUY,
-        ),
-        options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
-        order_type=OrderType.GTC,
-    )
-    ```
-  </Tab>
+let _response = client
+    .limit_order()
+    .token_id(token_id)
+    .side(Side::Buy)
+    .price(Decimal::from_str("0.50")?)
+    .size(Decimal::from_str("10")?)
+    .order_type(OrderType::GTC)
+    .build_sign_and_post(&signer)
+    .await?;
+```
 
-  <Tab title="Rust">
-    ### Deploy the Wallet and Execute Wallet Batches
-
-    The Rust SDK supports the CLOB order path for deposit wallets. It does not
-    include a builder relayer client. Use the TypeScript or Python relayer client
-    above, or the raw API flow below, to submit `WALLET-CREATE` and `WALLET`
-    transactions.
-
-    Use the Rust CLOB client with deposit wallet support:
-    [polymarket\_client\_sdk\_v2](https://crates.io/crates/polymarket_client_sdk_v2).
-
-    ```bash theme={null}
-    cargo add polymarket_client_sdk_v2 --features clob
-    ```
-
-    Once the deposit wallet is deployed, funded, and approved, pass the deposit
-    wallet address as the Rust CLOB client funder.
-
-    ### Trade From the Deposit Wallet
-
-    ```rust theme={null}
-    use std::str::FromStr as _;
-
-    use polymarket_client_sdk_v2::auth::{LocalSigner, Signer as _};
-    use polymarket_client_sdk_v2::clob::types::request::UpdateBalanceAllowanceRequest;
-    use polymarket_client_sdk_v2::clob::types::{AssetType, OrderType, Side, SignatureType};
-    use polymarket_client_sdk_v2::clob::{Client, Config};
-    use polymarket_client_sdk_v2::types::{Address, Decimal, U256};
-    use polymarket_client_sdk_v2::{POLYGON, PRIVATE_KEY_VAR};
-
-    let host = std::env::var("CLOB_API_URL")?;
-    let token_id = U256::from_str(&std::env::var("TOKEN_ID")?)?;
-    let deposit_wallet = Address::from_str(&std::env::var("DEPOSIT_WALLET")?)?;
-    let signer =
-        LocalSigner::from_str(&std::env::var(PRIVATE_KEY_VAR)?)?.with_chain_id(Some(POLYGON));
-
-    let client = Client::new(&host, Config::default())?
-        .authentication_builder(&signer)
-        .funder(deposit_wallet)
-        .signature_type(SignatureType::Poly1271)
-        .authenticate()
-        .await?;
-
-    client
-        .update_balance_allowance(
-            UpdateBalanceAllowanceRequest::builder()
-                .asset_type(AssetType::Collateral)
-                .build(),
-        )
-        .await?;
-
-    let _response = client
-        .limit_order()
-        .token_id(token_id)
-        .side(Side::Buy)
-        .price(Decimal::from_str("0.50")?)
-        .size(Decimal::from_str("10")?)
-        .order_type(OrderType::GTC)
-        .build_sign_and_post(&signer)
-        .await?;
-    ```
-
-    The Rust client sets `signatureType = 3` and builds the wrapped ERC-1271 order
-    signature when `SignatureType::Poly1271` and a deposit wallet funder are
-    configured.
-  </Tab>
-</Tabs>
+The Rust client sets `signatureType = 3` and builds the wrapped ERC-1271 order
+signature when `SignatureType::Poly1271` and a deposit wallet funder are
+configured.
 
 ## API Users
 
@@ -431,7 +414,7 @@ the same CLOB order signature shape used by the SDKs.
 
 Submit this body to the relayer `/submit` endpoint:
 
-```json theme={null}
+```json
 {
   "type": "WALLET-CREATE",
   "from": "0xOwnerAddress",
@@ -490,7 +473,7 @@ that derive addresses themselves should follow the same algorithm.
 Both clone shapes share the same outer CREATE2 inputs and differ only in the
 init code hash:
 
-```text theme={null}
+```text
 walletId = bytes32(owner)                  // owner address left-padded to 32 bytes
 args     = abi.encode(factory, walletId)
 salt     = keccak256(args)
@@ -509,13 +492,13 @@ To resolve a user's address, probe the factory's `BEACON()` view (selector
 
 1. Compute `uupsWallet`.
 2. `eth_call` the factory with data `0x49493a4d`. If the call reverts or
-   returns the zero address, the factory does not expose a beacon — return
-   `uupsWallet`.
+returns the zero address, the factory does not expose a beacon — return
+`uupsWallet`.
 3. If the call returns a non-zero address, check `eth_getCode(uupsWallet)`.
-   If it has bytecode, the user already has a UUPS wallet there — return
-   `uupsWallet`.
+If it has bytecode, the user already has a UUPS wallet there — return
+`uupsWallet`.
 4. Otherwise, compute and return `beaconWallet` using the address returned
-   from `BEACON()`.
+from `BEACON()`.
 
 ### Submit a Deposit Wallet Batch
 
@@ -523,11 +506,11 @@ For wallet actions such as token approvals, transfers, withdrawals, splits, or
 merges, fetch the current `WALLET` nonce for the owner address, then sign a
 `Batch` with the owner or session signer:
 
-```http theme={null}
+```http
 GET /nonce?address=0xOwnerAddress&type=WALLET
 ```
 
-```typescript theme={null}
+```typescript
 const types = {
   Call: [
     { name: "target", type: "address" },
@@ -559,7 +542,7 @@ const message = {
 
 Submit the signed batch to the relayer:
 
-```json theme={null}
+```json
 {
   "type": "WALLET",
   "from": "0xOwnerAddress",
@@ -591,7 +574,7 @@ actions.
 For deposit wallet orders, the raw order inside the `/order` request must use
 `signatureType = 3`:
 
-```json theme={null}
+```json
 {
   "deferExec": false,
   "order": {
@@ -631,24 +614,20 @@ correct CTF Exchange V2 domain. The nested wallet fields are:
 The SDKs build this wrapper for you when you configure `POLY_1271` and the
 deposit wallet funder address.
 
-<Warning>
-  If you sign the CLOB order as a normal EOA order, or if `maker` and `signer`
-  are not both the deposit wallet address, the order will fail ERC-1271
-  validation. `POLY_1271` is supported on V2 orders only.
-</Warning>
+> **Warning:** If you sign the CLOB order as a normal EOA order, or if `maker` and `signer` are not both the deposit wallet address, the order will fail ERC-1271 validation. `POLY_1271` is supported on V2 orders only.
 
 ### Sync Balance and Allowance
 
 After funding the deposit wallet or approving contracts from it, update the CLOB
 balance cache using `signature_type = 3`.
 
-```http theme={null}
+```http
 GET /balance-allowance/update?asset_type=COLLATERAL&signature_type=3
 ```
 
 For conditional tokens, include the token ID:
 
-```http theme={null}
+```http
 GET /balance-allowance/update?asset_type=CONDITIONAL&token_id=TOKEN_ID&signature_type=3
 ```
 
@@ -657,37 +636,30 @@ CLOB auth are separate systems.
 
 ## Common Issues
 
-<AccordionGroup>
-  <Accordion title="Order is rejected as invalid signature">
-    Check all four signature inputs: `signatureType` must be `3`, order `maker` must
-    be the deposit wallet, order `signer` must be the deposit wallet, and the order
-    signature must be the ERC-7739-wrapped `POLY_1271` signature. Also confirm the
-    order was signed against the correct CTF Exchange V2 verifying contract for the
-    market.
-  </Accordion>
+#### Order is rejected as invalid signature
+Check all four signature inputs: `signatureType` must be `3`, order `maker` must
+be the deposit wallet, order `signer` must be the deposit wallet, and the order
+signature must be the ERC-7739-wrapped `POLY_1271` signature. Also confirm the
+order was signed against the correct CTF Exchange V2 verifying contract for the
+market.
 
-  <Accordion title="Wallet batch is rejected">
-    Fetch the current `WALLET` nonce fresh from the relayer before signing the batch.
-    Confirm the deadline is still in the future and within the relayer's accepted
-    range. The `WALLET` batch signature should be a normal 65-byte EIP-712 signature
-    over `DepositWallet` `Batch`.
-  </Accordion>
+#### Wallet batch is rejected
+Fetch the current `WALLET` nonce fresh from the relayer before signing the batch.
+Confirm the deadline is still in the future and within the relayer's accepted
+range. The `WALLET` batch signature should be a normal 65-byte EIP-712 signature
+over `DepositWallet` `Batch`.
 
-  <Accordion title="Order says not enough balance">
-    Confirm pUSD is held by the deposit wallet address. Then update the CLOB balance
-    cache with `signature_type = 3`. pUSD sitting on the owner EOA does not fund
-    deposit wallet orders.
-  </Accordion>
+#### Order says not enough balance
+Confirm pUSD is held by the deposit wallet address. Then update the CLOB balance
+cache with `signature_type = 3`. pUSD sitting on the owner EOA does not fund
+deposit wallet orders.
 
-  <Accordion title="Allowance is missing">
-    Approvals must come from the deposit wallet. An EOA `approve()` transaction does
-    not approve spending from the deposit wallet. Submit approval calldata through a
-    relayer `WALLET` batch.
-  </Accordion>
+#### Allowance is missing
+Approvals must come from the deposit wallet. An EOA `approve()` transaction does
+not approve spending from the deposit wallet. Submit approval calldata through a
+relayer `WALLET` batch.
 
-  <Accordion title="Direct API auth is confusing">
-    Relayer auth and CLOB auth are independent. Use the auth method required by your
-    relayer environment for `/submit`. Use CLOB L1/L2 authentication for order and
-    balance endpoints. Do not reuse relayer cookies or headers as CLOB auth.
-  </Accordion>
-</AccordionGroup>
+#### Direct API auth is confusing
+Relayer auth and CLOB auth are independent. Use the auth method required by your
+relayer environment for `/submit`. Use CLOB L1/L2 authentication for order and
+balance endpoints. Do not reuse relayer cookies or headers as CLOB auth.

@@ -3,9 +3,6 @@
 > Retrieves the minimum tick size (price increment) for a specific token ID.
 The tick size can be provided either as a query parameter or as a path parameter.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /tick-size

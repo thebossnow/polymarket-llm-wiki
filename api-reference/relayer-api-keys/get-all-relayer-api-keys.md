@@ -2,9 +2,6 @@
 
 > Returns all relayer API keys for the authenticated address. Auth allowed: Gamma auth or Relayer API key auth (`RELAYER_API_KEY` + `RELAYER_API_KEY_ADDRESS`).
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/relayer-openapi.yaml get /relayer/api/keys
@@ -28,13 +25,11 @@ tags:
       However, Relayer API keys can only be created using Gamma auth. Every
       address can create a maximum of 100 keys.
 
-
       The API key auth headers are:
 
       - `RELAYER_API_KEY`
 
       - `RELAYER_API_KEY_ADDRESS`
-
 
       `RELAYER_API_KEY_ADDRESS` must match the address that owns the key.
 paths:

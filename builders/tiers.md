@@ -40,10 +40,7 @@ The Builder Program uses a tiered system to manage rate limits while rewarding h
 
 ## Unverified
 
-<Card title="100 Relay transactions/day" icon="seedling">
-  The default tier for all new builders. Start immediately with no approval
-  required.
-</Card>
+- **100 Relay transactions/day** — The default tier for all new builders. Start immediately with no approval required.
 
 **How to get started:**
 
@@ -62,9 +59,7 @@ The Builder Program uses a tiered system to manage rate limits while rewarding h
 
 ## Verified
 
-<Card title="10,000 Relay transactions/day" icon="badge-check">
-  For builders who need higher throughput. Requires manual approval.
-</Card>
+- **10,000 Relay transactions/day** — For builders who need higher throughput. Requires manual approval.
 
 **How to upgrade:**
 
@@ -88,9 +83,7 @@ Contact us at [builder@polymarket.com](mailto:builder@polymarket.com) with:
 
 ## Partner
 
-<Card title="Unlimited Relay transactions/day" icon="handshake">
-  Enterprise tier for high-volume integrations and strategic partners.
-</Card>
+- **Unlimited Relay transactions/day** — Enterprise tier for high-volume integrations and strategic partners.
 
 **Unlocks over Verified:**
 
@@ -104,63 +97,44 @@ Contact us at [builder@polymarket.com](mailto:builder@polymarket.com) with:
 
 ## How to Upgrade
 
-<Steps>
-  <Step title="Build and Launch">
-    Start with the Unverified tier and build your integration.
-  </Step>
+### Build and Launch
+Start with the Unverified tier and build your integration.
 
-  <Step title="Generate Volume">
-    Route orders through Polymarket and demonstrate consistent usage.
-  </Step>
+### Generate Volume
+Route orders through Polymarket and demonstrate consistent usage.
 
-  <Step title="Apply for Verification">
-    Email [builder@polymarket.com](mailto:builder@polymarket.com) with your
-    builder key and use case.
-  </Step>
+### Apply for Verification
+Email [builder@polymarket.com](mailto:builder@polymarket.com) with your
+builder key and use case.
 
-  <Step title="Get Approved">
-    The Polymarket team reviews applications and responds within a few business
-    days.
-  </Step>
-</Steps>
+### Get Approved
+The Polymarket team reviews applications and responds within a few business
+days.
 
 ## Contact
 
 Ready to upgrade or have questions?
 
-<Card title="builder@polymarket.com" icon="envelope" href="mailto:builder@polymarket.com">
-  Email us with your Builder API Key and use case details.
-</Card>
+- **[builder@polymarket.com](mailto:builder@polymarket.com)** — Email us with your Builder API Key and use case details.
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="How do I know if I am verified">
-    Verification is displayed in your [Builder Profile](https://polymarket.com/settings?tab=builder) settings.
-  </Accordion>
+#### How do I know if I am verified
+Verification is displayed in your [Builder Profile](https://polymarket.com/settings?tab=builder) settings.
 
-  <Accordion title="What happens if I exceed my daily limit">
-    Relayer requests beyond your daily limit will be rate-limited and return an
-    error. Consider upgrading to Verified or Partner tier if you're hitting
-    limits.
-  </Accordion>
+#### What happens if I exceed my daily limit
+Relayer requests beyond your daily limit will be rate-limited and return an
+error. Consider upgrading to Verified or Partner tier if you're hitting
+limits.
 
-  <Accordion title="What if I just need more daily Relay transaction limits for my own wallet">
-    If you're not routing orders for other users (wallets), you can get unlimited
-    daily Relay transactions by obtaining a [Relayer API key](https://polymarket.com/settings?tab=api-keys).
-  </Accordion>
-</AccordionGroup>
+#### What if I just need more daily Relay transaction limits for my own wallet
+If you're not routing orders for other users (wallets), you can get unlimited
+daily Relay transactions by obtaining a [Relayer API key](https://polymarket.com/settings?tab=api-keys).
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Get API Keys" icon="key" href="/builders/api-keys">
-    Create your Builder API credentials.
-  </Card>
+- **[Get API Keys](/builders/api-keys)** — Create your Builder API credentials.
 
-  <Card title="Attribute Orders" icon="tag" href="/trading/orders/attribution">
-    Configure your client to credit trades to your account.
-  </Card>
-</CardGroup>
+- **[Attribute Orders](/trading/orders/attribution)** — Configure your client to credit trades to your account.

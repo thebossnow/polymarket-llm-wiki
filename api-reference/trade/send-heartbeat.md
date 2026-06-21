@@ -5,9 +5,6 @@ If heartbeats are not sent regularly, all open orders for the user will be autom
 This is useful for automated trading systems that need to ensure orders are canceled
 if the system becomes unresponsive.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /heartbeats

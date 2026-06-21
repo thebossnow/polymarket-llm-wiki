@@ -25,4 +25,14 @@ fetch_one() {
 export -f fetch_one; export ROOT BASE
 xargs -P 8 -I{} bash -c 'fetch_one "$@"' _ {} < /tmp/poly_en_urls.txt
 curl -sL "$BASE/llms.txt" > "$ROOT/llms.txt"
+
+# Strip Mintlify MDX/JSX components -> plain Markdown for LLM consumption.
+find "$ROOT" -name '*.md' -not -name README.md -print0 \
+  | xargs -0 python3 "$ROOT/scripts/clean_mdx.py"
+
+# Concatenate the cleaned pages into a single full-text corpus.
+python3 "$ROOT/scripts/build_llms_full.py" "$ROOT" > "$ROOT/llms-full.txt"
+
 echo "Done. $(find "$ROOT" -name '*.md' -not -name README.md | wc -l) pages."
+# Review changes before committing.
+git -C "$ROOT" diff --stat 2>/dev/null || true

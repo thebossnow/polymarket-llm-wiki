@@ -7,9 +7,6 @@ When `sponsored=true`, returns sponsored reward configurations instead.
 Results are paginated (500 items per page). Use next_cursor to fetch subsequent pages.
 A next_cursor value of "LTE=" indicates the last page.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/markets/current
@@ -49,9 +46,7 @@ paths:
       description: >
         Returns all current active rewards configurations grouped by market.
 
-
         When `sponsored=true`, returns sponsored reward configurations instead.
-
 
         Results are paginated (500 items per page). Use next_cursor to fetch
         subsequent pages.

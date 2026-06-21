@@ -2,9 +2,7 @@
 
 > Refer traders to Polymarket and earn daily pUSD rewards
 
-<Note>
-  These updated Referral Program terms take effect on **Thursday, May 28, 2026**.
-</Note>
+> **Note:** These updated Referral Program terms take effect on **Thursday, May 28, 2026**.
 
 Refer traders to Polymarket and earn a share of the net trading fees they generate, paid every day in pUSD.
 
@@ -39,11 +37,7 @@ You earn a share of the **net** trading fees your referrals generate.
 | Direct referral   | **10%** of net trading fees |
 | Indirect referral | **5%** of net trading fees  |
 
-<Note>
-  Net trading fees are what Polymarket keeps after the referred user's own tier
-  rebate. The more rebate they earn, the more of their fees go back to them
-  rather than into your referral reward.
-</Note>
+> **Note:** Net trading fees are what Polymarket keeps after the referred user's own tier rebate. The more rebate they earn, the more of their fees go back to them rather than into your referral reward.
 
 ### The Caps
 
@@ -78,52 +72,38 @@ You refer a new trader. From their very first trade and through every tier up to
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Who can earn referral rewards">
-    Any Polymarket user with at least \$10,000 in lifetime trading volume. You
-    can share links before reaching the threshold, but rewards only begin once
-    you cross it.
-  </Accordion>
+#### Who can earn referral rewards
+Any Polymarket user with at least \$10,000 in lifetime trading volume. You
+can share links before reaching the threshold, but rewards only begin once
+you cross it.
 
-  <Accordion title="What is the difference between direct and indirect referrals">
-    A direct referral is someone you personally refer. An indirect referral is
-    someone referred by one of your referrals. You earn 10% of net fees from
-    direct referrals and 5% from indirect referrals.
-  </Accordion>
+#### What is the difference between direct and indirect referrals
+A direct referral is someone you personally refer. An indirect referral is
+someone referred by one of your referrals. You earn 10% of net fees from
+direct referrals and 5% from indirect referrals.
 
-  <Accordion title="What does net fees mean">
-    Net fees are what Polymarket keeps after the referred user's own tier
-    rebate. Your referral reward is a percentage of that net amount.
-  </Accordion>
+#### What does net fees mean
+Net fees are what Polymarket keeps after the referred user's own tier
+rebate. Your referral reward is a percentage of that net amount.
 
-  <Accordion title="When do my referral rewards stop">
-    Rewards on a referral start with their first trade and end at whichever of
-    these comes first: the referral reaches the Platinum tier, or 30 days from
-    their sign-up.
-  </Accordion>
+#### When do my referral rewards stop
+Rewards on a referral start with their first trade and end at whichever of
+these comes first: the referral reaches the Platinum tier, or 30 days from
+their sign-up.
 
-  <Accordion title="When am I paid">
-    Rewards are paid once a day at midnight UTC in pUSD, directly to your
-    account.
-  </Accordion>
+#### When am I paid
+Rewards are paid once a day at midnight UTC in pUSD, directly to your
+account.
 
-  <Accordion title="What is not allowed">
-    Self-referrals, referring accounts you control, and inauthentic trading are
-    not allowed. Polymarket may disqualify referrals and claw back rewards for
-    activity that breaks the Terms of Service.
-  </Accordion>
-</AccordionGroup>
+#### What is not allowed
+Self-referrals, referring accounts you control, and inauthentic trading are
+not allowed. Polymarket may disqualify referrals and claw back rewards for
+activity that breaks the Terms of Service.
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Taker Rebate Program" icon="trophy" href="/trading/taker-rebates">
-    Climb the tiers and earn daily pUSD rebates as you trade.
-  </Card>
+- **[Taker Rebate Program](/trading/taker-rebates)** — Climb the tiers and earn daily pUSD rebates as you trade.
 
-  <Card title="Fee Structure" icon="receipt" href="/trading/fees">
-    See how taker fees are calculated across market categories.
-  </Card>
-</CardGroup>
+- **[Fee Structure](/trading/fees)** — See how taker fees are calculated across market categories.

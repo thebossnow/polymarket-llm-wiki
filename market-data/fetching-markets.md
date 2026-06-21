@@ -2,10 +2,7 @@
 
 > Three strategies for discovering and querying markets
 
-<Tip>
-  Both the events and markets endpoints are paginated. See
-  [pagination](#pagination) for details.
-</Tip>
+> **Tip:** Both the events and markets endpoints are paginated. See [pagination](#pagination) for details.
 
 There are three main strategies for retrieving market data, each optimized for different use cases:
 
@@ -33,7 +30,7 @@ https://polymarket.com/event/fed-decision-in-october
 
 ### Examples
 
-```bash theme={null}
+```bash
 # Fetch an event by slug (query parameter)
 curl "https://gamma-api.polymarket.com/events?slug=fed-decision-in-october"
 
@@ -41,7 +38,7 @@ curl "https://gamma-api.polymarket.com/events?slug=fed-decision-in-october"
 curl "https://gamma-api.polymarket.com/events/slug/fed-decision-in-october"
 ```
 
-```bash theme={null}
+```bash
 # Fetch a market by slug (query parameter)
 curl "https://gamma-api.polymarket.com/markets?slug=fed-decision-in-october"
 
@@ -69,7 +66,7 @@ The `/sports` endpoint returns metadata for sports including tag IDs, images, re
 
 Once you have tag IDs, use the `tag_id` parameter in both events and markets endpoints:
 
-```bash theme={null}
+```bash
 # Fetch events for a specific tag
 curl "https://gamma-api.polymarket.com/events?tag_id=100381&limit=10&active=true&closed=false"
 ```
@@ -81,7 +78,7 @@ You can also:
 * Use `related_tags=true` to include related tag markets
 * Exclude specific tags with `exclude_tag_id`
 
-```bash theme={null}
+```bash
 # Include related tags
 curl "https://gamma-api.polymarket.com/events?tag_id=100381&related_tags=true&active=true&closed=false"
 ```
@@ -94,7 +91,7 @@ curl "https://gamma-api.polymarket.com/events?tag_id=100381&related_tags=true&ac
 
 The most efficient approach is to use the events endpoint with `active=true&closed=false`, as events contain their associated markets.
 
-```bash theme={null}
+```bash
 curl "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=100"
 ```
 
@@ -109,7 +106,7 @@ curl "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=100
 | `limit`     | Results per page                                                                                                 |
 | `offset`    | Number of results to skip for pagination                                                                         |
 
-```bash theme={null}
+```bash
 # Get the highest volume active events
 curl "https://gamma-api.polymarket.com/events?active=true&closed=false&order=volume_24hr&ascending=false&limit=100"
 ```
@@ -120,7 +117,7 @@ curl "https://gamma-api.polymarket.com/events?active=true&closed=false&order=vol
 
 All list endpoints return paginated responses with `limit` and `offset` parameters:
 
-```bash theme={null}
+```bash
 # Page 1: First 50 results
 curl "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=50&offset=0"
 
@@ -145,8 +142,4 @@ curl "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=50&
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="API Reference" icon="code" href="/api-reference/introduction">
-    Full endpoint documentation with parameters and response schemas.
-  </Card>
-</CardGroup>
+- **[API Reference](/api-reference/introduction)** — Full endpoint documentation with parameters and response schemas.

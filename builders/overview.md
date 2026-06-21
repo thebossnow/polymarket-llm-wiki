@@ -6,15 +6,9 @@ A **builder** is a person, group, or organization that routes orders from users 
 
 ## Program Benefits
 
-<CardGroup cols={2}>
-  <Card title="Gasless Transactions" icon="gas-pump">
-    All onchain operations are gas-free through our relayer
-  </Card>
+- **Gasless Transactions** — All onchain operations are gas-free through our relayer
 
-  <Card title="Order Attribution" icon="tag">
-    Get credit for orders and compete for grants on the Builder Leaderboard
-  </Card>
-</CardGroup>
+- **Order Attribution** — Get credit for orders and compete for grants on the Builder Leaderboard
 
 ### What You Get
 
@@ -25,103 +19,67 @@ A **builder** is a person, group, or organization that routes orders from users 
 | **Leaderboard**     | Public visibility on [builders.polymarket.com](https://builders.polymarket.com) |
 | **Support**         | Telegram channel and engineering support (Verified+)                            |
 
-<Warning>
-  EOA wallets do not have relayer access. Users trading directly from an EOA pay
-  their own gas fees.
-</Warning>
+> **Warning:** EOA wallets do not have relayer access. Users trading directly from an EOA pay their own gas fees.
 
 ## How It Works
 
-<Steps>
-  <Step title="User Places Order">
-    User places an order through your application.
-  </Step>
+### User Places Order
+User places an order through your application.
 
-  <Step title="Attach Builder Code">
-    Your app adds your `builderCode` to the order struct.
-  </Step>
+### Attach Builder Code
+Your app adds your `builderCode` to the order struct.
 
-  <Step title="Submit to CLOB">
-    Order is submitted to Polymarket's CLOB — the builder code is serialized
-    onchain as part of the signed order.
-  </Step>
+### Submit to CLOB
+Order is submitted to Polymarket's CLOB — the builder code is serialized
+onchain as part of the signed order.
 
-  <Step title="Trade Execution">
-    Polymarket matches the order and covers gas fees for onchain operations.
-  </Step>
+### Trade Execution
+Polymarket matches the order and covers gas fees for onchain operations.
 
-  <Step title="Volume Attribution">
-    Volume is credited to your builder account for every matched trade where
-    your code is attached.
-  </Step>
-</Steps>
+### Volume Attribution
+Volume is credited to your builder account for every matched trade where
+your code is attached.
 
 ## Getting Started
 
-<Steps>
-  <Step title="Create Builder Profile">
-    Go to
-    [polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
-    and copy your builder code.
-  </Step>
+### Create Builder Profile
+Go to
+[polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
+and copy your builder code.
 
-  <Step title="Attach Your Builder Code">
-    Pass `builderCode` on every order you submit — see [Order
-    Attribution](/trading/orders/attribution).
-  </Step>
+### Attach Your Builder Code
+Pass `builderCode` on every order you submit — see [Order
+Attribution](/trading/orders/attribution).
 
-  <Step title="Enable Gasless Transactions">
-    Use the Relayer Client for gas-free wallet deployment and onchain
-    operations.
-  </Step>
+### Enable Gasless Transactions
+Use the Relayer Client for gas-free wallet deployment and onchain
+operations.
 
-  <Step title="Track Performance">
-    Monitor your volume on the [Builder
-    Leaderboard](https://builders.polymarket.com).
-  </Step>
-</Steps>
+### Track Performance
+Monitor your volume on the [Builder
+Leaderboard](https://builders.polymarket.com).
 
 ## SDKs and Libraries
 
-<CardGroup cols={2}>
-  <Card title="CLOB Client (TypeScript)" icon="github" href="https://github.com/Polymarket/clob-client-v2">
-    Place orders with builder attribution
-  </Card>
+- **[CLOB Client (TypeScript)](https://github.com/Polymarket/clob-client-v2)** — Place orders with builder attribution
 
-  <Card title="CLOB Client (Python)" icon="github" href="https://github.com/Polymarket/py-clob-client-v2">
-    Place orders with builder attribution
-  </Card>
+- **[CLOB Client (Python)](https://github.com/Polymarket/py-clob-client-v2)** — Place orders with builder attribution
 
-  <Card title="Relayer Client (TypeScript)" icon="github" href="https://github.com/Polymarket/builder-relayer-client">
-    Gasless onchain transactions
-  </Card>
+- **[Relayer Client (TypeScript)](https://github.com/Polymarket/builder-relayer-client)** — Gasless onchain transactions
 
-  <Card title="Relayer Client (Python)" icon="github" href="https://github.com/Polymarket/py-builder-relayer-client">
-    Gasless onchain transactions
-  </Card>
+- **[Relayer Client (Python)](https://github.com/Polymarket/py-builder-relayer-client)** — Gasless onchain transactions
 
-  <Card title="CLOB Client (Rust)" icon="github" href="https://github.com/Polymarket/rs-clob-client-v2">
-    Place orders with builder attribution
-  </Card>
-</CardGroup>
+- **[CLOB Client (Rust)](https://github.com/Polymarket/rs-clob-client-v2)** — Place orders with builder attribution
 
 ## Examples
 
 These open-source demo applications show how to integrate Polymarket's CLOB Client and Builder Relayer Client for gasless trading with builder order attribution.
 
-<CardGroup cols={3}>
-  <Card title="Authentication" icon="user-check">
-    Multiple wallet providers
-  </Card>
+- **Authentication** — Multiple wallet providers
 
-  <Card title="Gasless Trading" icon="gas-pump">
-    Deposit wallet support for new API users
-  </Card>
+- **Gasless Trading** — Deposit wallet support for new API users
 
-  <Card title="Full Integration" icon="puzzle-piece">
-    Orders, positions, CTF ops
-  </Card>
-</CardGroup>
+- **Full Integration** — Orders, positions, CTF ops
 
 ### Deposit Wallet Integrations
 
@@ -136,83 +94,51 @@ Python, Rust, and direct API integration details.
 
 Existing Safe integrations can continue using Gnosis Safe wallets:
 
-<CardGroup cols={2}>
-  <Card title="wagmi + Safe" icon="wallet" href="https://github.com/Polymarket/wagmi-safe-builder-example">
-    MetaMask, Phantom, Rabby, and other browser wallets
-  </Card>
+- **[wagmi + Safe](https://github.com/Polymarket/wagmi-safe-builder-example)** — MetaMask, Phantom, Rabby, and other browser wallets
 
-  <Card title="Privy + Safe" icon="shield-check" href="https://github.com/Polymarket/privy-safe-builder-example">
-    Privy embedded wallets
-  </Card>
+- **[Privy + Safe](https://github.com/Polymarket/privy-safe-builder-example)** — Privy embedded wallets
 
-  <Card title="Magic Link + Safe" icon="wand-magic-sparkles" href="https://github.com/Polymarket/magic-safe-builder-example">
-    Magic Link email/social authentication
-  </Card>
+- **[Magic Link + Safe](https://github.com/Polymarket/magic-safe-builder-example)** — Magic Link email/social authentication
 
-  <Card title="Turnkey + Safe" icon="key" href="https://github.com/Polymarket/turnkey-safe-builder-example">
-    Turnkey embedded wallets
-  </Card>
-</CardGroup>
+- **[Turnkey + Safe](https://github.com/Polymarket/turnkey-safe-builder-example)** — Turnkey embedded wallets
 
 ### Existing Proxy Wallet Examples
 
 For existing Magic Link users from Polymarket.com:
 
-<CardGroup cols={1}>
-  <Card title="Magic Link + Proxy" icon="wand-magic-sparkles" href="https://github.com/Polymarket/magic-proxy-builder-example">
-    Auto-deploying proxy wallets for Polymarket.com Magic users
-  </Card>
-</CardGroup>
+- **[Magic Link + Proxy](https://github.com/Polymarket/magic-proxy-builder-example)** — Auto-deploying proxy wallets for Polymarket.com Magic users
 
 ### What Each Demo Covers
 
-<Tabs>
-  <Tab title="Authentication">
-    <ul>
-      <li>User sign-in via wallet provider</li>
-      <li>User API credential derivation (L2 auth)</li>
-      <li>Builder config with remote signing</li>
-      <li>Signature types for Deposit Wallet, Safe, and Proxy wallets</li>
-    </ul>
-  </Tab>
+**Authentication**
 
-  <Tab title="Wallet Operations">
-    <ul>
-      <li>Deposit wallet deployment via Relayer</li>
-      <li>Batch token approvals (pUSD + outcome tokens)</li>
-      <li>CTF operations (split, merge, redeem)</li>
-      <li>Transaction monitoring</li>
-    </ul>
-  </Tab>
+User sign-in via wallet provider
+User API credential derivation (L2 auth)
+Builder config with remote signing
+Signature types for Deposit Wallet, Safe, and Proxy wallets
 
-  <Tab title="Trading">
-    <ul>
-      <li>CLOB client initialization</li>
-      <li>Order placement with builder attribution</li>
-      <li>Position and order management</li>
-      <li>Market discovery via Gamma API</li>
-    </ul>
-  </Tab>
-</Tabs>
+**Wallet Operations**
+
+Deposit wallet deployment via Relayer
+Batch token approvals (pUSD + outcome tokens)
+CTF operations (split, merge, redeem)
+Transaction monitoring
+
+**Trading**
+
+CLOB client initialization
+Order placement with builder attribution
+Position and order management
+Market discovery via Gamma API
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Get API Keys" icon="key" href="/builders/api-keys">
-    Create and manage your Builder API credentials.
-  </Card>
+- **[Get API Keys](/builders/api-keys)** — Create and manage your Builder API credentials.
 
-  <Card title="Understand Tiers" icon="layer-group" href="/builders/tiers">
-    Learn about rate limits and how to upgrade.
-  </Card>
+- **[Understand Tiers](/builders/tiers)** — Learn about rate limits and how to upgrade.
 
-  <Card title="Attribute Orders" icon="tag" href="/trading/orders/attribution">
-    Configure your client to credit trades to your account.
-  </Card>
+- **[Attribute Orders](/trading/orders/attribution)** — Configure your client to credit trades to your account.
 
-  <Card title="Gasless Guide" icon="gas-pump" href="/trading/gasless">
-    Set up gasless transactions for your users.
-  </Card>
-</CardGroup>
+- **[Gasless Guide](/trading/gasless)** — Set up gasless transactions for your users.

@@ -2,8 +2,6 @@
 
 > Combinatorial (multi-market) positions held by a user, with per-leg breakdown. Also available at /v1/data/user/{address}/positions/combos (address from the path).
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/positions/combos

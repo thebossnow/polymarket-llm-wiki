@@ -15,7 +15,7 @@ Polymarket uses **pUSD** (Polymarket USD) on Polygon as collateral for all tradi
 
 Generate unique bridge addresses linked to your Polymarket wallet. See the [Bridge API Reference](/api-reference/introduction) for full request and response schemas.
 
-```bash theme={null}
+```bash
 curl -X POST https://bridge.polymarket.com/deposit \
   -H "Content-Type: application/json" \
   -d '{"address": "0x56687bf447db6ffa42ffe2204a05edaa20f55839"}'
@@ -30,32 +30,23 @@ curl -X POST https://bridge.polymarket.com/deposit \
 | `btc`   | Bitcoin                                                  |
 | `tvm`   | Tron                                                     |
 
-<Warning>
-  Each address is unique to your wallet. Only send assets from supported chains
-  to the correct address type.
-</Warning>
+> **Warning:** Each address is unique to your wallet. Only send assets from supported chains to the correct address type.
 
 ## Deposit Flow
 
-<Steps>
-  <Step title="Get Your Bridge Address">
-    Call `POST /deposit` with your Polymarket wallet address to get bridge
-    addresses.
-  </Step>
+### Get Your Bridge Address
+Call `POST /deposit` with your Polymarket wallet address to get bridge
+addresses.
 
-  <Step title="Check Supported Assets">
-    Verify your token is supported and meets the minimum deposit amount via
-    `/supported-assets`.
-  </Step>
+### Check Supported Assets
+Verify your token is supported and meets the minimum deposit amount via
+`/supported-assets`.
 
-  <Step title="Send Assets">
-    Transfer tokens to the appropriate bridge address from your source chain.
-  </Step>
+### Send Assets
+Transfer tokens to the appropriate bridge address from your source chain.
 
-  <Step title="Track Status">
-    Monitor your deposit progress using `/status/{address}`.
-  </Step>
-</Steps>
+### Track Status
+Monitor your deposit progress using `/status/{address}`.
 
 ## USDC vs pUSD
 
@@ -81,20 +72,10 @@ If you deposited the wrong token, use this tool to recover your funds:
 
 [recovery.polymarket.com](https://recovery.polymarket.com/)
 
-<Warning>
-  Sending unsupported tokens may cause **irrecoverable loss**. Always verify
-  your token is listed in [Supported Assets](/trading/bridge/supported-assets)
-  before depositing.
-</Warning>
+> **Warning:** Sending unsupported tokens may cause **irrecoverable loss**. Always verify your token is listed in [Supported Assets](/trading/bridge/supported-assets) before depositing.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Supported Assets" icon="coins" href="/trading/bridge/supported-assets">
-    See all supported chains and tokens with minimum amounts.
-  </Card>
+- **[Supported Assets](/trading/bridge/supported-assets)** — See all supported chains and tokens with minimum amounts.
 
-  <Card title="Check Status" icon="clock" href="/trading/bridge/status">
-    Track your deposit progress through completion.
-  </Card>
-</CardGroup>
+- **[Check Status](/trading/bridge/status)** — Track your deposit progress through completion.

@@ -16,20 +16,11 @@ Polymarket operates on a non-custodial model. You maintain full control of your 
 * **Full transparency** - All trades and positions are recorded onchain and publicly verifiable
 * **Trustless execution** - Settlement happens automatically based on market resolution
 
-<Warning>
-  Keep your private key safe and never share it with anyone. If you lose your
-  private key, you lose access to your funds. If you signed up via Magic Link or
-  have a proxy wallet, recovery may be possible through
-  [recovery.polymarket.com](https://recovery.polymarket.com).
-</Warning>
+> **Warning:** Keep your private key safe and never share it with anyone. If you lose your private key, you lose access to your funds. If you signed up via Magic Link or have a proxy wallet, recovery may be possible through [recovery.polymarket.com](https://recovery.polymarket.com).
 
 ## How Polymarket Works
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/polymarket-101.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=059e9831d1c51b99996d9747c0139d49" alt="Polymarket Overview" className="dark:hidden" width="1526" height="952" data-path="images/core-concepts/polymarket-101.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/polymarket-101.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=4e929eca98a2bb83ef7421f7bbaf9f1d" alt="Polymarket Overview" className="hidden dark:block" width="1526" height="952" data-path="images/dark/core-concepts/polymarket-101.png" />
-</Frame>
+![Polymarket Overview](https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/polymarket-101.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=059e9831d1c51b99996d9747c0139d49)
 
 ### Prices Are Probabilities
 
@@ -104,11 +95,7 @@ Each smart-wallet user has their own wallet address. See
 [Contracts](/resources/contracts) for all deployed factory and trading contract
 addresses on Polygon.
 
-<Tip>
-  For details on signature types (`EOA`, `POLY_PROXY`, `GNOSIS_SAFE`,
-  `POLY_1271`) and how to configure your trading client for each wallet type,
-  see [Signature Types](/trading/overview#signature-types).
-</Tip>
+> **Tip:** For details on signature types (`EOA`, `POLY_PROXY`, `GNOSIS_SAFE`, `POLY_1271`) and how to configure your trading client for each wallet type, see [Signature Types](/trading/overview#signature-types).
 
 ***
 
@@ -116,12 +103,6 @@ addresses on Polygon.
 
 Ready to start trading?
 
-<CardGroup cols={2}>
-  <Card title="Quickstart Guide" icon="rocket" href="/quickstart">
-    Set up your account and make your first trade.
-  </Card>
+- **[Quickstart Guide](/quickstart)** — Set up your account and make your first trade.
 
-  <Card title="Explore Markets" icon="chart-line" href="https://polymarket.com">
-    Browse active prediction markets on Polymarket.
-  </Card>
-</CardGroup>
+- **[Explore Markets](https://polymarket.com)** — Browse active prediction markets on Polymarket.

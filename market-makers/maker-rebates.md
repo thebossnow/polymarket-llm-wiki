@@ -45,11 +45,7 @@ Maker Rebates are funded by taker fees collected in eligible markets. A percenta
 | Tech            | 25%          | Fee-curve weighted  |
 | Geopolitics     | —            | Fee-free            |
 
-<Note>
-  Polymarket collects taker fees in eligible markets across all fee-enabled categories.
-  The rebate percentage is at the sole discretion of Polymarket
-  and may change over time.
-</Note>
+> **Note:** Polymarket collects taker fees in eligible markets across all fee-enabled categories. The rebate percentage is at the sole discretion of Polymarket and may change over time.
 
 ***
 
@@ -59,7 +55,7 @@ Rebates are distributed using the **same formula as taker fees**. This ensures m
 
 For each filled maker order:
 
-```text theme={null}
+```text
 fee_equivalent = C × feeRate × p × (1 - p)
 ```
 
@@ -81,7 +77,7 @@ Where **C** = number of shares traded and **p** = price of the shares. The fee p
 
 Your daily rebate:
 
-```text theme={null}
+```text
 rebate = (your_fee_equivalent / total_fee_equivalent) * rebate_pool
 ```
 
@@ -93,11 +89,7 @@ Totals are calculated per market, so you only compete with other makers in the s
 
 Taker fees are calculated in pUSD and vary based on the share price. The fee amount in pUSD is symmetric around 50% probability — a trade at 30¢ incurs the same dollar fee as a trade at 70¢.
 
-<Frame>
-  <div className="p-3 bg-white rounded-xl">
-    <iframe title="Fee Curves" aria-label="Line chart" id="datawrapper-chart-cY9H4" src="https://datawrapper.dwcdn.net/cY9H4/" scrolling="no" frameborder="0" width={700} style={{ width: "0", minWidth: "100% !important", border: "none" }} height="450" data-external="1" />
-  </div>
-</Frame>
+[Fee Curves](https://datawrapper.dwcdn.net/cY9H4/)
 
 ### Fee Tables (100 Shares)
 
@@ -113,53 +105,37 @@ Fees are rounded to 5 decimal places. The smallest fee charged is 0.00001 pUSD. 
 
 The following market categories have taker fees enabled and are eligible for maker rebates: Crypto, Sports, Finance, Politics, Economics, Culture, Weather, Tech, Mentions, and Other / General.
 
-<Note>
-  Markets with fees enabled have `feesEnabled` set to `true` on the market
-  object. Query per-market fee parameters via `getClobMarketInfo(conditionID)`.
-</Note>
+> **Note:** Markets with fees enabled have `feesEnabled` set to `true` on the market object. Query per-market fee parameters via `getClobMarketInfo(conditionID)`.
 
 ***
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="How do I qualify for maker rebates">
-    Place orders that add liquidity to the book and get filled (i.e., your
-    liquidity is taken by another trader).
-  </Accordion>
+#### How do I qualify for maker rebates
+Place orders that add liquidity to the book and get filled (i.e., your
+liquidity is taken by another trader).
 
-  <Accordion title="When are rebates paid">Daily, in pUSD. You must accrue at least \$1 in rebates before a payout is issued.</Accordion>
+#### When are rebates paidDaily, in pUSD. You must accrue at least \$1 in rebates before a payout is issued.
 
-  <Accordion title="How are rebates calculated">
-    Rebates are proportional to your share of executed maker liquidity in each
-    eligible market. Totals are calculated per market, so you only compete with
-    other makers in the same market.
-  </Accordion>
+#### How are rebates calculated
+Rebates are proportional to your share of executed maker liquidity in each
+eligible market. Totals are calculated per market, so you only compete with
+other makers in the same market.
 
-  <Accordion title="Where does the rebate pool come from">
-    Taker fees collected in eligible markets are allocated to the maker rebate
-    pool and distributed daily.
-  </Accordion>
+#### Where does the rebate pool come from
+Taker fees collected in eligible markets are allocated to the maker rebate
+pool and distributed daily.
 
-  <Accordion title="Which markets have fees enabled">
-    Crypto, Sports, Finance, Politics, Economics, Culture, Weather, Tech, Mentions, and Other / General markets.
-  </Accordion>
+#### Which markets have fees enabled
+Crypto, Sports, Finance, Politics, Economics, Culture, Weather, Tech, Mentions, and Other / General markets.
 
-  <Accordion title="Is Polymarket charging fees on all markets">
-    Fees apply to markets in fee-enabled categories. Markets with fees enabled have `feesEnabled` set to `true` on the market object — check it per-market via `getClobMarketInfo(conditionID)`.
-  </Accordion>
-</AccordionGroup>
+#### Is Polymarket charging fees on all markets
+Fees apply to markets in fee-enabled categories. Markets with fees enabled have `feesEnabled` set to `true` on the market object — check it per-market via `getClobMarketInfo(conditionID)`.
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Fee Structure" icon="receipt" href="/trading/fees">
-    Full fee handling guide for SDK and REST API users.
-  </Card>
+- **[Fee Structure](/trading/fees)** — Full fee handling guide for SDK and REST API users.
 
-  <Card title="Taker Rebate Program" icon="trophy" href="/trading/taker-rebates">
-    Climb the tiers and earn daily pUSD rebates on taker trades.
-  </Card>
-</CardGroup>
+- **[Taker Rebate Program](/trading/taker-rebates)** — Climb the tiers and earn daily pUSD rebates on taker trades.

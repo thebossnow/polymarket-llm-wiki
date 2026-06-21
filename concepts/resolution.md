@@ -6,12 +6,6 @@ When the outcome of an event becomes known, the market is **resolved**. Resoluti
 
 Polymarket uses the **UMA Optimistic Oracle** for decentralized, permissionless resolution. Anyone can propose an outcome, and anyone can dispute it if they believe it's incorrect.
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/resolution-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=6726569af3efd6f4fda54528c8eb0d0a" alt="" className="dark:hidden" width="1722" height="952" data-path="images/core-concepts/resolution-lifecycle.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/resolution-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=36e91c655f7f50b18dea3a23b44f8c23" alt="" className="hidden dark:block" width="1722" height="952" data-path="images/dark/core-concepts/resolution-lifecycle.png" />
-</Frame>
-
 ## Resolution Rules
 
 Every market has pre-defined resolution rules that specify:
@@ -20,60 +14,48 @@ Every market has pre-defined resolution rules that specify:
 * **End date** — When the market is eligible for resolution
 * **Edge cases** — How ambiguous situations should be handled
 
-<Warning>
-  Always read the resolution rules before trading. The market title describes
-  the question, but the **rules** define how it resolves.
-</Warning>
+> **Warning:** Always read the resolution rules before trading. The market title describes the question, but the **rules** define how it resolves.
 
-<Steps>
-  <Step title="Proposal">
-    Anyone can propose a resolution by:
+### Proposal
+Anyone can propose a resolution by:
 
-    1. Selecting the winning outcome
-    2. Posting a bond (typically \$750 pUSD)
-    3. Submitting the proposal to the UMA Oracle
+1. Selecting the winning outcome
+2. Posting a bond (typically \$750 pUSD)
+3. Submitting the proposal to the UMA Oracle
 
-    If the proposal is correct and undisputed, the proposer receives their bond back plus a reward.
+If the proposal is correct and undisputed, the proposer receives their bond back plus a reward.
 
-    <Warning>
-      If you propose incorrectly or too early, you lose your entire bond. Only
-      propose if you're confident in the outcome and understand the process.
-    </Warning>
-  </Step>
+> **Warning:** If you propose incorrectly or too early, you lose your entire bond. Only propose if you're confident in the outcome and understand the process.
 
-  <Step title="Challenge Period">
-    After a proposal, there's a **2-hour challenge period** where anyone can dispute the outcome.
+### Challenge Period
+After a proposal, there's a **2-hour challenge period** where anyone can dispute the outcome.
 
-    * **If no dispute**: The proposal is accepted and the market resolves
-    * **If disputed**: A new proposal round begins. If the second proposal is also disputed, the resolution escalates to UMA's DVM (Data Verification Mechanism) for a token holder vote.
+* **If no dispute**: The proposal is accepted and the market resolves
+* **If disputed**: A new proposal round begins. If the second proposal is also disputed, the resolution escalates to UMA's DVM (Data Verification Mechanism) for a token holder vote.
 
-    There are three possible resolution flows:
+There are three possible resolution flows:
 
-    1. **No dispute** — Propose then Resolve (fastest, \~2 hours)
-    2. **One dispute** — Propose, Challenge, second Propose, Resolve (second proposal accepted)
-    3. **Two disputes** — Propose, Challenge, second Propose, second Challenge, Resolve via DVM vote
-  </Step>
+1. **No dispute** — Propose then Resolve (fastest, \~2 hours)
+2. **One dispute** — Propose, Challenge, second Propose, Resolve (second proposal accepted)
+3. **Two disputes** — Propose, Challenge, second Propose, second Challenge, Resolve via DVM vote
 
-  <Step title="Dispute - If Challenged">
-    To dispute a proposal:
+### Dispute - If Challenged
+To dispute a proposal:
 
-    1. Post a counter-bond (same amount as proposer, typically \$750)
-    2. The dispute triggers a new proposal round, or if already in the second round, a debate period
+1. Post a counter-bond (same amount as proposer, typically \$750)
+2. The dispute triggers a new proposal round, or if already in the second round, a debate period
 
-    During the **24-48 hour debate period**, evidence can be submitted in UMA's Discord channels (`#evidence-rationale` and `#voting-discussion`).
-  </Step>
+During the **24-48 hour debate period**, evidence can be submitted in UMA's Discord channels (`#evidence-rationale` and `#voting-discussion`).
 
-  <Step title="UMA Vote">
-    After the debate period, UMA token holders vote on the correct outcome. The voting process takes approximately 48 hours.
+### UMA Vote
+After the debate period, UMA token holders vote on the correct outcome. The voting process takes approximately 48 hours.
 
-    | Outcome           | Result                                 | Bond Distribution                                                                                        |
-    | ----------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-    | **Proposer wins** | Original proposal accepted             | Proposer gets bond back + half of disputer's bond                                                        |
-    | **Disputer wins** | Proposal rejected, new proposal needed | Disputer gets bond back + half of proposer's bond                                                        |
-    | **Too Early**     | Event hasn't concluded yet             | Disputer gets bond back + half of proposer's bond                                                        |
-    | **Unknown/50-50** | Neither outcome applicable (rare)      | Market resolves 50/50 — each token redeems for \$0.50; disputer gets bond back + half of proposer's bond |
-  </Step>
-</Steps>
+| Outcome           | Result                                 | Bond Distribution                                                                                        |
+| ----------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Proposer wins** | Original proposal accepted             | Proposer gets bond back + half of disputer's bond                                                        |
+| **Disputer wins** | Proposal rejected, new proposal needed | Disputer gets bond back + half of proposer's bond                                                        |
+| **Too Early**     | Event hasn't concluded yet             | Disputer gets bond back + half of proposer's bond                                                        |
+| **Unknown/50-50** | Neither outcome applicable (rare)      | Market resolves 50/50 — each token redeems for \$0.50; disputer gets bond back + half of proposer's bond |
 
 ## After Resolution
 
@@ -101,10 +83,7 @@ Clarifications:
 * Are published onchain via the bulletin board contract
 * Should be considered by UMA voters when resolving disputes
 
-<Tip>
-  If you believe a clarification is needed, request it in the [Polymarket
-  Discord](https://discord.com/invite/polymarket) `#market-review` channel.
-</Tip>
+> **Tip:** If you believe a clarification is needed, request it in the [Polymarket Discord](https://discord.com/invite/polymarket) `#market-review` channel.
 
 ## Resolution Timeline
 
@@ -136,12 +115,6 @@ Clarifications:
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Positions & Tokens" icon="coins" href="/concepts/positions-tokens">
-    Learn how to redeem winning tokens after resolution.
-  </Card>
+- **[Positions & Tokens](/concepts/positions-tokens)** — Learn how to redeem winning tokens after resolution.
 
-  <Card title="Markets & Events" icon="calendar" href="/concepts/markets-events">
-    Understand how markets are structured.
-  </Card>
-</CardGroup>
+- **[Markets & Events](/concepts/markets-events)** — Understand how markets are structured.

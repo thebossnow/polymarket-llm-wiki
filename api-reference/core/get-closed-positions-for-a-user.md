@@ -1,7 +1,5 @@
 # Get closed positions for a user
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /closed-positions

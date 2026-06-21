@@ -6,15 +6,9 @@ The CLOB API uses two levels of authentication: **L1 (Private Key)** and **L2 (A
 
 ## Public vs Authenticated
 
-<CardGroup cols={1}>
-  <Card title="Public (No Auth)" icon="unlock">
-    The **Gamma API**, **Data API**, and CLOB read endpoints (orderbook, prices, spreads) require no authentication.
-  </Card>
+- **Public (No Auth)** — The **Gamma API**, **Data API**, and CLOB read endpoints (orderbook, prices, spreads) require no authentication.
 
-  <Card title="Authenticated (CLOB)" icon="lock">
-    CLOB trading endpoints (placing orders, cancellations, heartbeat) require all 5 `POLY_*` L2 HTTP headers.
-  </Card>
-</CardGroup>
+- **Authenticated (CLOB)** — CLOB trading endpoints (placing orders, cancellations, heartbeat) require all 5 `POLY_*` L2 HTTP headers.
 
 ***
 
@@ -42,10 +36,7 @@ L2 uses API credentials (apiKey, secret, passphrase) generated from L1 authentic
 * Check user's balances and allowances
 * Post user's signed orders
 
-<Info>
-  Even with L2 authentication headers, methods that create user orders still
-  require the user to sign the order payload.
-</Info>
+> **Info:** Even with L2 authentication headers, methods that create user orders still require the user to sign the order payload.
 
 ***
 
@@ -55,85 +46,77 @@ Before making authenticated requests, you need to obtain API credentials using L
 
 ### Using the SDK
 
-<Tabs>
-  <Tab title="TypeScript">
-    ```typescript theme={null}
-    import { ClobClient } from "@polymarket/clob-client-v2";
-    import { createWalletClient, http } from "viem";
-    import { privateKeyToAccount } from "viem/accounts";
+**TypeScript**
+```typescript
+import { ClobClient } from "@polymarket/clob-client-v2";
+import { createWalletClient, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
 
-    const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
-    const signer = createWalletClient({ account, transport: http() });
+const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
+const signer = createWalletClient({ account, transport: http() });
 
-    const client = new ClobClient({
-      host: "https://clob.polymarket.com",
-      chain: 137, // Polygon mainnet
-      signer,
-    });
+const client = new ClobClient({
+  host: "https://clob.polymarket.com",
+  chain: 137, // Polygon mainnet
+  signer,
+});
 
-    // Creates new credentials or derives existing ones
-    const credentials = await client.createOrDeriveApiKey();
+// Creates new credentials or derives existing ones
+const credentials = await client.createOrDeriveApiKey();
 
-    console.log(credentials);
-    // {
-    //   key: "550e8400-e29b-41d4-a716-446655440000",
-    //   secret: "base64EncodedSecretString",
-    //   passphrase: "randomPassphraseString"
-    // }
-    ```
-  </Tab>
+console.log(credentials);
+// {
+//   key: "550e8400-e29b-41d4-a716-446655440000",
+//   secret: "base64EncodedSecretString",
+//   passphrase: "randomPassphraseString"
+// }
+```
 
-  <Tab title="Python">
-    ```python theme={null}
-    from py_clob_client_v2 import ClobClient
-    import os
+**Python**
+```python
+from py_clob_client_v2 import ClobClient
+import os
 
-    client = ClobClient(
-        host="https://clob.polymarket.com",
-        chain_id=137,  # Polygon mainnet
-        key=os.getenv("PRIVATE_KEY")
-    )
+client = ClobClient(
+    host="https://clob.polymarket.com",
+    chain_id=137,  # Polygon mainnet
+    key=os.getenv("PRIVATE_KEY")
+)
 
-    # Creates new credentials or derives existing ones
-    credentials = client.create_or_derive_api_key()
+# Creates new credentials or derives existing ones
+credentials = client.create_or_derive_api_key()
 
-    print(credentials)
-    # {
-    #     "apiKey": "550e8400-e29b-41d4-a716-446655440000",
-    #     "secret": "base64EncodedSecretString",
-    #     "passphrase": "randomPassphraseString"
-    # }
-    ```
-  </Tab>
+print(credentials)
+# {
+#     "apiKey": "550e8400-e29b-41d4-a716-446655440000",
+#     "secret": "base64EncodedSecretString",
+#     "passphrase": "randomPassphraseString"
+# }
+```
 
-  <Tab title="Rust">
-    ```rust theme={null}
-    use std::str::FromStr;
-    use polymarket_client_sdk_v2::POLYGON;
-    use polymarket_client_sdk_v2::auth::{LocalSigner, Signer};
-    use polymarket_client_sdk_v2::clob::{Client, Config};
+**Rust**
+```rust
+use std::str::FromStr;
+use polymarket_client_sdk_v2::POLYGON;
+use polymarket_client_sdk_v2::auth::{LocalSigner, Signer};
+use polymarket_client_sdk_v2::clob::{Client, Config};
 
-    let private_key = std::env::var("POLYMARKET_PRIVATE_KEY")?;
-    let signer = LocalSigner::from_str(&private_key)?
-        .with_chain_id(Some(POLYGON));
+let private_key = std::env::var("POLYMARKET_PRIVATE_KEY")?;
+let signer = LocalSigner::from_str(&private_key)?
+    .with_chain_id(Some(POLYGON));
 
-    // Creates new credentials or derives existing ones,
-    // then initializes the authenticated client — all in one step
-    let client = Client::new("https://clob.polymarket.com", Config::default())?
-        .authentication_builder(&signer)
-        .authenticate()
-        .await?;
+// Creates new credentials or derives existing ones,
+// then initializes the authenticated client — all in one step
+let client = Client::new("https://clob.polymarket.com", Config::default())?
+    .authentication_builder(&signer)
+    .authenticate()
+    .await?;
 
-    let credentials = client.credentials();
-    println!("API Key: {}", credentials.key());
-    ```
-  </Tab>
-</Tabs>
+let credentials = client.credentials();
+println!("API Key: {}", credentials.key());
+```
 
-<Warning>
-  **Never commit private keys to version control.** Always use environment
-  variables or secure key management systems.
-</Warning>
+> **Warning:** **Never commit private keys to version control.** Always use environment variables or secure key management systems.
 
 ### Using the REST API
 
@@ -141,13 +124,13 @@ While we highly recommend using our provided clients to handle signing and authe
 
 **Create API Credentials**
 
-```bash theme={null}
+```bash
 POST https://clob.polymarket.com/auth/api-key
 ```
 
 **Derive API Credentials**
 
-```bash theme={null}
+```bash
 GET https://clob.polymarket.com/auth/derive-api-key
 ```
 
@@ -162,61 +145,59 @@ Required L1 headers:
 
 The `POLY_SIGNATURE` is generated by signing the following EIP-712 struct:
 
-<Accordion title="EIP-712 Signing Example">
-  <CodeGroup>
-    ```typescript TypeScript theme={null}
-    const domain = {
-      name: "ClobAuthDomain",
-      version: "1",
-      chainId: chainId, // Polygon Chain ID 137
-    };
+#### EIP-712 Signing Example
 
-    const types = {
-      ClobAuth: [
-        { name: "address", type: "address" },
-        { name: "timestamp", type: "string" },
-        { name: "nonce", type: "uint256" },
-        { name: "message", type: "string" },
-      ],
-    };
+```typescript TypeScript
+const domain = {
+  name: "ClobAuthDomain",
+  version: "1",
+  chainId: chainId, // Polygon Chain ID 137
+};
 
-    const value = {
-      address: signingAddress, // The Signing address
-      timestamp: ts,            // The CLOB API server timestamp
-      nonce: nonce,             // The nonce used
-      message: "This message attests that I control the given wallet",
-    };
+const types = {
+  ClobAuth: [
+    { name: "address", type: "address" },
+    { name: "timestamp", type: "string" },
+    { name: "nonce", type: "uint256" },
+    { name: "message", type: "string" },
+  ],
+};
 
-    const sig = await signer._signTypedData(domain, types, value);
-    ```
+const value = {
+  address: signingAddress, // The Signing address
+  timestamp: ts,            // The CLOB API server timestamp
+  nonce: nonce,             // The nonce used
+  message: "This message attests that I control the given wallet",
+};
 
-    ```python Python theme={null}
-    domain = {
-        "name": "ClobAuthDomain",
-        "version": "1",
-        "chainId": chainId,  # Polygon Chain ID 137
-    }
+const sig = await signer._signTypedData(domain, types, value);
+```
 
-    types = {
-        "ClobAuth": [
-            {"name": "address", "type": "address"},
-            {"name": "timestamp", "type": "string"},
-            {"name": "nonce", "type": "uint256"},
-            {"name": "message", "type": "string"},
-        ]
-    }
+```python Python
+domain = {
+    "name": "ClobAuthDomain",
+    "version": "1",
+    "chainId": chainId,  # Polygon Chain ID 137
+}
 
-    value = {
-        "address": signingAddress,  # The signing address
-        "timestamp": ts,            # The CLOB API server timestamp
-        "nonce": nonce,             # The nonce used
-        "message": "This message attests that I control the given wallet",
-    }
+types = {
+    "ClobAuth": [
+        {"name": "address", "type": "address"},
+        {"name": "timestamp", "type": "string"},
+        {"name": "nonce", "type": "uint256"},
+        {"name": "message", "type": "string"},
+    ]
+}
 
-    sig = signer.sign_typed_data(domain, types, value)
-    ```
-  </CodeGroup>
-</Accordion>
+value = {
+    "address": signingAddress,  # The signing address
+    "timestamp": ts,            # The CLOB API server timestamp
+    "nonce": nonce,             # The nonce used
+    "message": "This message attests that I control the given wallet",
+}
+
+sig = signer.sign_typed_data(domain, types, value)
+```
 
 Reference implementations:
 
@@ -225,7 +206,7 @@ Reference implementations:
 
 Response:
 
-```json theme={null}
+```json
 {
   "apiKey": "550e8400-e29b-41d4-a716-446655440000",
   "secret": "base64EncodedSecretString",
@@ -253,88 +234,80 @@ The `POLY_SIGNATURE` for L2 is an HMAC-SHA256 signature created using the user's
 
 ### CLOB Client
 
-<Tabs>
-  <Tab title="TypeScript">
-    ```typescript theme={null}
-    import { ClobClient, Side } from "@polymarket/clob-client-v2";
-    import { createWalletClient, http } from "viem";
-    import { privateKeyToAccount } from "viem/accounts";
+**TypeScript**
+```typescript
+import { ClobClient, Side } from "@polymarket/clob-client-v2";
+import { createWalletClient, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
 
-    const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
-    const signer = createWalletClient({ account, transport: http() });
-    const depositWalletAddress = process.env.DEPOSIT_WALLET_ADDRESS!;
+const account = privateKeyToAccount(process.env.PRIVATE_KEY as `0x${string}`);
+const signer = createWalletClient({ account, transport: http() });
+const depositWalletAddress = process.env.DEPOSIT_WALLET_ADDRESS!;
 
-    const client = new ClobClient({
-      host: "https://clob.polymarket.com",
-      chain: 137,
-      signer,
-      creds: apiCreds, // Generated from L1 auth, API credentials enable L2 methods
-      signatureType: 3, // POLY_1271, explained below
-      funderAddress: depositWalletAddress, // deposit wallet funder
-    });
+const client = new ClobClient({
+  host: "https://clob.polymarket.com",
+  chain: 137,
+  signer,
+  creds: apiCreds, // Generated from L1 auth, API credentials enable L2 methods
+  signatureType: 3, // POLY_1271, explained below
+  funderAddress: depositWalletAddress, // deposit wallet funder
+});
 
-    // Now you can trade!
-    const order = await client.createAndPostOrder(
-      { tokenID: "123456", price: 0.65, size: 100, side: Side.BUY },
-      { tickSize: "0.01", negRisk: false }
-    );
-    ```
-  </Tab>
+// Now you can trade!
+const order = await client.createAndPostOrder(
+  { tokenID: "123456", price: 0.65, size: 100, side: Side.BUY },
+  { tickSize: "0.01", negRisk: false }
+);
+```
 
-  <Tab title="Python">
-    ```python theme={null}
-    from py_clob_client_v2 import ClobClient, OrderArgs, PartialCreateOrderOptions
-    from py_clob_client_v2.order_builder.constants import BUY
-    import os
+**Python**
+```python
+from py_clob_client_v2 import ClobClient, OrderArgs, PartialCreateOrderOptions
+from py_clob_client_v2.order_builder.constants import BUY
+import os
 
-    client = ClobClient(
-        host="https://clob.polymarket.com",
-        chain_id=137,
-        key=os.getenv("PRIVATE_KEY"),
-        creds=api_creds,  # Generated from L1 auth, API credentials enable L2 methods
-        signature_type=3,  # POLY_1271, explained below
-        funder=os.getenv("DEPOSIT_WALLET_ADDRESS")
-    )
+client = ClobClient(
+    host="https://clob.polymarket.com",
+    chain_id=137,
+    key=os.getenv("PRIVATE_KEY"),
+    creds=api_creds,  # Generated from L1 auth, API credentials enable L2 methods
+    signature_type=3,  # POLY_1271, explained below
+    funder=os.getenv("DEPOSIT_WALLET_ADDRESS")
+)
 
-    # Now you can trade!
-    order = client.create_and_post_order(
-        OrderArgs(token_id="123456", price=0.65, size=100, side=BUY),
-        options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
-    )
-    ```
-  </Tab>
+# Now you can trade!
+order = client.create_and_post_order(
+    OrderArgs(token_id="123456", price=0.65, size=100, side=BUY),
+    options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
+)
+```
 
-  <Tab title="Rust">
-    ```rust theme={null}
-    use polymarket_client_sdk_v2::clob::types::{Side, SignatureType};
-    use polymarket_client_sdk_v2::types::dec;
+**Rust**
+```rust
+use polymarket_client_sdk_v2::clob::types::{Side, SignatureType};
+use polymarket_client_sdk_v2::types::dec;
 
-    let deposit_wallet = std::env::var("DEPOSIT_WALLET_ADDRESS")?.parse()?;
+let deposit_wallet = std::env::var("DEPOSIT_WALLET_ADDRESS")?.parse()?;
 
-    let client = Client::new("https://clob.polymarket.com", Config::default())?
-        .authentication_builder(&signer)
-        .funder(deposit_wallet)
-        .signature_type(SignatureType::Poly1271)
-        .authenticate()
-        .await?;
+let client = Client::new("https://clob.polymarket.com", Config::default())?
+    .authentication_builder(&signer)
+    .funder(deposit_wallet)
+    .signature_type(SignatureType::Poly1271)
+    .authenticate()
+    .await?;
 
-    // Now you can trade!
-    let order = client.limit_order()
-        .token_id("123456".parse()?)
-        .price(dec!(0.65))
-        .size(dec!(100))
-        .side(Side::Buy)
-        .build().await?;
-    let signed = client.sign(&signer, order).await?;
-    let response = client.post_order(signed).await?;
-    ```
-  </Tab>
-</Tabs>
+// Now you can trade!
+let order = client.limit_order()
+    .token_id("123456".parse()?)
+    .price(dec!(0.65))
+    .size(dec!(100))
+    .side(Side::Buy)
+    .build().await?;
+let signed = client.sign(&signer, order).await?;
+let response = client.post_order(signed).await?;
+```
 
-<Info>
-  Even with L2 authentication headers, methods that create user orders still
-  require the user to sign the order payload.
-</Info>
+> **Info:** Even with L2 authentication headers, methods that create user orders still require the user to sign the order payload.
 
 ***
 
@@ -349,85 +322,64 @@ When initializing the L2 client, you must specify your wallet **signatureType** 
 | GNOSIS\_SAFE   | `2`   | Existing Gnosis Safe wallet flow. Existing Safe users can continue using this type.                                        |
 | POLY\_1271     | `3`   | Deposit wallet flow for new API users. The funder is the deposit wallet address and orders are validated through ERC-1271. |
 
-<Tip>
-  New API users should use deposit wallets with `POLY_1271`. Existing Safe and
-  Proxy users are unaffected and can keep using their current funder address and
-  signature type. See the [Deposit Wallet Guide](/trading/deposit-wallets) for
-  setup details.
-</Tip>
+> **Tip:** New API users should use deposit wallets with `POLY_1271`. Existing Safe and Proxy users are unaffected and can keep using their current funder address and signature type. See the [Deposit Wallet Guide](/trading/deposit-wallets) for setup details.
 
 ***
 
 ## Security Best Practices
 
-<AccordionGroup>
-  <Accordion title="Never expose private keys">
-    Store private keys in environment variables or secure key management systems. Never commit them to version control.
+#### Never expose private keys
+Store private keys in environment variables or secure key management systems. Never commit them to version control.
 
-    ```bash theme={null}
-    # .env (never commit this file)
-    PRIVATE_KEY=0x...
-    ```
-  </Accordion>
+```bash
+# .env (never commit this file)
+PRIVATE_KEY=0x...
+```
 
-  <Accordion title="Implement request signing on the server">
-    Never expose your API secret in client-side code. All authenticated requests should originate from your backend.
-  </Accordion>
-</AccordionGroup>
+#### Implement request signing on the server
+Never expose your API secret in client-side code. All authenticated requests should originate from your backend.
 
 ***
 
 ## Troubleshooting
 
-<AccordionGroup>
-  <Accordion title="Error - INVALID_SIGNATURE">
-    Your wallet's private key is incorrect or improperly formatted.
+#### Error - INVALID_SIGNATURE
+Your wallet's private key is incorrect or improperly formatted.
 
-    **Solutions:**
+**Solutions:**
 
-    * Verify your private key is a valid hex string (starts with "0x")
-    * Ensure you're using the correct key for the intended address
-    * Check that the key has proper permissions
-  </Accordion>
+* Verify your private key is a valid hex string (starts with "0x")
+* Ensure you're using the correct key for the intended address
+* Check that the key has proper permissions
 
-  <Accordion title="Error - NONCE_ALREADY_USED">
-    The nonce you provided has already been used to create an API key.
+#### Error - NONCE_ALREADY_USED
+The nonce you provided has already been used to create an API key.
 
-    **Solutions:**
+**Solutions:**
 
-    * Use `deriveApiKey()` with the same nonce to retrieve existing credentials
-    * Or use a different nonce with `createApiKey()`
-  </Accordion>
+* Use `deriveApiKey()` with the same nonce to retrieve existing credentials
+* Or use a different nonce with `createApiKey()`
 
-  <Accordion title="Error - Invalid Funder Address">
-    Your funder address is incorrect or doesn't match your wallet.
+#### Error - Invalid Funder Address
+Your funder address is incorrect or doesn't match your wallet.
 
-    **Solution:** Check your Polymarket profile address at [polymarket.com/settings](https://polymarket.com/settings).
+**Solution:** Check your Polymarket profile address at [polymarket.com/settings](https://polymarket.com/settings).
 
-    If it does not exist or user has never logged into Polymarket.com, deploy it first before creating L2 authentication.
-  </Accordion>
+If it does not exist or user has never logged into Polymarket.com, deploy it first before creating L2 authentication.
 
-  <Accordion title="Lost both credentials and nonce">
-    Unfortunately, there's no way to recover lost API credentials without the nonce. You'll need to create new credentials:
+#### Lost both credentials and nonce
+Unfortunately, there's no way to recover lost API credentials without the nonce. You'll need to create new credentials:
 
-    ```typescript theme={null}
-    // Create fresh credentials with a new nonce
-    const newCreds = await client.createApiKey();
-    // Save the nonce this time!
-    ```
-  </Accordion>
-</AccordionGroup>
+```typescript
+// Create fresh credentials with a new nonce
+const newCreds = await client.createApiKey();
+// Save the nonce this time!
+```
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Place Your First Order" icon="plus" href="/trading/quickstart">
-    Learn how to create and submit orders.
-  </Card>
+- **[Place Your First Order](/trading/quickstart)** — Learn how to create and submit orders.
 
-  <Card title="Geographic Restrictions" icon="globe" href="/api-reference/geoblock">
-    Check trading availability by region.
-  </Card>
-</CardGroup>
+- **[Geographic Restrictions](/api-reference/geoblock)** — Check trading availability by region.

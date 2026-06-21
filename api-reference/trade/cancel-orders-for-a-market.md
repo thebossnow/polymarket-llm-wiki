@@ -3,9 +3,6 @@
 > Cancels all open orders for the authenticated user in a specific market (condition) and asset.
 Works even in cancel-only mode.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml delete /cancel-market-orders

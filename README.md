@@ -5,9 +5,10 @@ A complete, offline-readable markdown mirror of <https://docs.polymarket.com/>, 
 - **Source:** https://docs.polymarket.com/
 - **Pages:** 173 (English)
 - **Captured:** 2026-06-21 (UTC)
-- **Method:** Mintlify per-page `.md` endpoints (clean markdown, not scraped HTML). Full machine index in [`llms.txt`](./llms.txt).
+- **Method:** Mintlify per-page `.md` endpoints (clean markdown, not scraped HTML), then post-processed to strip MDX/JSX components (`<ResponseField>`, `<Card>`, `<Tabs>`, `<CodeGroup>`, …) into plain Markdown for LLM consumption.
+- **Indexes:** machine-readable link index in [`llms.txt`](./llms.txt); full single-file text corpus in [`llms-full.txt`](./llms-full.txt).
 
-> Pages are mirrored to match the site's URL structure. To regenerate, see [`scripts/build.sh`](./scripts/build.sh).
+> Pages are mirrored to match the site's URL structure. To regenerate, see [`scripts/build.sh`](./scripts/build.sh), which fetches the pages, runs [`scripts/clean_mdx.py`](./scripts/clean_mdx.py) to strip MDX, and rebuilds `llms-full.txt`.
 
 ## Contents
 

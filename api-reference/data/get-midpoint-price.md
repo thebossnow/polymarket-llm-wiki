@@ -3,9 +3,6 @@
 > Retrieves the midpoint price for a specific token ID.
 The midpoint is calculated as the average of the best bid and best ask prices.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /midpoint

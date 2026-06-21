@@ -1,7 +1,5 @@
 # Get sampling simplified markets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /sampling-simplified-markets

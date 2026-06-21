@@ -3,9 +3,6 @@
 > Retrieves the best market price for a specific token ID and side (bid or ask).
 Returns the best bid price for BUY side or best ask price for SELL side.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /price

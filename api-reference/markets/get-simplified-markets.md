@@ -1,7 +1,5 @@
 # Get simplified markets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /simplified-markets

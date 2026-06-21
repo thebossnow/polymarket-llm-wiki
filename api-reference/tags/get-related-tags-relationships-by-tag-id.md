@@ -1,7 +1,5 @@
 # Get related tags (relationships) by tag id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /tags/{id}/related-tags

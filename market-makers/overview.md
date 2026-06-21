@@ -6,30 +6,22 @@ A Market Maker (MM) on Polymarket is a trader who provides liquidity to predicti
 
 Market makers are essential to Polymarket's ecosystem — they provide liquidity across markets, tighten spreads for better user experience, enable price discovery through continuous quoting, and absorb trading flow from retail and institutional users.
 
-<Note>
-  **Not a Market Maker?** If you're building an application that routes orders
-  for your users, see the [Builder Program](/builders/overview) instead.
-</Note>
+> **Note:** **Not a Market Maker?** If you're building an application that routes orders for your users, see the [Builder Program](/builders/overview) instead.
 
 ***
 
 ## Getting Started
 
-<Steps>
-  <Step title="Complete Setup">
-    Deploy wallets, fund with pUSD, and set token approvals. See the [Getting
-    Started](/market-makers/getting-started) guide.
-  </Step>
+### Complete Setup
+Deploy wallets, fund with pUSD, and set token approvals. See the [Getting
+Started](/market-makers/getting-started) guide.
 
-  <Step title="Connect to Data Feeds">
-    WebSocket for real-time orderbook updates, Gamma API for market metadata.
-    See [Market Data](/market-data/overview).
-  </Step>
+### Connect to Data Feeds
+WebSocket for real-time orderbook updates, Gamma API for market metadata.
+See [Market Data](/market-data/overview).
 
-  <Step title="Start Quoting">
-    Post orders via the CLOB REST API. See [Trading ](/market-makers/trading).
-  </Step>
-</Steps>
+### Start Quoting
+Post orders via the CLOB REST API. See [Trading ](/market-makers/trading).
 
 ***
 
@@ -48,31 +40,17 @@ Market makers are essential to Polymarket's ecosystem — they provide liquidity
 
 ## What Is in This Section
 
-<CardGroup cols={2}>
-  <Card title="Getting Started" icon="gear" href="/market-makers/getting-started">
-    Deposits, token approvals, wallet deployment, API keys
-  </Card>
+- **[Getting Started](/market-makers/getting-started)** — Deposits, token approvals, wallet deployment, API keys
 
-  <Card title="Trading" icon="chart-line" href="/market-makers/trading">
-    Quoting best practices, strategies, and risk controls
-  </Card>
+- **[Trading](/market-makers/trading)** — Quoting best practices, strategies, and risk controls
 
-  <Card title="Inventory Management" icon="boxes-stacked" href="/market-makers/inventory">
-    Split, merge, and redeem outcome tokens
-  </Card>
+- **[Inventory Management](/market-makers/inventory)** — Split, merge, and redeem outcome tokens
 
-  <Card title="Liquidity Rewards" icon="gift" href="/market-makers/liquidity-rewards">
-    Earn rewards for providing liquidity
-  </Card>
-</CardGroup>
+- **[Liquidity Rewards](/market-makers/liquidity-rewards)** — Earn rewards for providing liquidity
 
 ## Risks
 
-<Warning>
-  Be careful with spread management — if your bid price is higher than your ask
-  price (a "negative spread" or "crossed market"), you will lose money on every
-  fill. Always validate your quote prices before submission.
-</Warning>
+> **Warning:** Be careful with spread management — if your bid price is higher than your ask price (a "negative spread" or "crossed market"), you will lose money on every fill. Always validate your quote prices before submission.
 
 ## Support
 

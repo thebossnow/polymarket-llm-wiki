@@ -2,8 +2,6 @@
 
 > Retrieve historical price data for multiple markets in a single request.
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /batch-prices-history

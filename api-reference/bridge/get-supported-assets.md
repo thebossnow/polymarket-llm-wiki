@@ -1,7 +1,5 @@
 # Get supported assets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/bridge-openapi.yaml get /supported-assets

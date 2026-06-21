@@ -1,7 +1,5 @@
 # Download an accounting snapshot (ZIP of CSVs)
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/accounting/snapshot

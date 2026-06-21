@@ -1,7 +1,5 @@
 # Create withdrawal addresses
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/bridge-openapi.yaml post /withdraw

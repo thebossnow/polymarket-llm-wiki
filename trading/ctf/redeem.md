@@ -17,10 +17,7 @@ Redemption is only available **after a market resolves**. Once the oracle report
 * **Winning tokens** can be redeemed for \$1.00 pUSD each
 * **Losing tokens** are worth \$0 and produce no payout
 
-<Note>
-  You can redeem at any time after resolution — there's no deadline. Your
-  winning tokens will always be redeemable.
-</Note>
+> **Note:** You can redeem at any time after resolution — there's no deadline. Your winning tokens will always be redeemable.
 
 ## How Resolution Works
 
@@ -37,37 +34,24 @@ Before redeeming:
 2. **Hold winning tokens** — only the winning outcome can be redeemed
 3. **Know the condition ID** — required for the redemption call
 
-<Note>
-  Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions.
-  Approve the adapter once, then route split, merge, and redeem actions through
-  it. On redeem, the adapter burns the ERC1155 outcome tokens through the CTF
-  contract, receives USDC.e collateral, wraps it into pUSD, and returns pUSD to
-  your wallet automatically.
-</Note>
+> **Note:** Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions. Approve the adapter once, then route split, merge, and redeem actions through it. On redeem, the adapter burns the ERC1155 outcome tokens through the CTF contract, receives USDC.e collateral, wraps it into pUSD, and returns pUSD to your wallet automatically.
 
 ## Function Parameters
 
-<ResponseField name="collateralToken" type="IERC20">
-  pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
-</ResponseField>
+**`collateralToken`** `IERC20`
+pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
 
-<ResponseField name="parentCollectionId" type="bytes32">
-  Always `0x0000...0000` (32 zero bytes) for Polymarket markets
-</ResponseField>
+**`parentCollectionId`** `bytes32`
+Always `0x0000...0000` (32 zero bytes) for Polymarket markets
 
-<ResponseField name="conditionId" type="bytes32">
-  The market's condition ID
-</ResponseField>
+**`conditionId`** `bytes32`
+The market's condition ID
 
-<ResponseField name="indexSets" type="uint[]">
-  Array of index sets to redeem: `[1, 2]` redeems both outcomes (only winning
-  pays)
-</ResponseField>
+**`indexSets`** `uint[]`
+Array of index sets to redeem: `[1, 2]` redeems both outcomes (only winning
+pays)
 
-<Note>
-  Redemption burns your entire token balance for the condition — there is no
-  amount parameter.
-</Note>
+> **Note:** Redemption burns your entire token balance for the condition — there is no amount parameter.
 
 ## Payout Mechanics
 
@@ -87,12 +71,6 @@ When you redeem through the adapter:
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="CTF Overview" icon="book" href="/trading/ctf/overview">
-    Learn more about the Conditional Token Framework
-  </Card>
+- **[CTF Overview](/trading/ctf/overview)** — Learn more about the Conditional Token Framework
 
-  <Card title="Resolution Process" icon="gavel" href="/concepts/resolution">
-    Understand how markets are resolved
-  </Card>
-</CardGroup>
+- **[Resolution Process](/concepts/resolution)** — Understand how markets are resolved

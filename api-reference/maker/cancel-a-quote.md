@@ -4,9 +4,6 @@
 authentication for the maker role. `signer_address` and `maker_address`
 must match the authenticated identity.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/combos-rfq-openapi.yaml post /v1/maker/quotes/cancel
@@ -16,13 +13,11 @@ info:
   description: >
     REST API for the combinatorial RFQ (Request for Quote) system.
 
-
     This spec covers the publicly documented endpoints used by quoters (market
 
     makers): the combo-market catalog and the authenticated maker commands for
 
     submitting, cancelling, and confirming quotes.
-
 
     Conventions:
 

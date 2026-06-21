@@ -89,8 +89,4 @@ Security vulnerabilities can be reported through the [Cantina bug bounty program
 
 ## Source Code
 
-<CardGroup cols={1}>
-  <Card title="CTF Exchange V2" icon="github" href="https://github.com/Polymarket/ctf-exchange-v2">
-    Order matching and settlement contracts
-  </Card>
-</CardGroup>
+- **[CTF Exchange V2](https://github.com/Polymarket/ctf-exchange-v2)** — Order matching and settlement contracts

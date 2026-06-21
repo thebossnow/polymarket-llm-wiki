@@ -6,9 +6,6 @@ Each entry includes the condition ID, asset address, and the USDC amount rebated
 
 This endpoint does not require authentication.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rebates/current
@@ -48,10 +45,8 @@ paths:
       description: >
         Returns the current rebated fees for a maker address on a given date.
 
-
         Each entry includes the condition ID, asset address, and the USDC amount
         rebated.
-
 
         This endpoint does not require authentication.
       operationId: getCurrentRebatedFees

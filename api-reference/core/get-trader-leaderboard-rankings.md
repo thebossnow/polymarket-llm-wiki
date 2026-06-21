@@ -1,7 +1,5 @@
 # Get trader leaderboard rankings
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /v1/leaderboard

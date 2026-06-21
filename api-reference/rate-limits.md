@@ -121,12 +121,6 @@ Base URL: `https://bridge.polymarket.com`
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Authentication" icon="key" href="/api-reference/authentication">
-    Learn how to authenticate trading requests.
-  </Card>
+- **[Authentication](/api-reference/authentication)** — Learn how to authenticate trading requests.
 
-  <Card title="Clients & SDKs" icon="cube" href="/api-reference/clients-sdks">
-    Official TypeScript, Python, and Rust libraries.
-  </Card>
-</CardGroup>
+- **[Clients & SDKs](/api-reference/clients-sdks)** — Official TypeScript, Python, and Rust libraries.

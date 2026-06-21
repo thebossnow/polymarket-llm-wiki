@@ -4,12 +4,6 @@
 
 Polymarket uses a **Central Limit Order Book (CLOB)** for trading. Prices aren't set by Polymarket—they emerge from supply and demand as users trade with each other.
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/orderbook.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=119174bcaaeb3b9abbd4c2d94b7bdae6" alt="" className="dark:hidden" width="1540" height="952" data-path="images/core-concepts/orderbook.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/orderbook.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=b940f4b5f28ab6ed5845dda2bfe03edb" alt="" className="hidden dark:block" width="1540" height="952" data-path="images/dark/core-concepts/orderbook.png" />
-</Frame>
-
 ## Prices Are Probabilities
 
 Every share on Polymarket is priced between `$0.00` and `$1.00`. The price directly represents the market's belief in the probability of that outcome.
@@ -20,10 +14,7 @@ Every share on Polymarket is priced between `$0.00` and `$1.00`. The price direc
 | \$0.50 | 50% chance          |
 | \$0.75 | 75% chance          |
 
-<Note>
-  The displayed price is the **midpoint** of the bid-ask spread. If the spread
-  is wider than \$0.10, the last traded price is shown instead.
-</Note>
+> **Note:** The displayed price is the **midpoint** of the bid-ask spread. If the spread is wider than \$0.10, the last traded price is shown instead.
 
 ### Example
 
@@ -63,10 +54,7 @@ Execute only at your specified price or better. Use when you want price control 
 * Orders can **partially fill** as different traders match portions of your order
 * You can cancel unfilled orders at any time
 
-<Note>
-  All orders on Polymarket are technically limit orders. A "market order" is
-  simply a limit order priced to execute immediately against resting orders.
-</Note>
+> **Note:** All orders on Polymarket are technically limit orders. A "market order" is simply a limit order priced to execute immediately against resting orders.
 
 ## How Trades Work
 
@@ -74,12 +62,6 @@ Polymarket's CLOB is **hybrid-decentralized**:
 
 1. **Offchain matching** — An operator matches compatible orders
 2. **Onchain settlement** — Matched trades settle via smart contracts
-
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/trade-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=2acec8befdfbba57fb554170f7d5813c" alt="" className="dark:hidden" width="1540" height="952" data-path="images/core-concepts/trade-lifecycle.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/trade-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=d18b22ad7629820ad554dda8cb83ec18" alt="" className="hidden dark:block" width="1540" height="952" data-path="images/dark/core-concepts/trade-lifecycle.png" />
-</Frame>
 
 This design gives you the speed of centralized matching with the security of onchain settlement. You always maintain custody of your funds.
 
@@ -95,18 +77,8 @@ When matched, `$1.00` is converted into 1 Yes token and 1 No token, each going t
 
 ## Next Steps
 
-<Note>
-  Polymarket's orderbook has **no trading size limits** — it matches willing
-  buyers and sellers of any amount. However, large orders may move the price
-  significantly. Always check orderbook depth before trading in size.
-</Note>
+> **Note:** Polymarket's orderbook has **no trading size limits** — it matches willing buyers and sellers of any amount. However, large orders may move the price significantly. Always check orderbook depth before trading in size.
 
-<CardGroup cols={2}>
-  <Card title="Positions & Tokens" icon="coins" href="/concepts/positions-tokens">
-    Learn about outcome tokens and how positions work.
-  </Card>
+- **[Positions & Tokens](/concepts/positions-tokens)** — Learn about outcome tokens and how positions work.
 
-  <Card title="Order Lifecycle" icon="arrows-spin" href="/concepts/order-lifecycle">
-    Understand what happens from order placement to settlement.
-  </Card>
-</CardGroup>
+- **[Order Lifecycle](/concepts/order-lifecycle)** — Understand what happens from order placement to settlement.

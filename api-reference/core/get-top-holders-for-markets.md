@@ -1,7 +1,5 @@
 # Get top holders for markets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /holders

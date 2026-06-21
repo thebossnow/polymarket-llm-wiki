@@ -1,7 +1,5 @@
 # Get event by slug
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /events/slug/{slug}

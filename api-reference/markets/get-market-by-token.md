@@ -4,9 +4,6 @@
 a token ID and need to resolve its parent market without knowing the
 condition ID in advance.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /markets-by-token/{token_id}

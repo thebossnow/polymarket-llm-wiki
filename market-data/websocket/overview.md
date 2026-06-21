@@ -46,7 +46,7 @@ Send a subscription message after connecting to specify which data you want to r
 
 ### Market Channel
 
-```json theme={null}
+```json
 {
   "assets_ids": [
     "21742633143463906290569050155826241533067272736897614950488156847949938836455",
@@ -65,7 +65,7 @@ Send a subscription message after connecting to specify which data you want to r
 
 ### User Channel
 
-```json theme={null}
+```json
 {
   "auth": {
     "apiKey": "your-api-key",
@@ -77,11 +77,7 @@ Send a subscription message after connecting to specify which data you want to r
 }
 ```
 
-<Note>
-  The `auth` fields (`apiKey`, `secret`, `passphrase`) are **only required for
-  the user channel**. For the market channel, these fields are optional and can
-  be omitted.
-</Note>
+> **Note:** The `auth` fields (`apiKey`, `secret`, `passphrase`) are **only required for the user channel**. For the market channel, these fields are optional and can be omitted.
 
 | Field     | Type      | Description                                        |
 | --------- | --------- | -------------------------------------------------- |
@@ -89,11 +85,7 @@ Send a subscription message after connecting to specify which data you want to r
 | `markets` | string\[] | Condition IDs to receive events for                |
 | `type`    | string    | Channel identifier                                 |
 
-<Note>
-  The user channel subscribes by **condition IDs** (market identifiers), not
-  asset IDs. Each market has one condition ID but two asset IDs (Yes and No
-  tokens).
-</Note>
+> **Note:** The user channel subscribes by **condition IDs** (market identifiers), not asset IDs. Each market has one condition ID but two asset IDs (Yes and No tokens).
 
 ### Sports Channel
 
@@ -105,7 +97,7 @@ Modify subscriptions without reconnecting.
 
 ### Subscribe to more assets
 
-```json theme={null}
+```json
 {
   "assets_ids": ["new_asset_id_1", "new_asset_id_2"],
   "operation": "subscribe",
@@ -115,7 +107,7 @@ Modify subscriptions without reconnecting.
 
 ### Unsubscribe from assets
 
-```json theme={null}
+```json
 {
   "assets_ids": ["asset_id_to_remove"],
   "operation": "unsubscribe"
@@ -124,7 +116,7 @@ Modify subscriptions without reconnecting.
 
 For the user channel, use `markets` instead of `assets_ids`:
 
-```json theme={null}
+```json
 {
   "markets": ["0x1234...condition_id"],
   "operation": "subscribe"
@@ -149,29 +141,22 @@ The server sends `ping` every 5 seconds. Respond with `pong` within 10 seconds.
 pong
 ```
 
-<Warning>
-  If you don't respond to the server's ping within 10 seconds, the connection
-  will be closed.
-</Warning>
+> **Warning:** If you don't respond to the server's ping within 10 seconds, the connection will be closed.
 
 ## Troubleshooting
 
-<Accordion title="Connection closes immediately after opening">
-  Send a valid subscription message immediately after connecting. The server may
-  close connections that don't subscribe within a timeout period.
-</Accordion>
+#### Connection closes immediately after opening
+Send a valid subscription message immediately after connecting. The server may
+close connections that don't subscribe within a timeout period.
 
-<Accordion title="Connection drops after about 10 seconds">
-  You're not sending heartbeats. Send `PING` every 10 seconds for market/user
-  channels, or respond to server `ping` with `pong` for the sports channel.
-</Accordion>
+#### Connection drops after about 10 seconds
+You're not sending heartbeats. Send `PING` every 10 seconds for market/user
+channels, or respond to server `ping` with `pong` for the sports channel.
 
-<Accordion title="Not receiving any messages">
-  1. Verify your asset IDs or condition IDs are correct 2. Check that the
-     markets are active (not resolved) 3. Set `custom_feature_enabled: true` if
-     expecting `best_bid_ask`, `new_market`, or `market_resolved` events
-</Accordion>
+#### Not receiving any messages
+1. Verify your asset IDs or condition IDs are correct 2. Check that the
+markets are active (not resolved) 3. Set `custom_feature_enabled: true` if
+expecting `best_bid_ask`, `new_market`, or `market_resolved` events
 
-<Accordion title="Authentication failed - user channel">
-  Verify your API credentials are correct and haven't expired.
-</Accordion>
+#### Authentication failed - user channel
+Verify your API credentials are correct and haven't expired.

@@ -1,7 +1,5 @@
 # Get transaction status
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/bridge-openapi.yaml get /status/{address}

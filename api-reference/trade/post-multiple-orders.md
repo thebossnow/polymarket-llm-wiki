@@ -3,9 +3,6 @@
 > Creates multiple new orders in the order book. Orders are processed in parallel.
 Maximum 15 orders per request.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /orders
