@@ -10,6 +10,22 @@ A complete, offline-readable markdown mirror of <https://docs.polymarket.com/>, 
 
 > Pages are mirrored to match the site's URL structure. To regenerate, see [`scripts/build.sh`](./scripts/build.sh), which fetches the pages, runs [`scripts/clean_mdx.py`](./scripts/clean_mdx.py) to strip MDX, and rebuilds `llms-full.txt`.
 
+## Regenerating
+
+`llms-full.txt` is derived from the page `.md` files, so it must be rebuilt whenever any page changes — otherwise it drifts out of sync.
+
+- **Full refresh** (re-fetch from the docs site, strip MDX, rebuild `llms-full.txt`):
+
+  ```bash
+  ./scripts/build.sh
+  ```
+
+- **After a manual edit** to one or more `.md` files (no re-fetch needed), regenerate just the corpus before committing:
+
+  ```bash
+  python3 scripts/build_llms_full.py . > llms-full.txt
+  ```
+
 ## Contents
 
 ### Getting Started
