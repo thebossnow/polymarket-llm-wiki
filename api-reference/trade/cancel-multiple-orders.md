@@ -4,9 +4,6 @@
 Duplicate order IDs in the request are automatically ignored.
 Works even in cancel-only mode.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml delete /orders

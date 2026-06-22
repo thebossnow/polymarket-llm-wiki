@@ -6,19 +6,11 @@ CLOB V2 introduces a fee layer that lets builders earn a fee on every order rout
 
 Builder fees are flat percentages of trade notional, configured by each builder within enforced limits. They're additive — they stack on top of platform fees, never replace them.
 
-<Note>
-  New to the Builder Program? Start with [Builder Program](/builders/overview). This page covers the fee layer specifically.
-</Note>
+> **Note:** New to the Builder Program? Start with [Builder Program](/builders/overview). This page covers the fee layer specifically.
 
 ***
 
 ## How it works
-
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/lWwKl4XdsXxYugaA/images/core-concepts/builder-fee.png?fit=max&auto=format&n=lWwKl4XdsXxYugaA&q=85&s=9287dc95f24f07bcb9f33c4d7d6ed0f2" alt="" className="dark:hidden" width="2068" height="952" data-path="images/core-concepts/builder-fee.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/lWwKl4XdsXxYugaA/images/dark/core-concepts/builder-fee.png?fit=max&auto=format&n=lWwKl4XdsXxYugaA&q=85&s=31b5e9be53b16738ad9f2b833b1eb02a" alt="" className="hidden dark:block" width="2068" height="952" data-path="images/dark/core-concepts/builder-fee.png" />
-</Frame>
 
 Builder fees and platform fees are independent. What the user pays depends on the market config and whether a builder code is attached:
 
@@ -31,9 +23,7 @@ Builder fees and platform fees are independent. What the user pays depends on th
 
 Builder fees never replace platform fees — they're always additive.
 
-<Warning>
-  Polymarket reserves the right to revoke your ability to charge a builder fee in its sole discretion, for any reason or no reason, including but not limited to instances where fees are determined to have been collected through fraudulent, deceptive, misleading, automated, self-referred, or other non-bona fide trading activity.
-</Warning>
+> **Warning:** Polymarket reserves the right to revoke your ability to charge a builder fee in its sole discretion, for any reason or no reason, including but not limited to instances where fees are determined to have been collected through fraudulent, deceptive, misleading, automated, self-referred, or other non-bona fide trading activity.
 
 ***
 
@@ -41,22 +31,17 @@ Builder fees never replace platform fees — they're always additive.
 
 Register for a builder code through your Polymarket account.
 
-<Steps>
-  <Step title="Create a builder profile">
-    Go to [polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder) and set up your builder profile.
-  </Step>
+### Create a builder profile
+Go to [polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder) and set up your builder profile.
 
-  <Step title="Set your fee rates">
-    Configure two rates on your profile:
+### Set your fee rates
+Configure two rates on your profile:
 
-    * `builder_taker_fee_bps` — charged on taker orders routed through your app
-    * `builder_maker_fee_bps` — charged on maker orders routed through your app
-  </Step>
+* `builder_taker_fee_bps` — charged on taker orders routed through your app
+* `builder_maker_fee_bps` — charged on maker orders routed through your app
 
-  <Step title="Copy your builder code">
-    Your profile is assigned a `bytes32` builder code. Attach it to every order you submit.
-  </Step>
-</Steps>
+### Copy your builder code
+Your profile is assigned a `bytes32` builder code. Attach it to every order you submit.
 
 ### Fee rate limits
 
@@ -82,19 +67,15 @@ The V2 SDK handles builder codes natively — no separate signing library, no ex
 
 ### Install
 
-<CodeGroup>
-  ```bash TypeScript theme={null}
-  npm install @polymarket/clob-client-v2 viem
-  ```
+```bash TypeScript
+npm install @polymarket/clob-client-v2 viem
+```
 
-  ```bash Python theme={null}
-  pip install py-clob-client-v2
-  ```
-</CodeGroup>
+```bash Python
+pip install py-clob-client-v2
+```
 
-<Note>
-  Coming from the old `@polymarket/builder-signing-sdk` + HMAC header flow? That's gone in V2 — see [Migrating to CLOB V2](/v2-migration#builder-program) for the full upgrade path.
-</Note>
+> **Note:** Coming from the old `@polymarket/builder-signing-sdk` + HMAC header flow? That's gone in V2 — see [Migrating to CLOB V2](/v2-migration#builder-program) for the full upgrade path.
 
 ### Attach your builder code
 
@@ -102,7 +83,7 @@ Pass `builderCode` on every order your application submits. This is how trades a
 
 **Limit order:**
 
-```typescript theme={null}
+```typescript
 const response = await client.createAndPostOrder(
   {
     tokenID: "0x123...",
@@ -119,7 +100,7 @@ const response = await client.createAndPostOrder(
 
 **Market order:**
 
-```typescript theme={null}
+```typescript
 const response = await client.createAndPostMarketOrder(
   {
     tokenID: "0x123...",
@@ -136,15 +117,13 @@ const response = await client.createAndPostMarketOrder(
 
 If `builderCode` is omitted, no builder fee is charged.
 
-<Tip>
-  You can also pass `builderConfig: { builderCode }` once at client construction and every order inherits it. See [Migrating to CLOB V2](/v2-migration#builder-program) for both patterns.
-</Tip>
+> **Tip:** You can also pass `builderConfig: { builderCode }` once at client construction and every order inherits it. See [Migrating to CLOB V2](/v2-migration#builder-program) for both patterns.
 
 ### Query fee parameters
 
 `getClobMarketInfo()` returns both platform and builder fee parameters for a market:
 
-```typescript theme={null}
+```typescript
 const info = await client.getClobMarketInfo(conditionID);
 
 // Platform fee
@@ -245,20 +224,10 @@ Builders with V1 integrations have builder code entities provisioned automatical
 
 ## Next steps
 
-<CardGroup cols={2}>
-  <Card title="Builder Program" icon="hammer" href="/builders/overview">
-    Overview of the Builder Program and benefits
-  </Card>
+- **[Builder Program](/builders/overview)** — Overview of the Builder Program and benefits
 
-  <Card title="Builder Methods" icon="code" href="/trading/clients/builder">
-    SDK methods for querying your builder trades and orders
-  </Card>
+- **[Builder Methods](/trading/clients/builder)** — SDK methods for querying your builder trades and orders
 
-  <Card title="Order Attribution" icon="tag" href="/trading/orders/attribution">
-    Details on attaching builder codes to orders
-  </Card>
+- **[Order Attribution](/trading/orders/attribution)** — Details on attaching builder codes to orders
 
-  <Card title="Migration Guide" icon="arrow-right" href="/v2-migration">
-    Full V2 migration guide
-  </Card>
-</CardGroup>
+- **[Migration Guide](/v2-migration)** — Full V2 migration guide

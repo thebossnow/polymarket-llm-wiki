@@ -8,9 +8,6 @@ When `sponsored=true`, sponsored daily rates are folded into each config's
 Results are paginated (100 items per page). Use next_cursor to fetch subsequent pages.
 A next_cursor value of "LTE=" indicates the last page.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/markets/{condition_id}
@@ -50,12 +47,10 @@ paths:
       description: >
         Returns an array of present and future rewards configured on a market.
 
-
         When `sponsored=true`, sponsored daily rates are folded into each
         config's
 
         `rate_per_day` .
-
 
         Results are paginated (100 items per page). Use next_cursor to fetch
         subsequent pages.

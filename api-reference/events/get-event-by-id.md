@@ -1,7 +1,5 @@
 # Get event by id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /events/{id}

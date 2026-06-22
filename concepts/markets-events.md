@@ -4,21 +4,9 @@
 
 Every prediction on Polymarket is structured around two core concepts: **markets** and **events**. Understanding how they relate is essential for building on the platform.
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/event-market.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=4c62bd08a405868307cdd6799b368ca5" alt="" className="dark:hidden" width="1540" height="952" data-path="images/core-concepts/event-market.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/event-market.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=2eb5c9b0f8a2afe52bc2e717b7b796a2" alt="" className="hidden dark:block" width="1540" height="952" data-path="images/dark/core-concepts/event-market.png" />
-</Frame>
-
 ## Markets
 
 A **market** is the fundamental tradable unit on Polymarket. Each market represents a single binary question with Yes/No outcomes.
-
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/event.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=0c9a264aec9a22ce5a20c4cc7980806d" alt="" className="dark:hidden" width="1540" height="952" data-path="images/core-concepts/event.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/event.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=912e41bebfe8c1a43ef53b89685ca3d2" alt="" className="hidden dark:block" width="1540" height="952" data-path="images/dark/core-concepts/event.png" />
-</Frame>
 
 Every market has:
 
@@ -28,10 +16,7 @@ Every market has:
 | **Question ID**  | Hash of the market question used for resolution                          |
 | **Token IDs**    | ERC1155 token IDs used for trading on the CLOB — one for Yes, one for No |
 
-<Note>
-  Markets can only be traded via the CLOB if `enableOrderBook` is `true`. Some
-  markets may exist onchain but not be available for order book trading.
-</Note>
+> **Note:** Markets can only be traded via the CLOB if `enableOrderBook` is `true`. Some markets may exist onchain but not be available for order book trading.
 
 ### Market Example
 
@@ -80,7 +65,7 @@ https://polymarket.com/event/fed-decision-in-october
 
 You can use slugs to fetch specific markets or events from the API:
 
-```bash theme={null}
+```bash
 # Fetch event by slug
 curl "https://gamma-api.polymarket.com/events?slug=fed-decision-in-october"
 ```
@@ -93,12 +78,6 @@ Specifically for sports markets, outstanding limit orders are **automatically ca
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Prices & Orderbook" icon="chart-line" href="/concepts/prices-orderbook">
-    Learn how prices are determined and how the order book works.
-  </Card>
+- **[Prices & Orderbook](/concepts/prices-orderbook)** — Learn how prices are determined and how the order book works.
 
-  <Card title="Fetching Market Data" icon="code" href="/market-data/overview">
-    Start querying markets and events from the API.
-  </Card>
-</CardGroup>
+- **[Fetching Market Data](/market-data/overview)** — Start querying markets and events from the API.

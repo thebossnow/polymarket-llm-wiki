@@ -1,7 +1,5 @@
 # List events
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /events

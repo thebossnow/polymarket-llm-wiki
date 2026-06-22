@@ -2,8 +2,6 @@
 
 > Authenticated WebSocket for real-time order and trade updates.
 
-
-
 ## AsyncAPI
 
 ````yaml asyncapi-user.json user

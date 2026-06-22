@@ -29,12 +29,7 @@ Polymarket pays gas for all operations routed through the relayer:
 
 The relayer uses **Relayer API Keys**. You can create one from [Settings > API Keys](https://polymarket.com/settings?tab=api-keys) on the Polymarket website.
 
-<Note>
-  **Already have a builder signing key?** Your existing HMAC-based builder API
-  key keeps working with the Relayer — no need to rotate or reissue. Order
-  attribution is now associated with the native `builderCode` field in CLOB V2.
-  See [Migrating to CLOB V2](/v2-migration#builder-program) for context.
-</Note>
+> **Note:** **Already have a builder signing key?** Your existing HMAC-based builder API key keeps working with the Relayer — no need to rotate or reissue. Order attribution is now associated with the native `builderCode` field in CLOB V2. See [Migrating to CLOB V2](/v2-migration#builder-program) for context.
 
 Include these headers with your requests:
 
@@ -43,10 +38,7 @@ Include these headers with your requests:
 | `RELAYER_API_KEY`         | Your Relayer API key          |
 | `RELAYER_API_KEY_ADDRESS` | The address that owns the key |
 
-<Info>
-  If you want to use the Relayer API Key directly without the SDK, see the
-  [Relayer API Reference](/api-reference/relayer).
-</Info>
+> **Info:** If you want to use the Relayer API Key directly without the SDK, see the [Relayer API Reference](/api-reference/relayer).
 
 ## Prerequisites
 
@@ -60,61 +52,54 @@ Before using the relayer, you need:
 
 ## Installation
 
-<CodeGroup>
-  ```bash npm theme={null}
-  npm install @polymarket/builder-relayer-client
-  ```
+```bash npm
+npm install @polymarket/builder-relayer-client
+```
 
-  ```bash pip theme={null}
-  pip install py-builder-relayer-client
-  ```
-</CodeGroup>
+```bash pip
+pip install py-builder-relayer-client
+```
 
 ## Client Setup
 
 Initialize the relayer client with your Relayer API Key:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import { createWalletClient, http, Hex } from "viem";
-  import { privateKeyToAccount } from "viem/accounts";
-  import { polygon } from "viem/chains";
-  import { RelayClient } from "@polymarket/builder-relayer-client";
+```typescript TypeScript
+import { createWalletClient, http, Hex } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { polygon } from "viem/chains";
+import { RelayClient } from "@polymarket/builder-relayer-client";
 
-  const account = privateKeyToAccount(process.env.PRIVATE_KEY as Hex);
-  const wallet = createWalletClient({
-    account,
-    chain: polygon,
-    transport: http(process.env.RPC_URL),
-  });
+const account = privateKeyToAccount(process.env.PRIVATE_KEY as Hex);
+const wallet = createWalletClient({
+  account,
+  chain: polygon,
+  transport: http(process.env.RPC_URL),
+});
 
-  const client = new RelayClient({
-    host: "https://relayer-v2.polymarket.com/",
-    chain: 137,
-    signer: wallet,
-    relayerApiKey: process.env.RELAYER_API_KEY!,
-    relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
-  });
-  ```
+const client = new RelayClient({
+  host: "https://relayer-v2.polymarket.com/",
+  chain: 137,
+  signer: wallet,
+  relayerApiKey: process.env.RELAYER_API_KEY!,
+  relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
+});
+```
 
-  ```python Python theme={null}
-  import os
-  from py_builder_relayer_client.client import RelayClient
+```python Python
+import os
+from py_builder_relayer_client.client import RelayClient
 
-  client = RelayClient(
-      host="https://relayer-v2.polymarket.com",
-      chain=137,
-      signer=os.getenv("PRIVATE_KEY"),
-      relayer_api_key=os.environ["RELAYER_API_KEY"],
-      relayer_api_key_address=os.environ["RELAYER_API_KEY_ADDRESS"],
-  )
-  ```
-</CodeGroup>
+client = RelayClient(
+    host="https://relayer-v2.polymarket.com",
+    chain=137,
+    signer=os.getenv("PRIVATE_KEY"),
+    relayer_api_key=os.environ["RELAYER_API_KEY"],
+    relayer_api_key_address=os.environ["RELAYER_API_KEY_ADDRESS"],
+)
+```
 
-<Warning>
-  Never expose your Relayer API Key in client-side code. Use environment
-  variables or a secrets manager.
-</Warning>
+> **Warning:** Never expose your Relayer API Key in client-side code. Use environment variables or a secrets manager.
 
 ## Wallet Types
 
@@ -127,70 +112,64 @@ using their current wallet type and signature flow.
 | **Safe**           | Call `deploy()` before first transaction | Existing Safe integrations          |
 | **Proxy**          | Auto-deploys on first transaction        | Existing Polymarket.com proxy users |
 
-<Info>
-  For the new deposit wallet flow, including `WALLET-CREATE`, signed `WALLET`
-  batches, and `POLY_1271` CLOB orders, see the [Deposit Wallet
-  Guide](/trading/deposit-wallets).
-</Info>
+> **Info:** For the new deposit wallet flow, including `WALLET-CREATE`, signed `WALLET` batches, and `POLY_1271` CLOB orders, see the [Deposit Wallet Guide](/trading/deposit-wallets).
 
-<CodeGroup>
-  ```typescript Safe Wallet (TypeScript) theme={null}
-  import { RelayClient, RelayerTxType } from "@polymarket/builder-relayer-client";
+```typescript Safe Wallet (TypeScript)
+import { RelayClient, RelayerTxType } from "@polymarket/builder-relayer-client";
 
-  const client = new RelayClient({
-    host: "https://relayer-v2.polymarket.com/",
-    chain: 137,
-    signer: wallet,
-    relayerApiKey: process.env.RELAYER_API_KEY!,
-    relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
-    txType: RelayerTxType.SAFE,
-  });
+const client = new RelayClient({
+  host: "https://relayer-v2.polymarket.com/",
+  chain: 137,
+  signer: wallet,
+  relayerApiKey: process.env.RELAYER_API_KEY!,
+  relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
+  txType: RelayerTxType.SAFE,
+});
 
-  // Deploy before first transaction
-  const response = await client.deploy();
-  const result = await response.wait();
-  console.log("Safe Address:", result?.proxyAddress);
-  ```
+// Deploy before first transaction
+const response = await client.deploy();
+const result = await response.wait();
+console.log("Safe Address:", result?.proxyAddress);
+```
 
-  ```python Safe Wallet (Python) theme={null}
-  from py_builder_relayer_client.client import RelayClient
+```python Safe Wallet (Python)
+from py_builder_relayer_client.client import RelayClient
 
-  # client initialized with relayer credentials (see Client Setup above)
+# client initialized with relayer credentials (see Client Setup above)
 
-  # Deploy before first transaction
-  response = client.deploy()
-  result = response.wait()
-  print("Safe Address:", result.get("proxyAddress"))
-  ```
+# Deploy before first transaction
+response = client.deploy()
+result = response.wait()
+print("Safe Address:", result.get("proxyAddress"))
+```
 
-  ```typescript Proxy Wallet (TypeScript) theme={null}
-  import { RelayClient, RelayerTxType } from "@polymarket/builder-relayer-client";
+```typescript Proxy Wallet (TypeScript)
+import { RelayClient, RelayerTxType } from "@polymarket/builder-relayer-client";
 
-  const client = new RelayClient({
-    host: "https://relayer-v2.polymarket.com/",
-    chain: 137,
-    signer: wallet,
-    relayerApiKey: process.env.RELAYER_API_KEY!,
-    relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
-    txType: RelayerTxType.PROXY,
-  });
+const client = new RelayClient({
+  host: "https://relayer-v2.polymarket.com/",
+  chain: 137,
+  signer: wallet,
+  relayerApiKey: process.env.RELAYER_API_KEY!,
+  relayerApiKeyAddress: process.env.RELAYER_API_KEY_ADDRESS!,
+  txType: RelayerTxType.PROXY,
+});
 
-  // No deploy needed - auto-deploys on first transaction
-  ```
+// No deploy needed - auto-deploys on first transaction
+```
 
-  ```python Proxy Wallet (Python) theme={null}
-  from py_builder_relayer_client.client import RelayClient
+```python Proxy Wallet (Python)
+from py_builder_relayer_client.client import RelayClient
 
-  # client initialized with relayer credentials (see Client Setup above)
-  # No deploy needed - auto-deploys on first transaction
-  ```
-</CodeGroup>
+# client initialized with relayer credentials (see Client Setup above)
+# No deploy needed - auto-deploys on first transaction
+```
 
 ## Executing Transactions
 
 Use the `execute` method to send transactions through the relayer:
 
-```typescript theme={null}
+```typescript
 interface Transaction {
   to: string; // Target contract address
   data: string; // Encoded function call
@@ -205,193 +184,184 @@ const result = await response.wait();
 
 Approve contracts to spend tokens:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import { encodeFunctionData, maxUint256 } from "viem";
+```typescript TypeScript
+import { encodeFunctionData, maxUint256 } from "viem";
 
-  const pUSD = "0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB";
-  const CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045";
+const pUSD = "0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB";
+const CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045";
 
-  const approveTx = {
-    to: pUSD,
-    data: encodeFunctionData({
-      abi: [
-        {
-          name: "approve",
-          type: "function",
-          inputs: [
-            { name: "spender", type: "address" },
-            { name: "amount", type: "uint256" },
-          ],
-          outputs: [{ type: "bool" }],
-        },
-      ],
-      functionName: "approve",
-      args: [CTF, maxUint256],
-    }),
-    value: "0",
-  };
+const approveTx = {
+  to: pUSD,
+  data: encodeFunctionData({
+    abi: [
+      {
+        name: "approve",
+        type: "function",
+        inputs: [
+          { name: "spender", type: "address" },
+          { name: "amount", type: "uint256" },
+        ],
+        outputs: [{ type: "bool" }],
+      },
+    ],
+    functionName: "approve",
+    args: [CTF, maxUint256],
+  }),
+  value: "0",
+};
 
-  const response = await client.execute([approveTx], "Approve pUSD for CTF");
-  await response.wait();
-  ```
+const response = await client.execute([approveTx], "Approve pUSD for CTF");
+await response.wait();
+```
 
-  ```python Python theme={null}
-  from web3 import Web3
+```python Python
+from web3 import Web3
 
-  pUSD = "0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB"
-  CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
-  MAX_UINT256 = 2**256 - 1
+pUSD = "0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB"
+CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
+MAX_UINT256 = 2**256 - 1
 
-  approve_tx = {
-      "to": pUSD,
-      "data": Web3().eth.contract(
-          address=pUSD,
-          abi=[{
-              "name": "approve",
-              "type": "function",
-              "inputs": [
-                  {"name": "spender", "type": "address"},
-                  {"name": "amount", "type": "uint256"}
-              ],
-              "outputs": [{"type": "bool"}]
-          }]
-      ).encode_abi(abi_element_identifier="approve", args=[CTF, MAX_UINT256]),
-      "value": "0"
-  }
+approve_tx = {
+    "to": pUSD,
+    "data": Web3().eth.contract(
+        address=pUSD,
+        abi=[{
+            "name": "approve",
+            "type": "function",
+            "inputs": [
+                {"name": "spender", "type": "address"},
+                {"name": "amount", "type": "uint256"}
+            ],
+            "outputs": [{"type": "bool"}]
+        }]
+    ).encode_abi(abi_element_identifier="approve", args=[CTF, MAX_UINT256]),
+    "value": "0"
+}
 
-  response = client.execute([approve_tx], "Approve pUSD for CTF")
-  response.wait()
-  ```
-</CodeGroup>
+response = client.execute([approve_tx], "Approve pUSD for CTF")
+response.wait()
+```
 
 ### Redeem Positions
 
 Exchange winning tokens for pUSD after market resolution:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import { encodeFunctionData } from "viem";
+```typescript TypeScript
+import { encodeFunctionData } from "viem";
 
-  const redeemTx = {
-    to: CTF_ADDRESS,
-    data: encodeFunctionData({
-      abi: [
-        {
-          name: "redeemPositions",
-          type: "function",
-          inputs: [
-            { name: "collateralToken", type: "address" },
-            { name: "parentCollectionId", type: "bytes32" },
-            { name: "conditionId", type: "bytes32" },
-            { name: "indexSets", type: "uint256[]" },
-          ],
-          outputs: [],
-        },
-      ],
-      functionName: "redeemPositions",
-      args: [collateralToken, parentCollectionId, conditionId, indexSets],
-    }),
-    value: "0",
-  };
+const redeemTx = {
+  to: CTF_ADDRESS,
+  data: encodeFunctionData({
+    abi: [
+      {
+        name: "redeemPositions",
+        type: "function",
+        inputs: [
+          { name: "collateralToken", type: "address" },
+          { name: "parentCollectionId", type: "bytes32" },
+          { name: "conditionId", type: "bytes32" },
+          { name: "indexSets", type: "uint256[]" },
+        ],
+        outputs: [],
+      },
+    ],
+    functionName: "redeemPositions",
+    args: [collateralToken, parentCollectionId, conditionId, indexSets],
+  }),
+  value: "0",
+};
 
-  const response = await client.execute([redeemTx], "Redeem positions");
-  await response.wait();
-  ```
+const response = await client.execute([redeemTx], "Redeem positions");
+await response.wait();
+```
 
-  ```python Python theme={null}
-  CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
+```python Python
+CTF = "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
 
-  redeem_tx = {
-      "to": CTF,
-      "data": Web3().eth.contract(
-          address=CTF,
-          abi=[{
-              "name": "redeemPositions",
-              "type": "function",
-              "inputs": [
-                  {"name": "collateralToken", "type": "address"},
-                  {"name": "parentCollectionId", "type": "bytes32"},
-                  {"name": "conditionId", "type": "bytes32"},
-                  {"name": "indexSets", "type": "uint256[]"}
-              ],
-              "outputs": []
-          }]
-      ).encode_abi(
-          abi_element_identifier="redeemPositions",
-          args=[collateral_token, parent_collection_id, condition_id, index_sets]
-      ),
-      "value": "0"
-  }
+redeem_tx = {
+    "to": CTF,
+    "data": Web3().eth.contract(
+        address=CTF,
+        abi=[{
+            "name": "redeemPositions",
+            "type": "function",
+            "inputs": [
+                {"name": "collateralToken", "type": "address"},
+                {"name": "parentCollectionId", "type": "bytes32"},
+                {"name": "conditionId", "type": "bytes32"},
+                {"name": "indexSets", "type": "uint256[]"}
+            ],
+            "outputs": []
+        }]
+    ).encode_abi(
+        abi_element_identifier="redeemPositions",
+        args=[collateral_token, parent_collection_id, condition_id, index_sets]
+    ),
+    "value": "0"
+}
 
-  response = client.execute([redeem_tx], "Redeem positions")
-  response.wait()
-  ```
-</CodeGroup>
+response = client.execute([redeem_tx], "Redeem positions")
+response.wait()
+```
 
 ### Batch Transactions
 
 Execute multiple operations atomically in a single call:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const approveTx = {
-    to: pUSD,
-    data: encodeFunctionData({
-      abi: erc20Abi,
-      functionName: "approve",
-      args: [CTF, maxUint256],
-    }),
-    value: "0",
-  };
+```typescript TypeScript
+const approveTx = {
+  to: pUSD,
+  data: encodeFunctionData({
+    abi: erc20Abi,
+    functionName: "approve",
+    args: [CTF, maxUint256],
+  }),
+  value: "0",
+};
 
-  const transferTx = {
-    to: pUSD,
-    data: encodeFunctionData({
-      abi: erc20Abi,
-      functionName: "transfer",
-      args: [recipientAddress, parseUnits("50", 6)],
-    }),
-    value: "0",
-  };
+const transferTx = {
+  to: pUSD,
+  data: encodeFunctionData({
+    abi: erc20Abi,
+    functionName: "transfer",
+    args: [recipientAddress, parseUnits("50", 6)],
+  }),
+  value: "0",
+};
 
-  // Both execute atomically
-  const response = await client.execute(
-    [approveTx, transferTx],
-    "Approve and transfer",
-  );
-  await response.wait();
-  ```
+// Both execute atomically
+const response = await client.execute(
+  [approveTx, transferTx],
+  "Approve and transfer",
+);
+await response.wait();
+```
 
-  ```python Python theme={null}
-  approve_tx = {
-      "to": pUSD,
-      "data": contract.encode_abi(
-          abi_element_identifier="approve",
-          args=[CTF, MAX_UINT256]
-      ),
-      "value": "0"
-  }
+```python Python
+approve_tx = {
+    "to": pUSD,
+    "data": contract.encode_abi(
+        abi_element_identifier="approve",
+        args=[CTF, MAX_UINT256]
+    ),
+    "value": "0"
+}
 
-  transfer_tx = {
-      "to": pUSD,
-      "data": contract.encode_abi(
-          abi_element_identifier="transfer",
-          args=[recipient_address, 50 * 10**6]
-      ),
-      "value": "0"
-  }
+transfer_tx = {
+    "to": pUSD,
+    "data": contract.encode_abi(
+        abi_element_identifier="transfer",
+        args=[recipient_address, 50 * 10**6]
+    ),
+    "value": "0"
+}
 
-  # Both execute atomically
-  response = client.execute([approve_tx, transfer_tx], "Approve and transfer")
-  response.wait()
-  ```
-</CodeGroup>
+# Both execute atomically
+response = client.execute([approve_tx, transfer_tx], "Approve and transfer")
+response.wait()
+```
 
-<Tip>
-  Batching reduces latency and ensures all transactions succeed or fail
-  together.
-</Tip>
+> **Tip:** Batching reduces latency and ensures all transactions succeed or fail together.
 
 ## Transaction States
 
@@ -417,12 +387,6 @@ See [Contracts](/resources/contracts) for all Polymarket smart contract addresse
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Negative Risk Markets" icon="scale-balanced" href="/advanced/neg-risk">
-    Learn about capital-efficient trading for multi-outcome events.
-  </Card>
+- **[Negative Risk Markets](/advanced/neg-risk)** — Learn about capital-efficient trading for multi-outcome events.
 
-  <Card title="Positions & Tokens" icon="coins" href="/concepts/positions-tokens">
-    Understand token operations like split, merge, and redeem.
-  </Card>
-</CardGroup>
+- **[Positions & Tokens](/concepts/positions-tokens)** — Understand token operations like split, merge, and redeem.

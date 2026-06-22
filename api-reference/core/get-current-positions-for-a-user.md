@@ -1,7 +1,5 @@
 # Get current positions for a user
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /positions

@@ -2,9 +2,7 @@
 
 > Climb the tiers and earn daily pUSD rebates as you trade
 
-<Note>
-  The Taker Rebate Program goes live on **Thursday, May 28, 2026**.
-</Note>
+> **Note:** The Taker Rebate Program goes live on **Thursday, May 28, 2026**.
 
 Polymarket Tiers reward you for trading as a **taker**. The more taker volume you do, the higher your tier, the bigger the rebate you earn back on every trade you make from that point on. Every **taker** trade earns **Weighted Volume (wV)**. Your tier is based on your Weighted Volume over the last 30 days, and rebates are paid every day in pUSD.
 
@@ -22,7 +20,7 @@ Your tier is set by how much **Weighted Volume (wV)** you earn over the last 30 
 
 The formula:
 
-```text theme={null}
+```text
 wV = Trade Size × (1 − Entry Price) × Category Weight × Bonuses
 ```
 
@@ -61,9 +59,7 @@ Both trades count, and your Weighted Volume from every trade adds up over 30 day
 | Crypto                             | 2.3                            |
 | Geopolitics                        | 0 (free to trade, earns no wV) |
 
-<Note>
-  Category weights are set by Polymarket and may change over time.
-</Note>
+> **Note:** Category weights are set by Polymarket and may change over time.
 
 ***
 
@@ -136,50 +132,36 @@ Your tier shows on your Polymarket profile and on the leaderboards. As you climb
 
 ## FAQ
 
-<AccordionGroup>
-  <Accordion title="Do maker trades count toward my tier">
-    No. Only taker trades earn Weighted Volume and count toward your tier.
-    Maker fills are rewarded separately through the
-    [Maker Rebates Program](/market-makers/maker-rebates).
-  </Accordion>
+#### Do maker trades count toward my tier
+No. Only taker trades earn Weighted Volume and count toward your tier.
+Maker fills are rewarded separately through the
+[Maker Rebates Program](/market-makers/maker-rebates).
 
-  <Accordion title="When does my rebate start applying">
-    Your rebate applies to trades from the moment you reach a tier, going
-    forward. There is no backfill on earlier trades.
-  </Accordion>
+#### When does my rebate start applying
+Your rebate applies to trades from the moment you reach a tier, going
+forward. There is no backfill on earlier trades.
 
-  <Accordion title="When are rebates paid">
-    Rebates are paid once a day at midnight UTC in pUSD, directly to your
-    account.
-  </Accordion>
+#### When are rebates paid
+Rebates are paid once a day at midnight UTC in pUSD, directly to your
+account.
 
-  <Accordion title="How often does my tier update">
-    Your tier is recalculated daily based on your last 30 days of Weighted
-    Volume. Tier changes take effect at the next daily update.
-  </Accordion>
+#### How often does my tier update
+Your tier is recalculated daily based on your last 30 days of Weighted
+Volume. Tier changes take effect at the next daily update.
 
-  <Accordion title="What happens if I slow down trading">
-    Your tier moves down after a short grace period if your 30-day Weighted
-    Volume drops below your current tier's threshold.
-  </Accordion>
+#### What happens if I slow down trading
+Your tier moves down after a short grace period if your 30-day Weighted
+Volume drops below your current tier's threshold.
 
-  <Accordion title="Which markets earn Weighted Volume">
-    All fee-enabled categories earn Weighted Volume at the weight shown in the
-    table above. Geopolitical and world events markets are free to trade and
-    earn no Weighted Volume.
-  </Accordion>
-</AccordionGroup>
+#### Which markets earn Weighted Volume
+All fee-enabled categories earn Weighted Volume at the weight shown in the
+table above. Geopolitical and world events markets are free to trade and
+earn no Weighted Volume.
 
 ***
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Maker Rebates" icon="hand-holding-dollar" href="/market-makers/maker-rebates">
-    Earn daily pUSD rebates by providing liquidity.
-  </Card>
+- **[Maker Rebates](/market-makers/maker-rebates)** — Earn daily pUSD rebates by providing liquidity.
 
-  <Card title="Fee Structure" icon="receipt" href="/trading/fees">
-    See how taker fees are calculated across market categories.
-  </Card>
-</CardGroup>
+- **[Fee Structure](/trading/fees)** — See how taker fees are calculated across market categories.

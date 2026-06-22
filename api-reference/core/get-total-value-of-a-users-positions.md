@@ -1,7 +1,5 @@
 # Get total value of a user's positions
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /value

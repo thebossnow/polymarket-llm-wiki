@@ -6,64 +6,60 @@
 
 Builder attribution in V2 is handled natively through the order struct — you attach your **builder code** (a `bytes32` identifier from your [Builder Profile](https://polymarket.com/settings?tab=builder)) to every order you submit. No separate client configuration is required.
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  import { ClobClient } from "@polymarket/clob-client-v2";
+```typescript TypeScript
+import { ClobClient } from "@polymarket/clob-client-v2";
 
-  const client = new ClobClient({
-    host: "https://clob.polymarket.com",
-    chain: 137,
-    signer,
-    creds: apiCreds,
-    signatureType,
-    funderAddress,
-  });
+const client = new ClobClient({
+  host: "https://clob.polymarket.com",
+  chain: 137,
+  signer,
+  creds: apiCreds,
+  signatureType,
+  funderAddress,
+});
 
-  // Attach your builder code on every order
-  const response = await client.createAndPostOrder(
-    {
-      tokenID: "0x...",
-      price: 0.55,
-      size: 100,
-      side: Side.BUY,
-      builderCode: process.env.POLY_BUILDER_CODE!,
-    },
-    { tickSize: "0.01", negRisk: false },
-  );
-  ```
+// Attach your builder code on every order
+const response = await client.createAndPostOrder(
+  {
+    tokenID: "0x...",
+    price: 0.55,
+    size: 100,
+    side: Side.BUY,
+    builderCode: process.env.POLY_BUILDER_CODE!,
+  },
+  { tickSize: "0.01", negRisk: false },
+);
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import ClobClient
-  from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
-  from py_clob_client_v2.order_builder.constants import BUY
-  import os
+```python Python
+from py_clob_client_v2 import ClobClient
+from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
+from py_clob_client_v2.order_builder.constants import BUY
+import os
 
-  client = ClobClient(
-      host="https://clob.polymarket.com",
-      chain_id=137,
-      key=os.getenv("PRIVATE_KEY"),
-      creds=creds,
-      signature_type=signature_type,
-      funder=funder,
-  )
+client = ClobClient(
+    host="https://clob.polymarket.com",
+    chain_id=137,
+    key=os.getenv("PRIVATE_KEY"),
+    creds=creds,
+    signature_type=signature_type,
+    funder=funder,
+)
 
-  # Attach your builder code on every order
-  response = client.create_and_post_order(
-      OrderArgs(
-          token_id="0x...",
-          price=0.55,
-          size=100,
-          side=BUY,
-          builder_code=os.environ["POLY_BUILDER_CODE"],
-      ),
-      options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
-  )
-  ```
-</CodeGroup>
+# Attach your builder code on every order
+response = client.create_and_post_order(
+    OrderArgs(
+        token_id="0x...",
+        price=0.55,
+        size=100,
+        side=BUY,
+        builder_code=os.environ["POLY_BUILDER_CODE"],
+    ),
+    options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
+)
+```
 
-<Info>
-  See [Order Attribution](/trading/orders/attribution) for the full attribution flow.
-</Info>
+> **Info:** See [Order Attribution](/trading/orders/attribution) for the full attribution flow.
 
 ***
 
@@ -75,21 +71,19 @@ Builder attribution in V2 is handled natively through the order struct — you a
 
 Get details for a specific order by ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getOrder(orderID: string): Promise<OpenOrder>
 ```
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const order = await client.getOrder("0xb816482a...");
-  console.log(order);
-  ```
+```typescript TypeScript
+const order = await client.getOrder("0xb816482a...");
+console.log(order);
+```
 
-  ```python Python theme={null}
-  order = client.get_order("0xb816482a...")
-  print(order)
-  ```
-</CodeGroup>
+```python Python
+order = client.get_order("0xb816482a...")
+print(order)
+```
 
 ***
 
@@ -97,7 +91,7 @@ async getOrder(orderID: string): Promise<OpenOrder>
 
 Get all open orders attributed to your builder code.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getOpenOrders(
   params?: OpenOrderParams,
   only_first_page?: boolean,
@@ -106,19 +100,16 @@ async getOpenOrders(
 
 **Params**
 
-<ResponseField name="id" type="string">
-  Optional. Filter by order ID.
-</ResponseField>
+**`id`** `string`
+Optional. Filter by order ID.
 
-<ResponseField name="market" type="string">
-  Optional. Filter by market condition ID.
-</ResponseField>
+**`market`** `string`
+Optional. Filter by market condition ID.
 
-<ResponseField name="asset_id" type="string">
-  Optional. Filter by token ID.
-</ResponseField>
+**`asset_id`** `string`
+Optional. Filter by token ID.
 
-```typescript TypeScript theme={null}
+```typescript TypeScript
 // All open orders for this builder
 const orders = await client.getOpenOrders();
 
@@ -134,7 +125,7 @@ const marketOrders = await client.getOpenOrders({
 
 Retrieves all trades attributed to your builder code. Use this to track which trades were routed through your platform.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getBuilderTrades(
   params?: TradeParams,
 ): Promise<BuilderTradesPaginatedResponse>
@@ -142,160 +133,117 @@ async getBuilderTrades(
 
 **Params (`TradeParams`)**
 
-<ResponseField name="id" type="string">
-  Optional. Filter trades by trade ID.
-</ResponseField>
+**`id`** `string`
+Optional. Filter trades by trade ID.
 
-<ResponseField name="maker_address" type="string">
-  Optional. Filter trades by maker address.
-</ResponseField>
+**`maker_address`** `string`
+Optional. Filter trades by maker address.
 
-<ResponseField name="market" type="string">
-  Optional. Filter trades by market condition ID.
-</ResponseField>
+**`market`** `string`
+Optional. Filter trades by market condition ID.
 
-<ResponseField name="asset_id" type="string">
-  Optional. Filter trades by asset (token) ID.
-</ResponseField>
+**`asset_id`** `string`
+Optional. Filter trades by asset (token) ID.
 
-<ResponseField name="before" type="string">
-  Optional. Return trades created before this cursor value.
-</ResponseField>
+**`before`** `string`
+Optional. Return trades created before this cursor value.
 
-<ResponseField name="after" type="string">
-  Optional. Return trades created after this cursor value.
-</ResponseField>
+**`after`** `string`
+Optional. Return trades created after this cursor value.
 
 **Response (`BuilderTradesPaginatedResponse`)**
 
-<ResponseField name="trades" type="BuilderTrade[]">
-  Array of trades attributed to the builder account.
-</ResponseField>
+**`trades`** `BuilderTrade[]`
+Array of trades attributed to the builder account.
 
-<ResponseField name="next_cursor" type="string">
-  Cursor string for fetching the next page of results.
-</ResponseField>
+**`next_cursor`** `string`
+Cursor string for fetching the next page of results.
 
-<ResponseField name="limit" type="number">
-  Maximum number of trades returned per page.
-</ResponseField>
+**`limit`** `number`
+Maximum number of trades returned per page.
 
-<ResponseField name="count" type="number">
-  Total number of trades returned in this response.
-</ResponseField>
+**`count`** `number`
+Total number of trades returned in this response.
 
 **`BuilderTrade` fields**
 
-<ResponseField name="id" type="string">
-  Unique identifier for the trade.
-</ResponseField>
+**`id`** `string`
+Unique identifier for the trade.
 
-<ResponseField name="tradeType" type="string">
-  Type of the trade.
-</ResponseField>
+**`tradeType`** `string`
+Type of the trade.
 
-<ResponseField name="takerOrderHash" type="string">
-  Hash of the taker order associated with this trade.
-</ResponseField>
+**`takerOrderHash`** `string`
+Hash of the taker order associated with this trade.
 
-<ResponseField name="builder" type="string">
-  Builder code attributed to this trade.
-</ResponseField>
+**`builder`** `string`
+Builder code attributed to this trade.
 
-<ResponseField name="market" type="string">
-  Condition ID of the market this trade belongs to.
-</ResponseField>
+**`market`** `string`
+Condition ID of the market this trade belongs to.
 
-<ResponseField name="assetId" type="string">
-  Token ID of the asset traded.
-</ResponseField>
+**`assetId`** `string`
+Token ID of the asset traded.
 
-<ResponseField name="side" type="string">
-  Side of the trade (e.g. BUY or SELL).
-</ResponseField>
+**`side`** `string`
+Side of the trade (e.g. BUY or SELL).
 
-<ResponseField name="size" type="string">
-  Size of the trade in shares.
-</ResponseField>
+**`size`** `string`
+Size of the trade in shares.
 
-<ResponseField name="sizeUsdc" type="string">
-  Size of the trade denominated in USDC.
-</ResponseField>
+**`sizeUsdc`** `string`
+Size of the trade denominated in USDC.
 
-<ResponseField name="price" type="string">
-  Price at which the trade was executed.
-</ResponseField>
+**`price`** `string`
+Price at which the trade was executed.
 
-<ResponseField name="status" type="string">
-  Current status of the trade.
-</ResponseField>
+**`status`** `string`
+Current status of the trade.
 
-<ResponseField name="outcome" type="string">
-  Outcome label associated with the traded asset.
-</ResponseField>
+**`outcome`** `string`
+Outcome label associated with the traded asset.
 
-<ResponseField name="outcomeIndex" type="number">
-  Index of the outcome within the market.
-</ResponseField>
+**`outcomeIndex`** `number`
+Index of the outcome within the market.
 
-<ResponseField name="owner" type="string">
-  Address of the order owner (taker).
-</ResponseField>
+**`owner`** `string`
+Address of the order owner (taker).
 
-<ResponseField name="maker" type="string">
-  Address of the maker in the trade.
-</ResponseField>
+**`maker`** `string`
+Address of the maker in the trade.
 
-<ResponseField name="transactionHash" type="string">
-  On-chain transaction hash for the trade.
-</ResponseField>
+**`transactionHash`** `string`
+On-chain transaction hash for the trade.
 
-<ResponseField name="matchTime" type="string">
-  Timestamp when the trade was matched.
-</ResponseField>
+**`matchTime`** `string`
+Timestamp when the trade was matched.
 
-<ResponseField name="bucketIndex" type="number">
-  Bucket index used for trade grouping.
-</ResponseField>
+**`bucketIndex`** `number`
+Bucket index used for trade grouping.
 
-<ResponseField name="fee" type="string">
-  Fee charged for the trade in shares.
-</ResponseField>
+**`fee`** `string`
+Fee charged for the trade in shares.
 
-<ResponseField name="feeUsdc" type="string">
-  Fee charged for the trade denominated in USDC.
-</ResponseField>
+**`feeUsdc`** `string`
+Fee charged for the trade denominated in USDC.
 
-<ResponseField name="err_msg" type="string | null">
-  Optional. Error message if the trade encountered an issue, otherwise null.
-</ResponseField>
+**`err_msg`** `string | null`
+Optional. Error message if the trade encountered an issue, otherwise null.
 
-<ResponseField name="createdAt" type="string | null">
-  Timestamp when the trade record was created, or null if unavailable.
-</ResponseField>
+**`createdAt`** `string | null`
+Timestamp when the trade record was created, or null if unavailable.
 
-<ResponseField name="updatedAt" type="string | null">
-  Timestamp when the trade record was last updated, or null if unavailable.
-</ResponseField>
+**`updatedAt`** `string | null`
+Timestamp when the trade record was last updated, or null if unavailable.
 
 ***
 
 ## See Also
 
-<CardGroup cols={2}>
-  <Card title="Builders Program" icon="hammer" href="/builders/overview">
-    Learn about the Builders Program and its benefits.
-  </Card>
+- **[Builders Program](/builders/overview)** — Learn about the Builders Program and its benefits.
 
-  <Card title="Order Attribution" icon="key" href="/trading/orders/attribution">
-    Attach your builder code to orders for volume credit.
-  </Card>
+- **[Order Attribution](/trading/orders/attribution)** — Attach your builder code to orders for volume credit.
 
-  <Card title="L2 Methods" icon="lock" href="/trading/clients/l2">
-    Place and manage orders with API credentials.
-  </Card>
+- **[L2 Methods](/trading/clients/l2)** — Place and manage orders with API credentials.
 
-  <Card title="Gasless Transactions" icon="gas-pump" href="/trading/gasless">
-    Execute onchain operations without paying gas.
-  </Card>
-</CardGroup>
+- **[Gasless Transactions](/trading/gasless)** — Execute onchain operations without paying gas.

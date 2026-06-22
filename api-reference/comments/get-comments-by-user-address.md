@@ -1,7 +1,5 @@
 # Get comments by user address
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /comments/user_address/{user_address}

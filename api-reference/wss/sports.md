@@ -2,8 +2,6 @@
 
 > Public WebSocket for real-time sports match results.
 
-
-
 ## AsyncAPI
 
 ````yaml asyncapi-sports.json sports

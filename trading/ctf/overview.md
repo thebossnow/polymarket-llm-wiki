@@ -19,27 +19,13 @@ These tokens are always **fully collateralized** — every Yes/No pair is backed
 
 CTF provides three fundamental operations:
 
-<CardGroup cols={3}>
-  <Card title="Split" icon="scissors" href="/trading/ctf/split">
-    Convert pUSD into Yes + No token pairs
-  </Card>
+- **[Split](/trading/ctf/split)** — Convert pUSD into Yes + No token pairs
 
-  <Card title="Merge" icon="merge" href="/trading/ctf/merge">
-    Convert Yes + No pairs back to pUSD
-  </Card>
+- **[Merge](/trading/ctf/merge)** — Convert Yes + No pairs back to pUSD
 
-  <Card title="Redeem" icon="hand-holding-dollar" href="/trading/ctf/redeem">
-    Exchange winning tokens for pUSD after resolution
-  </Card>
-</CardGroup>
+- **[Redeem](/trading/ctf/redeem)** — Exchange winning tokens for pUSD after resolution
 
 ## Token Flow
-
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/token-flow.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=36f5a57946ac2b83136e17b6c06b358c" alt="" className="dark:hidden" width="1596" height="952" data-path="images/core-concepts/token-flow.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/token-flow.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=69d150ea49ffa18cd7f24689342b1bec" alt="" className="hidden dark:block" width="1596" height="952" data-path="images/dark/core-concepts/token-flow.png" />
-</Frame>
 
 ## Token Identifiers
 
@@ -84,11 +70,7 @@ getPositionId(collateralToken, collectionId)
 
 The two resulting position IDs are the ERC1155 token IDs for the Yes and No outcomes of the market.
 
-<Note>
-  You can look up token IDs directly via the Gamma API (`GET /markets` or `GET /events`
-  — the `tokens` array on each market contains both outcome token IDs). Computing them
-  manually is only necessary for direct smart contract integration.
-</Note>
+> **Note:** You can look up token IDs directly via the Gamma API (`GET /markets` or `GET /events` — the `tokens` array on each market contains both outcome token IDs). Computing them manually is only necessary for direct smart contract integration.
 
 ## Standard vs Neg Risk Markets
 
@@ -109,28 +91,14 @@ See [Contracts](/resources/contracts) for all Polymarket smart contract addresse
 
 ## Resources
 
-<CardGroup cols={2}>
-  <Card title="CTF Source Code" icon="github" href="https://github.com/gnosis/conditional-tokens-contracts">
-    Gnosis Conditional Tokens smart contracts
-  </Card>
+- **[CTF Source Code](https://github.com/gnosis/conditional-tokens-contracts)** — Gnosis Conditional Tokens smart contracts
 
-  <Card title="Code Examples" icon="code" href="https://github.com/Polymarket/examples/tree/main/examples">
-    Python and TypeScript examples for onchain operations
-  </Card>
-</CardGroup>
+- **[Code Examples](https://github.com/Polymarket/examples/tree/main/examples)** — Python and TypeScript examples for onchain operations
 
 ## Next Steps
 
-<CardGroup cols={3}>
-  <Card title="Split Tokens" icon="scissors" href="/trading/ctf/split">
-    Create outcome token pairs from pUSD
-  </Card>
+- **[Split Tokens](/trading/ctf/split)** — Create outcome token pairs from pUSD
 
-  <Card title="Merge Tokens" icon="merge" href="/trading/ctf/merge">
-    Convert token pairs back to pUSD
-  </Card>
+- **[Merge Tokens](/trading/ctf/merge)** — Convert token pairs back to pUSD
 
-  <Card title="Redeem Tokens" icon="hand-holding-dollar" href="/trading/ctf/redeem">
-    Collect winnings after resolution
-  </Card>
-</CardGroup>
+- **[Redeem Tokens](/trading/ctf/redeem)** — Collect winnings after resolution

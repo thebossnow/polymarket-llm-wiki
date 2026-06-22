@@ -2,8 +2,6 @@
 
 > Retrieve historical price data for a market.
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /prices-history

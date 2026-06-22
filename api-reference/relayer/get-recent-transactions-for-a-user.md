@@ -12,9 +12,6 @@
 - `RELAYER_API_KEY`
 - `RELAYER_API_KEY_ADDRESS`
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/relayer-openapi.yaml get /transactions
@@ -38,13 +35,11 @@ tags:
       However, Relayer API keys can only be created using Gamma auth. Every
       address can create a maximum of 100 keys.
 
-
       The API key auth headers are:
 
       - `RELAYER_API_KEY`
 
       - `RELAYER_API_KEY_ADDRESS`
-
 
       `RELAYER_API_KEY_ADDRESS` must match the address that owns the key.
 paths:
@@ -57,7 +52,6 @@ paths:
         Gets the most recent transactions submitted to the Relayer, owned by a
         specific user. Authenticated using Builder API Keys or Relayer API Keys.
 
-
         **Builder API Key auth headers:**
 
         - `POLY_BUILDER_API_KEY`
@@ -67,7 +61,6 @@ paths:
         - `POLY_BUILDER_PASSPHRASE`
 
         - `POLY_BUILDER_SIGNATURE`
-
 
         **Relayer API Key auth headers:**
 

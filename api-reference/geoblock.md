@@ -4,11 +4,7 @@
 
 Polymarket restricts order placement from certain geographic locations due to regulatory requirements and compliance with international sanctions. Before placing orders, builders should verify the location.
 
-<Warning>
-  Orders submitted from blocked regions will be rejected. Implement geoblock
-  checks in your application to provide users with appropriate feedback before
-  they attempt to trade.
-</Warning>
+> **Warning:** Orders submitted from blocked regions will be rejected. Implement geoblock checks in your application to provide users with appropriate feedback before they attempt to trade.
 
 ***
 
@@ -16,15 +12,15 @@ Polymarket restricts order placement from certain geographic locations due to re
 
 Check the geographic eligibility of the requesting IP address:
 
-```bash theme={null}
+```bash
 GET https://polymarket.com/api/geoblock
 ```
 
-<Note>This endpoint is on `polymarket.com`, not the API servers.</Note>
+> **Note:** This endpoint is on `polymarket.com`, not the API servers.
 
 ### Response
 
-```json theme={null}
+```json
 {
   "blocked": true,
   "ip": "203.0.113.42",
@@ -113,76 +109,66 @@ The geoblocking system includes:
 * **Primary Servers**: eu-west-2
 * **Closest Non-Georestricted Region**: eu-west-1
 
-<Tip>
-  **Direct co-location available.** Users who complete the [KYC/KYB
-  form](https://docs.google.com/forms/d/e/1FAIpQLSfY-3Dl3yxq8HKFjFad8YzKZmm0k3Gdg29HD6gL-K-AmI6KXw/viewform) can get access to co-locate
-  directly in `eu-west-2` for the lowest possible latency to Polymarket's
-  primary servers.
-</Tip>
+> **Tip:** **Direct co-location available.** Users who complete the [KYC/KYB form](https://docs.google.com/forms/d/e/1FAIpQLSfY-3Dl3yxq8HKFjFad8YzKZmm0k3Gdg29HD6gL-K-AmI6KXw/viewform) can get access to co-locate directly in `eu-west-2` for the lowest possible latency to Polymarket's primary servers.
 
 ***
 
 ## Usage Examples
 
-<Tabs>
-  <Tab title="TypeScript">
-    ```typescript theme={null}
-    interface GeoblockResponse {
-      blocked: boolean;
-      ip: string;
-      country: string;
-      region: string;
-    }
+**TypeScript**
+```typescript
+interface GeoblockResponse {
+  blocked: boolean;
+  ip: string;
+  country: string;
+  region: string;
+}
 
-    async function checkGeoblock(): Promise<GeoblockResponse> {
-      const response = await fetch("https://polymarket.com/api/geoblock");
-      return response.json();
-    }
+async function checkGeoblock(): Promise<GeoblockResponse> {
+  const response = await fetch("https://polymarket.com/api/geoblock");
+  return response.json();
+}
 
-    // Usage
-    const geo = await checkGeoblock();
+// Usage
+const geo = await checkGeoblock();
 
-    if (geo.blocked) {
-      console.log(`Trading not available in ${geo.country}`);
-    } else {
-      console.log("Trading available");
-    }
-    ```
-  </Tab>
+if (geo.blocked) {
+  console.log(`Trading not available in ${geo.country}`);
+} else {
+  console.log("Trading available");
+}
+```
 
-  <Tab title="Python">
-    ```python theme={null}
-    import requests
+**Python**
+```python
+import requests
 
-    def check_geoblock() -> dict:
-        response = requests.get("https://polymarket.com/api/geoblock")
-        return response.json()
+def check_geoblock() -> dict:
+    response = requests.get("https://polymarket.com/api/geoblock")
+    return response.json()
 
-    # Usage
-    geo = check_geoblock()
+# Usage
+geo = check_geoblock()
 
-    if geo["blocked"]:
-        print(f"Trading not available in {geo['country']}")
-    else:
-        print("Trading available")
-    ```
-  </Tab>
+if geo["blocked"]:
+    print(f"Trading not available in {geo['country']}")
+else:
+    print("Trading available")
+```
 
-  <Tab title="Rust">
-    ```rust theme={null}
-    use polymarket_client_sdk_v2::clob::{Client, Config};
+**Rust**
+```rust
+use polymarket_client_sdk_v2::clob::{Client, Config};
 
-    let client = Client::new("https://clob.polymarket.com", Config::default())?;
-    let geo = client.check_geoblock().await?;
+let client = Client::new("https://clob.polymarket.com", Config::default())?;
+let geo = client.check_geoblock().await?;
 
-    if geo.blocked {
-        println!("Trading not available in {}", geo.country);
-    } else {
-        println!("Trading available");
-    }
-    ```
-  </Tab>
-</Tabs>
+if geo.blocked {
+    println!("Trading not available in {}", geo.country);
+} else {
+    println!("Trading available");
+}
+```
 
 ***
 
@@ -202,12 +188,6 @@ If you believe you are incorrectly restricted or have questions about geographic
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Authentication" icon="key" href="/api-reference/authentication">
-    Learn how to authenticate trading requests.
-  </Card>
+- **[Authentication](/api-reference/authentication)** — Learn how to authenticate trading requests.
 
-  <Card title="Place Orders" icon="plus" href="/trading/quickstart">
-    Start placing orders (from eligible regions).
-  </Card>
-</CardGroup>
+- **[Place Orders](/trading/quickstart)** — Start placing orders (from eligible regions).

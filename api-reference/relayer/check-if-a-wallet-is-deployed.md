@@ -9,9 +9,6 @@ Use the `type` query parameter to choose which wallet type to check:
 
 Omitting `type` is equivalent to `type=SAFE`.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/relayer-openapi.yaml get /deployed
@@ -35,13 +32,11 @@ tags:
       However, Relayer API keys can only be created using Gamma auth. Every
       address can create a maximum of 100 keys.
 
-
       The API key auth headers are:
 
       - `RELAYER_API_KEY`
 
       - `RELAYER_API_KEY_ADDRESS`
-
 
       `RELAYER_API_KEY_ADDRESS` must match the address that owns the key.
 paths:
@@ -53,9 +48,7 @@ paths:
       description: >
         Returns whether the wallet at the given address is deployed onchain.
 
-
         Use the `type` query parameter to choose which wallet type to check:
-
 
         - Pass user's Polymarket `SAFE` address (default): Gnosis Safe
         (SignatureType `2`).
@@ -63,7 +56,6 @@ paths:
         - Pass user's Polymarket `WALLET` Deposit Wallet address: Deposit Wallet
         (signatureType `3`). See the [Deposit Wallet
         Guide](/trading/deposit-wallets) for setup.
-
 
         Omitting `type` is equivalent to `type=SAFE`.
       parameters:

@@ -2,9 +2,6 @@
 
 > Retrieves order book summaries for multiple token IDs using a request body.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /books

@@ -3,9 +3,6 @@
 > Returns all CLOB-level parameters for a market in a single call —
 tokens, tick size, base fees, rewards, RFQ status, and fee details.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /clob-markets/{condition_id}

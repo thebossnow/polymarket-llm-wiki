@@ -14,7 +14,7 @@ wss://ws-subscriptions-clob.polymarket.com/ws/user
 
 Include API credentials in your subscription message:
 
-```json theme={null}
+```json
 {
   "auth": {
     "apiKey": "your-api-key",
@@ -26,10 +26,7 @@ Include API credentials in your subscription message:
 }
 ```
 
-<Warning>
-  Never expose your API credentials in client-side code. Use the user channel
-  only from server environments.
-</Warning>
+> **Warning:** Never expose your API credentials in client-side code. Use the user channel only from server environments.
 
 ## Message Types
 
@@ -43,7 +40,7 @@ Emitted when:
 * A limit order for the user is included in a trade (`MATCHED`)
 * Subsequent status changes for the trade (`MINED`, `CONFIRMED`, `RETRYING`, `FAILED`)
 
-```json theme={null}
+```json
 {
   "asset_id": "52114319501245915516055106046884209969926127482827954674443846427813813222426",
   "event_type": "trade",
@@ -100,7 +97,7 @@ Emitted when:
 * An order is updated — some of it is matched (`UPDATE`)
 * An order is cancelled (`CANCELLATION`)
 
-```json theme={null}
+```json
 {
   "asset_id": "52114319501245915516055106046884209969926127482827954674443846427813813222426",
   "associate_trades": null,

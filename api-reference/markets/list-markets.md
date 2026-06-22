@@ -1,7 +1,5 @@
 # List markets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /markets

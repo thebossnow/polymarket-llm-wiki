@@ -2,9 +2,6 @@
 
 > Retrieves trades attributed to a builder code.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /builder/trades

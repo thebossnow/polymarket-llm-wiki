@@ -1,7 +1,5 @@
 # Get tags related to a tag slug
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /tags/slug/{slug}/related-tags/tags

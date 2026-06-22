@@ -3,9 +3,6 @@
 > Retrieves the order book summary for a specific token ID.
 Includes bids, asks, market details, and last trade price.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /book

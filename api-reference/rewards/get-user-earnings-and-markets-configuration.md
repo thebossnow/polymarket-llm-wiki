@@ -14,9 +14,6 @@ Optional features:
 - Filter by favorite markets using `favorite_markets=true`
 - Sort by various fields using `order_by` and `position` parameters
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/user/markets
@@ -59,15 +56,12 @@ paths:
 
         per market for a provided day.
 
-
         Results are paginated (100 items per page by default, max 500). Use
         next_cursor to fetch subsequent pages.
 
         A next_cursor value of "LTE=" indicates the last page.
 
-
         Requires CLOB L2 Auth headers.
-
 
         Optional features:
 

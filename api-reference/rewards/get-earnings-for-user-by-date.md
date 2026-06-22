@@ -7,9 +7,6 @@ Requires CLOB L2 Auth headers.
 Results are paginated (100 items per page). Use next_cursor to fetch subsequent pages.
 A next_cursor value of "LTE=" indicates the last page.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/user
@@ -49,9 +46,7 @@ paths:
       description: >
         Returns an array of user earnings per market for a provided day.
 
-
         Requires CLOB L2 Auth headers.
-
 
         Results are paginated (100 items per page). Use next_cursor to fetch
         subsequent pages.

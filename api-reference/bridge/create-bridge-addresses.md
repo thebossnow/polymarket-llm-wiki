@@ -1,7 +1,5 @@
 # Create bridge addresses
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/bridge-openapi.yaml post /deposit

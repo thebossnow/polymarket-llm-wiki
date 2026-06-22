@@ -14,9 +14,6 @@ Returns immediately with the `transactionID` and a `state` of `STATE_NEW`. The o
 - `RELAYER_API_KEY`
 - `RELAYER_API_KEY_ADDRESS`
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/relayer-openapi.yaml post /submit
@@ -40,13 +37,11 @@ tags:
       However, Relayer API keys can only be created using Gamma auth. Every
       address can create a maximum of 100 keys.
 
-
       The API key auth headers are:
 
       - `RELAYER_API_KEY`
 
       - `RELAYER_API_KEY_ADDRESS`
-
 
       `RELAYER_API_KEY_ADDRESS` must match the address that owns the key.
 paths:
@@ -59,12 +54,10 @@ paths:
         Submit a transaction request to the Relayer. Authenticated using Builder
         API Keys or Relayer API Keys.
 
-
         Returns immediately with the `transactionID` and a `state` of
         `STATE_NEW`. The onchain transaction hash is **not** included in this
         response — poll `GET /transaction` with the returned `transactionID` to
         retrieve the `transactionHash` once the transaction has been broadcast.
-
 
         **Builder API Key auth headers:**
 
@@ -75,7 +68,6 @@ paths:
         - `POLY_BUILDER_PASSPHRASE`
 
         - `POLY_BUILDER_SIGNATURE`
-
 
         **Relayer API Key auth headers:**
 

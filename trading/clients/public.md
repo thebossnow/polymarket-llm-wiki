@@ -6,35 +6,31 @@
 
 Public methods require the client to initialize with the host URL and Polygon chain ID.
 
-<Tabs>
-  <Tab title="TypeScript">
-    ```typescript theme={null}
-    import { ClobClient } from "@polymarket/clob-client-v2";
+**TypeScript**
+```typescript
+import { ClobClient } from "@polymarket/clob-client-v2";
 
-    const client = new ClobClient({
-      host: "https://clob.polymarket.com",
-      chain: 137,
-    });
+const client = new ClobClient({
+  host: "https://clob.polymarket.com",
+  chain: 137,
+});
 
-    // Ready to call public methods
-    const markets = await client.getMarkets();
-    ```
-  </Tab>
+// Ready to call public methods
+const markets = await client.getMarkets();
+```
 
-  <Tab title="Python">
-    ```python theme={null}
-    from py_clob_client_v2 import ClobClient
+**Python**
+```python
+from py_clob_client_v2 import ClobClient
 
-    client = ClobClient(
-        host="https://clob.polymarket.com",
-        chain_id=137
-    )
+client = ClobClient(
+    host="https://clob.polymarket.com",
+    chain_id=137
+)
 
-    # Ready to call public methods
-    markets = client.get_markets()
-    ```
-  </Tab>
-</Tabs>
+# Ready to call public methods
+markets = client.get_markets()
+```
 
 ***
 
@@ -46,7 +42,7 @@ Public methods require the client to initialize with the host URL and Polygon ch
 
 Health check endpoint to verify the CLOB service is operational.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getOk(): Promise<any>
 ```
 
@@ -60,125 +56,96 @@ async getOk(): Promise<any>
 
 Get details for a single market by condition ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getMarket(conditionId: string): Promise<Market>
 ```
 
-<ResponseField name="accepting_order_timestamp" type="string">
-  Timestamp from which the market started accepting orders, or null if not set.
-</ResponseField>
+**`accepting_order_timestamp`** `string`
+Timestamp from which the market started accepting orders, or null if not set.
 
-<ResponseField name="accepting_orders" type="boolean">
-  Whether the market is currently accepting orders.
-</ResponseField>
+**`accepting_orders`** `boolean`
+Whether the market is currently accepting orders.
 
-<ResponseField name="active" type="boolean">
-  Whether the market is active.
-</ResponseField>
+**`active`** `boolean`
+Whether the market is active.
 
-<ResponseField name="archived" type="boolean">
-  Whether the market has been archived.
-</ResponseField>
+**`archived`** `boolean`
+Whether the market has been archived.
 
-<ResponseField name="closed" type="boolean">
-  Whether the market is closed.
-</ResponseField>
+**`closed`** `boolean`
+Whether the market is closed.
 
-<ResponseField name="condition_id" type="string">
-  The unique condition ID for the market.
-</ResponseField>
+**`condition_id`** `string`
+The unique condition ID for the market.
 
-<ResponseField name="description" type="string">
-  Human-readable description of the market.
-</ResponseField>
+**`description`** `string`
+Human-readable description of the market.
 
-<ResponseField name="enable_order_book" type="boolean">
-  Whether the order book is enabled for this market.
-</ResponseField>
+**`enable_order_book`** `boolean`
+Whether the order book is enabled for this market.
 
-<ResponseField name="end_date_iso" type="string">
-  ISO 8601 end date of the market.
-</ResponseField>
+**`end_date_iso`** `string`
+ISO 8601 end date of the market.
 
-<ResponseField name="fpmm" type="string">
-  Address of the Fixed Product Market Maker contract.
-</ResponseField>
+**`fpmm`** `string`
+Address of the Fixed Product Market Maker contract.
 
-<ResponseField name="game_start_time" type="string">
-  Start time of the underlying game or event.
-</ResponseField>
+**`game_start_time`** `string`
+Start time of the underlying game or event.
 
-<ResponseField name="icon" type="string">
-  URL of the market icon image.
-</ResponseField>
+**`icon`** `string`
+URL of the market icon image.
 
-<ResponseField name="image" type="string">
-  URL of the market image.
-</ResponseField>
+**`image`** `string`
+URL of the market image.
 
-<ResponseField name="is_50_50_outcome" type="boolean">
-  Whether the market has equal 50/50 outcomes.
-</ResponseField>
+**`is_50_50_outcome`** `boolean`
+Whether the market has equal 50/50 outcomes.
 
-<ResponseField name="maker_base_fee" type="number">
-  Base fee charged to makers in basis points.
-</ResponseField>
+**`maker_base_fee`** `number`
+Base fee charged to makers in basis points.
 
-<ResponseField name="market_slug" type="string">
-  URL-friendly slug identifier for the market.
-</ResponseField>
+**`market_slug`** `string`
+URL-friendly slug identifier for the market.
 
-<ResponseField name="minimum_order_size" type="number">
-  Minimum order size allowed in this market.
-</ResponseField>
+**`minimum_order_size`** `number`
+Minimum order size allowed in this market.
 
-<ResponseField name="minimum_tick_size" type="number">
-  Minimum price increment allowed in this market.
-</ResponseField>
+**`minimum_tick_size`** `number`
+Minimum price increment allowed in this market.
 
-<ResponseField name="neg_risk" type="boolean">
-  Whether the market uses negative risk (binary complementary tokens).
-</ResponseField>
+**`neg_risk`** `boolean`
+Whether the market uses negative risk (binary complementary tokens).
 
-<ResponseField name="neg_risk_market_id" type="string">
-  Negative risk market identifier, if applicable.
-</ResponseField>
+**`neg_risk_market_id`** `string`
+Negative risk market identifier, if applicable.
 
-<ResponseField name="neg_risk_request_id" type="string">
-  Negative risk request identifier, if applicable.
-</ResponseField>
+**`neg_risk_request_id`** `string`
+Negative risk request identifier, if applicable.
 
-<ResponseField name="notifications_enabled" type="boolean">
-  Whether notifications are enabled for this market.
-</ResponseField>
+**`notifications_enabled`** `boolean`
+Whether notifications are enabled for this market.
 
-<ResponseField name="question" type="string">
-  The market question text.
-</ResponseField>
+**`question`** `string`
+The market question text.
 
-<ResponseField name="question_id" type="string">
-  Unique identifier for the market question.
-</ResponseField>
+**`question_id`** `string`
+Unique identifier for the market question.
 
-<ResponseField name="rewards" type="object">
-  Object containing reward config: `max_spread` (number), `min_size` (number), `rates` (any)
-</ResponseField>
+**`rewards`** `object`
+Object containing reward config: `max_spread` (number), `min_size` (number), `rates` (any)
 
-<ResponseField name="seconds_delay" type="number">
-  Delay in seconds before orders are processed.
-</ResponseField>
+**`seconds_delay`** `number`
+Delay in seconds before orders are processed.
 
-<ResponseField name="tags" type="string[]">
-  List of tags associated with the market.
-</ResponseField>
+**`tags`** `string[]`
+List of tags associated with the market.
 
-<ResponseField name="taker_base_fee" type="number">
-  Base fee charged to takers in basis points.
-</ResponseField>
+**`taker_base_fee`** `number`
+Base fee charged to takers in basis points.
 
-<ResponseField name="tokens" type="MarketToken[]">
-  Array of market tokens, each containing `outcome` (string), `price` (number), `token_id` (string), and `winner` (boolean).
-</ResponseField>
+**`tokens`** `MarketToken[]`
+Array of market tokens, each containing `outcome` (string), `price` (number), `token_id` (string), and `winner` (boolean).
 
 ***
 
@@ -186,21 +153,18 @@ async getMarket(conditionId: string): Promise<Market>
 
 Get details for multiple markets paginated.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getMarkets(): Promise<PaginationPayload>
 ```
 
-<ResponseField name="limit" type="number">
-  Maximum number of results per page.
-</ResponseField>
+**`limit`** `number`
+Maximum number of results per page.
 
-<ResponseField name="count" type="number">
-  Total number of markets returned.
-</ResponseField>
+**`count`** `number`
+Total number of markets returned.
 
-<ResponseField name="data" type="Market[]">
-  Array of Market objects. See `getMarket()` for the full Market structure.
-</ResponseField>
+**`data`** `Market[]`
+Array of Market objects. See `getMarket()` for the full Market structure.
 
 ***
 
@@ -208,21 +172,18 @@ async getMarkets(): Promise<PaginationPayload>
 
 Get simplified market data paginated for faster loading.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getSimplifiedMarkets(): Promise<PaginationPayload>
 ```
 
-<ResponseField name="limit" type="number">
-  Maximum number of results per page.
-</ResponseField>
+**`limit`** `number`
+Maximum number of results per page.
 
-<ResponseField name="count" type="number">
-  Total number of markets returned.
-</ResponseField>
+**`count`** `number`
+Total number of markets returned.
 
-<ResponseField name="data" type="SimplifiedMarket[]">
-  Array of simplified market objects, each containing `accepting_orders` (boolean), `active` (boolean), `archived` (boolean), `closed` (boolean), `condition_id` (string), `rewards` (object with `rates`, `min_size`, `max_spread`), and `tokens` (SimplifiedToken\[]) with `outcome` (string), `price` (number), `token_id` (string).
-</ResponseField>
+**`data`** `SimplifiedMarket[]`
+Array of simplified market objects, each containing `accepting_orders` (boolean), `active` (boolean), `archived` (boolean), `closed` (boolean), `condition_id` (string), `rewards` (object with `rates`, `min_size`, `max_spread`), and `tokens` (SimplifiedToken\[]) with `outcome` (string), `price` (number), `token_id` (string).
 
 ***
 
@@ -230,7 +191,7 @@ async getSimplifiedMarkets(): Promise<PaginationPayload>
 
 Get markets eligible for sampling/liquidity rewards.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getSamplingMarkets(): Promise<PaginationPayload>
 ```
 
@@ -240,7 +201,7 @@ async getSamplingMarkets(): Promise<PaginationPayload>
 
 Get simplified market data for markets eligible for sampling/liquidity rewards.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getSamplingSimplifiedMarkets(): Promise<PaginationPayload>
 ```
 
@@ -254,7 +215,7 @@ async getSamplingSimplifiedMarkets(): Promise<PaginationPayload>
 
 Calculate the estimated price for a market order of a given size.
 
-```typescript Signature theme={null}
+```typescript Signature
 async calculateMarketPrice(
   tokenID: string,
   side: Side,
@@ -263,25 +224,20 @@ async calculateMarketPrice(
 ): Promise<number>
 ```
 
-<ResponseField name="tokenID" type="string">
-  The token ID to calculate the market price for.
-</ResponseField>
+**`tokenID`** `string`
+The token ID to calculate the market price for.
 
-<ResponseField name="side" type="Side">
-  The side of the order. One of: `BUY`, `SELL`
-</ResponseField>
+**`side`** `Side`
+The side of the order. One of: `BUY`, `SELL`
 
-<ResponseField name="amount" type="number">
-  The size of the order to calculate price for.
-</ResponseField>
+**`amount`** `number`
+The size of the order to calculate price for.
 
-<ResponseField name="orderType" type="OrderType">
-  The order type. One of: `GTC` (Good Till Cancelled), `FOK` (Fill or Kill), `GTD` (Good Till Date), `FAK` (Fill and Kill). Defaults to `FOK`.
-</ResponseField>
+**`orderType`** `OrderType`
+The order type. One of: `GTC` (Good Till Cancelled), `FOK` (Fill or Kill), `GTD` (Good Till Date), `FAK` (Fill and Kill). Defaults to `FOK`.
 
-<ResponseField name="returns" type="number">
-  The calculated estimated market price for the given order size.
-</ResponseField>
+**`returns`** `number`
+The calculated estimated market price for the given order size.
 
 ***
 
@@ -289,45 +245,36 @@ async calculateMarketPrice(
 
 Get the order book for a specific token ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getOrderBook(tokenID: string): Promise<OrderBookSummary>
 ```
 
-<ResponseField name="market" type="string">
-  The market condition ID.
-</ResponseField>
+**`market`** `string`
+The market condition ID.
 
-<ResponseField name="asset_id" type="string">
-  The token/asset ID for this order book.
-</ResponseField>
+**`asset_id`** `string`
+The token/asset ID for this order book.
 
-<ResponseField name="timestamp" type="string">
-  Timestamp of the order book snapshot.
-</ResponseField>
+**`timestamp`** `string`
+Timestamp of the order book snapshot.
 
-<ResponseField name="bids" type="OrderSummary[]">
-  Array of bid entries, each with `price` (string) and `size` (string).
-</ResponseField>
+**`bids`** `OrderSummary[]`
+Array of bid entries, each with `price` (string) and `size` (string).
 
-<ResponseField name="asks" type="OrderSummary[]">
-  Array of ask entries, each with `price` (string) and `size` (string).
-</ResponseField>
+**`asks`** `OrderSummary[]`
+Array of ask entries, each with `price` (string) and `size` (string).
 
-<ResponseField name="min_order_size" type="string">
-  Minimum order size for this market.
-</ResponseField>
+**`min_order_size`** `string`
+Minimum order size for this market.
 
-<ResponseField name="tick_size" type="string">
-  Minimum price increment for this market.
-</ResponseField>
+**`tick_size`** `string`
+Minimum price increment for this market.
 
-<ResponseField name="neg_risk" type="boolean">
-  Whether the market uses negative risk.
-</ResponseField>
+**`neg_risk`** `boolean`
+Whether the market uses negative risk.
 
-<ResponseField name="hash" type="string">
-  Hash of the order book state.
-</ResponseField>
+**`hash`** `string`
+Hash of the order book state.
 
 ***
 
@@ -335,21 +282,18 @@ async getOrderBook(tokenID: string): Promise<OrderBookSummary>
 
 Get order books for multiple token IDs.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getOrderBooks(params: BookParams[]): Promise<OrderBookSummary[]>
 ```
 
-<ResponseField name="token_id" type="string">
-  The token ID to fetch the order book for.
-</ResponseField>
+**`token_id`** `string`
+The token ID to fetch the order book for.
 
-<ResponseField name="side" type="Side">
-  The side of the book to query. One of: `BUY`, `SELL`
-</ResponseField>
+**`side`** `Side`
+The side of the book to query. One of: `BUY`, `SELL`
 
-<ResponseField name="returns" type="OrderBookSummary[]">
-  Array of OrderBookSummary objects. See `getOrderBook()` for the full structure.
-</ResponseField>
+**`returns`** `OrderBookSummary[]`
+Array of OrderBookSummary objects. See `getOrderBook()` for the full structure.
 
 ***
 
@@ -357,16 +301,15 @@ async getOrderBooks(params: BookParams[]): Promise<OrderBookSummary[]>
 
 Get the current best price for buying or selling a token ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getPrice(
   tokenID: string,
   side: "BUY" | "SELL"
 ): Promise<any>
 ```
 
-<ResponseField name="price" type="string">
-  The current best price for the requested side.
-</ResponseField>
+**`price`** `string`
+The current best price for the requested side.
 
 ***
 
@@ -374,13 +317,12 @@ async getPrice(
 
 Get the current best prices for multiple token IDs.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getPrices(params: BookParams[]): Promise<PricesResponse>
 ```
 
-<ResponseField name="returns" type="PricesResponse">
-  A map of token IDs to their prices. Each entry contains an optional `BUY` (string) and/or `SELL` (string) price.
-</ResponseField>
+**`returns`** `PricesResponse`
+A map of token IDs to their prices. Each entry contains an optional `BUY` (string) and/or `SELL` (string) price.
 
 ***
 
@@ -388,13 +330,12 @@ async getPrices(params: BookParams[]): Promise<PricesResponse>
 
 Get the midpoint price (average of best bid and best ask) for a token ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getMidpoint(tokenID: string): Promise<any>
 ```
 
-<ResponseField name="mid" type="string">
-  The midpoint price, calculated as the average of best bid and best ask.
-</ResponseField>
+**`mid`** `string`
+The midpoint price, calculated as the average of best bid and best ask.
 
 ***
 
@@ -402,13 +343,12 @@ async getMidpoint(tokenID: string): Promise<any>
 
 Get the midpoint prices for multiple token IDs.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getMidpoints(params: BookParams[]): Promise<any>
 ```
 
-<ResponseField name="returns" type="object">
-  A map of token IDs to their midpoint price strings. Each key is a token ID and its value is the midpoint price as a string.
-</ResponseField>
+**`returns`** `object`
+A map of token IDs to their midpoint price strings. Each key is a token ID and its value is the midpoint price as a string.
 
 ***
 
@@ -416,13 +356,12 @@ async getMidpoints(params: BookParams[]): Promise<any>
 
 Get the spread (difference between best ask and best bid) for a token ID.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getSpread(tokenID: string): Promise<SpreadResponse>
 ```
 
-<ResponseField name="spread" type="string">
-  The spread value, calculated as the difference between best ask and best bid.
-</ResponseField>
+**`spread`** `string`
+The spread value, calculated as the difference between best ask and best bid.
 
 ***
 
@@ -430,13 +369,12 @@ async getSpread(tokenID: string): Promise<SpreadResponse>
 
 Get the spreads for multiple token IDs.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getSpreads(params: BookParams[]): Promise<SpreadsResponse>
 ```
 
-<ResponseField name="returns" type="object">
-  A map of token IDs to their spread strings. Each key is a token ID and its value is the spread as a string.
-</ResponseField>
+**`returns`** `object`
+A map of token IDs to their spread strings. Each key is a token ID and its value is the spread as a string.
 
 ***
 
@@ -444,37 +382,30 @@ async getSpreads(params: BookParams[]): Promise<SpreadsResponse>
 
 Get historical price data for a token.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getPricesHistory(params: PriceHistoryFilterParams): Promise<MarketPrice[]>
 ```
 
-<ResponseField name="market" type="string">
-  The token ID to fetch price history for.
-</ResponseField>
+**`market`** `string`
+The token ID to fetch price history for.
 
-<ResponseField name="startTs" type="number">
-  Optional start timestamp (Unix seconds) for the price history range.
-</ResponseField>
+**`startTs`** `number`
+Optional start timestamp (Unix seconds) for the price history range.
 
-<ResponseField name="endTs" type="number">
-  Optional end timestamp (Unix seconds) for the price history range.
-</ResponseField>
+**`endTs`** `number`
+Optional end timestamp (Unix seconds) for the price history range.
 
-<ResponseField name="fidelity" type="number">
-  Optional fidelity/resolution of the price history data.
-</ResponseField>
+**`fidelity`** `number`
+Optional fidelity/resolution of the price history data.
 
-<ResponseField name="interval" type="PriceHistoryInterval">
-  Time interval for the price history. One of: `max`, `1w`, `1d`, `6h`, `1h`
-</ResponseField>
+**`interval`** `PriceHistoryInterval`
+Time interval for the price history. One of: `max`, `1w`, `1d`, `6h`, `1h`
 
-<ResponseField name="t" type="number">
-  Unix timestamp of the price data point.
-</ResponseField>
+**`t`** `number`
+Unix timestamp of the price data point.
 
-<ResponseField name="p" type="number">
-  Price value at the corresponding timestamp.
-</ResponseField>
+**`p`** `number`
+Price value at the corresponding timestamp.
 
 ***
 
@@ -486,17 +417,15 @@ async getPricesHistory(params: PriceHistoryFilterParams): Promise<MarketPrice[]>
 
 Get the price of the most recent trade for a token.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getLastTradePrice(tokenID: string): Promise<LastTradePrice>
 ```
 
-<ResponseField name="price" type="string">
-  The price of the most recent trade.
-</ResponseField>
+**`price`** `string`
+The price of the most recent trade.
 
-<ResponseField name="side" type="string">
-  The side of the most recent trade.
-</ResponseField>
+**`side`** `string`
+The side of the most recent trade.
 
 ***
 
@@ -504,21 +433,18 @@ async getLastTradePrice(tokenID: string): Promise<LastTradePrice>
 
 Get the most recent trade prices for multiple tokens.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getLastTradesPrices(params: BookParams[]): Promise<LastTradePriceWithToken[]>
 ```
 
-<ResponseField name="price" type="string">
-  The price of the most recent trade for the token.
-</ResponseField>
+**`price`** `string`
+The price of the most recent trade for the token.
 
-<ResponseField name="side" type="string">
-  The side of the most recent trade.
-</ResponseField>
+**`side`** `string`
+The side of the most recent trade.
 
-<ResponseField name="token_id" type="string">
-  The token ID this trade price corresponds to.
-</ResponseField>
+**`token_id`** `string`
+The token ID this trade price corresponds to.
 
 ***
 
@@ -526,53 +452,42 @@ async getLastTradesPrices(params: BookParams[]): Promise<LastTradePriceWithToken
 
 Get recent trade events for a market.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getMarketTradesEvents(conditionID: string): Promise<MarketTradeEvent[]>
 ```
 
-<ResponseField name="event_type" type="string">
-  The type of trade event.
-</ResponseField>
+**`event_type`** `string`
+The type of trade event.
 
-<ResponseField name="market" type="object">
-  Object containing market info: `condition_id` (string), `asset_id` (string), `question` (string), `icon` (string), `slug` (string).
-</ResponseField>
+**`market`** `object`
+Object containing market info: `condition_id` (string), `asset_id` (string), `question` (string), `icon` (string), `slug` (string).
 
-<ResponseField name="user" type="object">
-  Object containing user info: `address` (string), `username` (string), `profile_picture` (string), `optimized_profile_picture` (string), `pseudonym` (string).
-</ResponseField>
+**`user`** `object`
+Object containing user info: `address` (string), `username` (string), `profile_picture` (string), `optimized_profile_picture` (string), `pseudonym` (string).
 
-<ResponseField name="side" type="Side">
-  The side of the trade. One of: `BUY`, `SELL`
-</ResponseField>
+**`side`** `Side`
+The side of the trade. One of: `BUY`, `SELL`
 
-<ResponseField name="size" type="string">
-  The size of the trade.
-</ResponseField>
+**`size`** `string`
+The size of the trade.
 
-<ResponseField name="fee_rate_bps" type="string">
-  The fee rate in basis points for the trade.
-</ResponseField>
+**`fee_rate_bps`** `string`
+The fee rate in basis points for the trade.
 
-<ResponseField name="price" type="string">
-  The price at which the trade was executed.
-</ResponseField>
+**`price`** `string`
+The price at which the trade was executed.
 
-<ResponseField name="outcome" type="string">
-  The outcome label for the traded token.
-</ResponseField>
+**`outcome`** `string`
+The outcome label for the traded token.
 
-<ResponseField name="outcome_index" type="number">
-  The index of the outcome in the market.
-</ResponseField>
+**`outcome_index`** `number`
+The index of the outcome in the market.
 
-<ResponseField name="transaction_hash" type="string">
-  The on-chain transaction hash for the trade.
-</ResponseField>
+**`transaction_hash`** `string`
+The on-chain transaction hash for the trade.
 
-<ResponseField name="timestamp" type="string">
-  The timestamp of when the trade event occurred.
-</ResponseField>
+**`timestamp`** `string`
+The timestamp of when the trade event occurred.
 
 ***
 
@@ -584,70 +499,57 @@ async getMarketTradesEvents(conditionID: string): Promise<MarketTradeEvent[]>
 
 Fetch all CLOB-level parameters for a market in a single call — tokens, tick size, base fees, rewards config, RFQ status, and fee details.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getClobMarketInfo(conditionID: string): Promise<ClobMarketDetails>
 ```
 
-<ResponseField name="conditionID" type="string">
-  The condition ID of the market.
-</ResponseField>
+**`conditionID`** `string`
+The condition ID of the market.
 
 **Response (`ClobMarketDetails`)**
 
-<ResponseField name="gst" type="string | null">
-  Game start time (used for sports markets), ISO 8601 timestamp or `null`.
-</ResponseField>
+**`gst`** `string | null`
+Game start time (used for sports markets), ISO 8601 timestamp or `null`.
 
-<ResponseField name="r" type="object">
-  Rewards configuration for the market.
-</ResponseField>
+**`r`** `object`
+Rewards configuration for the market.
 
-<ResponseField name="t" type="ClobToken[]">
-  Tokens for this market. Each entry has:
+**`t`** `ClobToken[]`
+Tokens for this market. Each entry has:
 
-  * `t` (string) — token ID
-  * `o` (string) — outcome label (e.g. `Yes`, `No`)
-</ResponseField>
+* `t` (string) — token ID
+* `o` (string) — outcome label (e.g. `Yes`, `No`)
 
-<ResponseField name="mos" type="number">
-  Minimum order size.
-</ResponseField>
+**`mos`** `number`
+Minimum order size.
 
-<ResponseField name="mts" type="number">
-  Minimum tick size (price increment).
-</ResponseField>
+**`mts`** `number`
+Minimum tick size (price increment).
 
-<ResponseField name="mbf" type="number">
-  Maker base fee in basis points.
-</ResponseField>
+**`mbf`** `number`
+Maker base fee in basis points.
 
-<ResponseField name="tbf" type="number">
-  Taker base fee in basis points.
-</ResponseField>
+**`tbf`** `number`
+Taker base fee in basis points.
 
-<ResponseField name="rfqe" type="boolean">
-  Whether RFQ (Request for Quote) is enabled for this market.
-</ResponseField>
+**`rfqe`** `boolean`
+Whether RFQ (Request for Quote) is enabled for this market.
 
-<ResponseField name="itode" type="boolean">
-  Whether taker order delay is enabled.
-</ResponseField>
+**`itode`** `boolean`
+Whether taker order delay is enabled.
 
-<ResponseField name="ibce" type="boolean">
-  Whether Blockaid check is enabled.
-</ResponseField>
+**`ibce`** `boolean`
+Whether Blockaid check is enabled.
 
-<ResponseField name="fd" type="object">
-  Fee curve parameters:
+**`fd`** `object`
+Fee curve parameters:
 
-  * `r` (number) — fee rate
-  * `e` (number) — fee curve exponent
-  * `to` (boolean) — whether fees apply to takers only
-</ResponseField>
+* `r` (number) — fee rate
+* `e` (number) — fee curve exponent
+* `to` (boolean) — whether fees apply to takers only
 
-<ResponseField name="oas" type="number">
-  Minimum order age in seconds.
-</ResponseField>
+**`oas`** `number`
+Minimum order age in seconds.
 
 ***
 
@@ -655,13 +557,12 @@ async getClobMarketInfo(conditionID: string): Promise<ClobMarketDetails>
 
 Get the fee rate in basis points for a token.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getFeeRateBps(tokenID: string): Promise<number>
 ```
 
-<ResponseField name="returns" type="number">
-  The fee rate in basis points for the specified token.
-</ResponseField>
+**`returns`** `number`
+The fee rate in basis points for the specified token.
 
 ***
 
@@ -669,13 +570,12 @@ async getFeeRateBps(tokenID: string): Promise<number>
 
 Get the fee curve exponent for a token. The exponent shapes the fee curve used by the protocol when calculating fees at match time.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getFeeExponent(tokenID: string): Promise<number>
 ```
 
-<ResponseField name="returns" type="number">
-  The fee curve exponent for the specified token's market.
-</ResponseField>
+**`returns`** `number`
+The fee curve exponent for the specified token's market.
 
 ***
 
@@ -683,13 +583,12 @@ async getFeeExponent(tokenID: string): Promise<number>
 
 Get the tick size (minimum price increment) for a market.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getTickSize(tokenID: string): Promise<TickSize>
 ```
 
-<ResponseField name="returns" type="string">
-  The tick size for the market. One of: `0.1`, `0.01`, `0.001`, `0.0001`
-</ResponseField>
+**`returns`** `string`
+The tick size for the market. One of: `0.1`, `0.01`, `0.001`, `0.0001`
 
 ***
 
@@ -697,13 +596,12 @@ async getTickSize(tokenID: string): Promise<TickSize>
 
 Check if a market uses negative risk (binary complementary tokens).
 
-```typescript Signature theme={null}
+```typescript Signature
 async getNegRisk(tokenID: string): Promise<boolean>
 ```
 
-<ResponseField name="returns" type="boolean">
-  Whether the market uses negative risk.
-</ResponseField>
+**`returns`** `boolean`
+Whether the market uses negative risk.
 
 ***
 
@@ -713,32 +611,21 @@ async getNegRisk(tokenID: string): Promise<boolean>
 
 Get the current server timestamp.
 
-```typescript Signature theme={null}
+```typescript Signature
 async getServerTime(): Promise<number>
 ```
 
-<ResponseField name="returns" type="number">
-  Unix timestamp in seconds representing the current server time.
-</ResponseField>
+**`returns`** `number`
+Unix timestamp in seconds representing the current server time.
 
 ***
 
 ## See Also
 
-<CardGroup cols={2}>
-  <Card title="L1 Methods" icon="key" href="/trading/clients/l1">
-    Private key authentication to create or derive API credentials.
-  </Card>
+- **[L1 Methods](/trading/clients/l1)** — Private key authentication to create or derive API credentials.
 
-  <Card title="L2 Methods" icon="lock" href="/trading/clients/l2">
-    Place orders, cancel orders, and query your trades.
-  </Card>
+- **[L2 Methods](/trading/clients/l2)** — Place orders, cancel orders, and query your trades.
 
-  <Card title="REST API Reference" icon="code" href="/api-reference/introduction">
-    Complete REST endpoint documentation.
-  </Card>
+- **[REST API Reference](/api-reference/introduction)** — Complete REST endpoint documentation.
 
-  <Card title="WebSocket" icon="bolt" href="/market-data/websocket/overview">
-    Real-time market data streaming.
-  </Card>
-</CardGroup>
+- **[WebSocket](/market-data/websocket/overview)** — Real-time market data streaming.

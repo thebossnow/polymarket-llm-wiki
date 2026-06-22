@@ -3,9 +3,6 @@
 > Retrieves trades for the authenticated user. Returns paginated results.
 Requires readonly or level 2 API key authentication.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /data/trades

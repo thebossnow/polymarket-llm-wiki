@@ -6,14 +6,11 @@ Your **Builder Code** is a `bytes32` identifier that attributes orders routed th
 
 ## Accessing Your Builder Profile
 
-<Steps>
-  <Step title="Direct Link">
-    Go to
-    [polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
-  </Step>
+### Direct Link
+Go to
+[polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
 
-  <Step title="From Menu">Click your profile image → Select "Builders"</Step>
-</Steps>
+### From MenuClick your profile image → Select "Builders"
 
 ## Getting Your Builder Code
 
@@ -25,11 +22,7 @@ In the **Builder Code** section of your profile, copy the `bytes32` value. It lo
 
 Store it in your environment variables or a secrets manager.
 
-<Note>
-  Builder codes are public identifiers — they appear onchain in the `builder`
-  field of every order you attribute. Only you control which orders include
-  your code, so keep it scoped to the apps you own.
-</Note>
+> **Note:** Builder codes are public identifiers — they appear onchain in the `builder` field of every order you attribute. Only you control which orders include your code, so keep it scoped to the apps you own.
 
 ## Profile Settings
 
@@ -47,94 +40,77 @@ Your builder profile includes customizable settings:
 
 Store your builder code as an environment variable:
 
-<Tabs>
-  <Tab title="Bash">
-    ```bash .env theme={null}
-    POLY_BUILDER_CODE=0x0000000000000000000000000000000000000000000000000000000000000001
-    ```
-  </Tab>
+**Bash**
+```bash .env
+POLY_BUILDER_CODE=0x0000000000000000000000000000000000000000000000000000000000000001
+```
 
-  <Tab title="TypeScript">
-    ```typescript theme={null}
-    const builderCode = process.env.POLY_BUILDER_CODE!;
-    ```
-  </Tab>
+**TypeScript**
+```typescript
+const builderCode = process.env.POLY_BUILDER_CODE!;
+```
 
-  <Tab title="Python">
-    ```python theme={null}
-    import os
+**Python**
+```python
+import os
 
-    builder_code = os.environ["POLY_BUILDER_CODE"]
-    ```
-  </Tab>
-</Tabs>
+builder_code = os.environ["POLY_BUILDER_CODE"]
+```
 
 ## Using Your Builder Code
 
 Pass `builderCode` on every order to attribute it to your builder profile:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const response = await client.createAndPostOrder(
-    {
-      tokenID: "0x...",
-      price: 0.55,
-      size: 100,
-      side: Side.BUY,
-      builderCode: process.env.POLY_BUILDER_CODE!,
-    },
-    { tickSize: "0.01", negRisk: false },
-  );
-  ```
+```typescript TypeScript
+const response = await client.createAndPostOrder(
+  {
+    tokenID: "0x...",
+    price: 0.55,
+    size: 100,
+    side: Side.BUY,
+    builderCode: process.env.POLY_BUILDER_CODE!,
+  },
+  { tickSize: "0.01", negRisk: false },
+);
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
-  from py_clob_client_v2.order_builder.constants import BUY
+```python Python
+from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
+from py_clob_client_v2.order_builder.constants import BUY
 
-  response = client.create_and_post_order(
-      OrderArgs(
-          token_id="0x...",
-          price=0.55,
-          size=100,
-          side=BUY,
-          builder_code=os.environ["POLY_BUILDER_CODE"],
-      ),
-      options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
-  )
-  ```
-</CodeGroup>
+response = client.create_and_post_order(
+    OrderArgs(
+        token_id="0x...",
+        price=0.55,
+        size=100,
+        side=BUY,
+        builder_code=os.environ["POLY_BUILDER_CODE"],
+    ),
+    options=PartialCreateOrderOptions(tick_size="0.01", neg_risk=False),
+)
+```
 
 See [Order Attribution](/trading/orders/attribution) for full details.
 
 ## Troubleshooting
 
-<AccordionGroup>
-  <Accordion title="Rate limit exceeded">
-    **Cause:** You've exceeded your tier's daily transaction limit.
+#### Rate limit exceeded
+**Cause:** You've exceeded your tier's daily transaction limit.
 
-    **Solution:**
+**Solution:**
 
-    * Wait until the daily limit resets
-    * [Contact Polymarket](/builders/tiers#contact) to upgrade your tier
-  </Accordion>
+* Wait until the daily limit resets
+* [Contact Polymarket](/builders/tiers#contact) to upgrade your tier
 
-  <Accordion title="Builder code not found">
-    **Cause:** You haven't created a builder profile yet.
+#### Builder code not found
+**Cause:** You haven't created a builder profile yet.
 
-    **Solution:** Go to
-    [polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
-    and set up your profile to get a builder code.
-  </Accordion>
-</AccordionGroup>
+**Solution:** Go to
+[polymarket.com/settings?tab=builder](https://polymarket.com/settings?tab=builder)
+and set up your profile to get a builder code.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Attribute Orders" icon="tag" href="/trading/orders/attribution">
-    Attach your builder code to orders for volume credit.
-  </Card>
+- **[Attribute Orders](/trading/orders/attribution)** — Attach your builder code to orders for volume credit.
 
-  <Card title="Understand Tiers" icon="layer-group" href="/builders/tiers">
-    Learn about rate limits and how to upgrade.
-  </Card>
-</CardGroup>
+- **[Understand Tiers](/builders/tiers)** — Learn about rate limits and how to upgrade.

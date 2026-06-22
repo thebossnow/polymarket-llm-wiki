@@ -7,9 +7,6 @@ the user is currently earning in that market.
 
 Requires CLOB L2 Auth headers.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/user/percentages
@@ -50,11 +47,9 @@ paths:
         Returns the real-time percentages of rewards that a user is earning per
         market.
 
-
         The response is a map of condition_id to the percentage of total rewards
 
         the user is currently earning in that market.
-
 
         Requires CLOB L2 Auth headers.
       operationId: getRewardPercentagesForUser

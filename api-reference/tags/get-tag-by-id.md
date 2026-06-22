@@ -1,7 +1,5 @@
 # Get tag by id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /tags/{id}

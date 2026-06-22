@@ -1,7 +1,5 @@
 # Get tag by slug
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /tags/slug/{slug}

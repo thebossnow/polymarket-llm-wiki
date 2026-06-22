@@ -2,8 +2,6 @@
 
 > Public WebSocket for real-time orderbook, price, and market lifecycle updates.
 
-
-
 ## AsyncAPI
 
 ````yaml asyncapi.json market

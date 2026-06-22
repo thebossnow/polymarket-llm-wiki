@@ -1,7 +1,5 @@
 # Get total markets a user has traded
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /traded

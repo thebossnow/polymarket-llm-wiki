@@ -1,7 +1,5 @@
 # Get live volume for an event
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /live-volume

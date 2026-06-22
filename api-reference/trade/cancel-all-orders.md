@@ -2,9 +2,6 @@
 
 > Cancels all open orders for the authenticated user. Works even in cancel-only mode.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml delete /cancel-all

@@ -8,7 +8,7 @@ The Bridge API supports deposits from multiple chains and tokens. All deposits a
 
 Retrieve the full list of supported chains and tokens with their minimum deposit amounts.
 
-```bash theme={null}
+```bash
 curl https://bridge.polymarket.com/supported-assets
 ```
 
@@ -34,10 +34,7 @@ The bridge supports deposits from these blockchain networks:
 | Katana          | EVM          | \$2         | AUSD                                        |
 | Lighter         | EVM          | \$2         | USDC                                        |
 
-<Note>
-  Supported assets change over time. Always call `/supported-assets` for the
-  current list before initiating a deposit.
-</Note>
+> **Note:** Supported assets change over time. Always call `/supported-assets` for the current list before initiating a deposit.
 
 ## Minimum Amounts
 
@@ -47,12 +44,6 @@ Most L2 chains (Polygon, Arbitrum, Base, Optimism) have low minimums of $2, whil
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Create Deposit" icon="arrow-right-to-bracket" href="/trading/bridge/deposit">
-    Generate bridge addresses for your wallet.
-  </Card>
+- **[Create Deposit](/trading/bridge/deposit)** — Generate bridge addresses for your wallet.
 
-  <Card title="Check Status" icon="clock" href="/trading/bridge/status">
-    Track your deposit progress.
-  </Card>
-</CardGroup>
+- **[Check Status](/trading/bridge/status)** — Track your deposit progress.

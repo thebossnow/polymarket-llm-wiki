@@ -1,7 +1,5 @@
 # Get trades for a user or markets
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/data-openapi.yaml get /trades

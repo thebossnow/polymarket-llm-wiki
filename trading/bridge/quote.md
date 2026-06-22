@@ -6,7 +6,7 @@ Get an estimated quote before executing a deposit or withdrawal. Quotes include 
 
 ## Get a Quote
 
-```bash theme={null}
+```bash
 curl -X POST https://bridge.polymarket.com/quote \
   -H "Content-Type: application/json" \
   -d '{
@@ -47,67 +47,46 @@ The quote response includes:
 
 The `estFeeBreakdown` object contains:
 
-<ResponseField name="gasUsd" type="number">
-  Gas fee in USD
-</ResponseField>
+**`gasUsd`** `number`
+Gas fee in USD
 
-<ResponseField name="appFeeLabel" type="string">
-  Label of the app fee
-</ResponseField>
+**`appFeeLabel`** `string`
+Label of the app fee
 
-<ResponseField name="appFeePercent" type="number">
-  App fee as a percentage of the total amount
-</ResponseField>
+**`appFeePercent`** `number`
+App fee as a percentage of the total amount
 
-<ResponseField name="appFeeUsd" type="number">
-  App fee in USD
-</ResponseField>
+**`appFeeUsd`** `number`
+App fee in USD
 
-<ResponseField name="fillCostPercent" type="number">
-  Fill cost as a percentage of the total amount
-</ResponseField>
+**`fillCostPercent`** `number`
+Fill cost as a percentage of the total amount
 
-<ResponseField name="fillCostUsd" type="number">
-  Fill cost in USD
-</ResponseField>
+**`fillCostUsd`** `number`
+Fill cost in USD
 
-<ResponseField name="maxSlippage" type="number">
-  Maximum potential slippage as a percentage
-</ResponseField>
+**`maxSlippage`** `number`
+Maximum potential slippage as a percentage
 
-<ResponseField name="minReceived" type="number">
-  Minimum amount received after slippage
-</ResponseField>
+**`minReceived`** `number`
+Minimum amount received after slippage
 
-<ResponseField name="swapImpact" type="number">
-  Swap impact as a percentage of the total amount
-</ResponseField>
+**`swapImpact`** `number`
+Swap impact as a percentage of the total amount
 
-<ResponseField name="swapImpactUsd" type="number">
-  Swap impact in USD
-</ResponseField>
+**`swapImpactUsd`** `number`
+Swap impact in USD
 
-<ResponseField name="totalImpact" type="number">
-  Total impact as a percentage of the total amount
-</ResponseField>
+**`totalImpact`** `number`
+Total impact as a percentage of the total amount
 
-<ResponseField name="totalImpactUsd" type="number">
-  Total impact cost in USD
-</ResponseField>
+**`totalImpactUsd`** `number`
+Total impact cost in USD
 
-<Note>
-  Quotes are estimates. Actual amounts may vary slightly due to market
-  conditions.
-</Note>
+> **Note:** Quotes are estimates. Actual amounts may vary slightly due to market conditions.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Create Deposit" icon="arrow-right-to-bracket" href="/trading/bridge/deposit">
-    Execute a deposit to Polymarket.
-  </Card>
+- **[Create Deposit](/trading/bridge/deposit)** — Execute a deposit to Polymarket.
 
-  <Card title="Withdraw" icon="arrow-right-from-bracket" href="/trading/bridge/withdraw">
-    Withdraw from Polymarket to another chain.
-  </Card>
-</CardGroup>
+- **[Withdraw](/trading/bridge/withdraw)** — Withdraw from Polymarket to another chain.

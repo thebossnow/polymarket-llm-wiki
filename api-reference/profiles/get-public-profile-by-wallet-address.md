@@ -1,7 +1,5 @@
 # Get public profile by wallet address
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /public-profile

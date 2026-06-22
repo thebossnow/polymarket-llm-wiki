@@ -2,9 +2,6 @@
 
 > Retrieves market prices for multiple token IDs and sides using query parameters.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /prices

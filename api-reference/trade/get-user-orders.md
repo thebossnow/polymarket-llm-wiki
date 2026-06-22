@@ -3,9 +3,6 @@
 > Retrieves open orders for the authenticated user. Returns paginated results.
 Builder-authenticated clients can also use this endpoint to retrieve orders attributed to their builder account.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /data/orders

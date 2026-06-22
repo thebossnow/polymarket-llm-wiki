@@ -1,7 +1,5 @@
 # Get event tags
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /events/{id}/tags

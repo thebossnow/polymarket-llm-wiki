@@ -6,11 +6,7 @@ All orders on Polymarket are expressed as **limit orders**. Market orders are su
 
 The underlying order primitive is structured, hashed, and signed using the [EIP-712](https://eips.ethereum.org/EIPS/eip-712) standard, then executed onchain via the Exchange contract. Preparing orders manually is involved, so we recommend using the open-source [TypeScript](https://github.com/Polymarket/clob-client-v2) or [Python](https://github.com/Polymarket/py-clob-client-v2) SDK clients, which handle signing and submission for you.
 
-<Info>
-  If you prefer to use the REST API directly, you'll need to manage order
-  signing yourself. See [Authentication](/api-reference/authentication) for details on
-  constructing the required headers.
-</Info>
+> **Info:** If you prefer to use the REST API directly, you'll need to manage order signing yourself. See [Authentication](/api-reference/authentication) for details on constructing the required headers.
 
 ***
 
@@ -24,15 +20,11 @@ The underlying order primitive is structured, hashed, and signed using the [EIP-
 | **FAK** (Fill-And-Kill)      | Fills as many shares as available immediately, then cancels any unfilled remainder                 | Partial immediate execution            |
 
 * **FOK** and **FAK** are market order types — they execute against resting liquidity immediately.
-  * **BUY**: specify the dollar amount you want to spend
-  * **SELL**: specify the number of shares you want to sell
+* **BUY**: specify the dollar amount you want to spend
+* **SELL**: specify the number of shares you want to sell
 * **GTC** and **GTD** are limit order types — they rest on the book at your specified price.
 
-<Note>
-  **GTD expiration**: There is a security threshold of one minute. If you need
-  the order to expire in 90 seconds, the correct expiration value is `now + 1
-      minute + 30 seconds`.
-</Note>
+> **Note:** **GTD expiration**: There is a security threshold of one minute. If you need the order to expire in 90 seconds, the correct expiration value is `now + 1 minute + 30 seconds`.
 
 ### Post-Only Orders
 
@@ -57,27 +49,22 @@ Markets have different minimum price increments (tick sizes). Your order price m
 
 Retrieve the tick size for a market using the SDK:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const tickSize = await client.getTickSize(tokenID);
-  // Returns: "0.1" | "0.01" | "0.001" | "0.0001"
-  ```
+```typescript TypeScript
+const tickSize = await client.getTickSize(tokenID);
+// Returns: "0.1" | "0.01" | "0.001" | "0.0001"
+```
 
-  ```python Python theme={null}
-  tick_size = client.get_tick_size(token_id)
-  # Returns: "0.1" | "0.01" | "0.001" | "0.0001"
-  ```
+```python Python
+tick_size = client.get_tick_size(token_id)
+# Returns: "0.1" | "0.01" | "0.001" | "0.0001"
+```
 
-  ```rust Rust theme={null}
-  let resp = client.tick_size(token_id).await?;
-  // resp.minimum_tick_size: TickSize::Tenth | Hundredth | Thousandth | TenThousandth
-  ```
-</CodeGroup>
+```rust Rust
+let resp = client.tick_size(token_id).await?;
+// resp.minimum_tick_size: TickSize::Tenth | Hundredth | Thousandth | TenThousandth
+```
 
-<Tip>
-  You can also check the `minimum_tick_size` field on a market object returned
-  by the [Markets API](/market-data/fetching-markets).
-</Tip>
+> **Tip:** You can also check the `minimum_tick_size` field on a market object returned by the [Markets API](/market-data/fetching-markets).
 
 ***
 
@@ -85,71 +72,67 @@ Retrieve the tick size for a market using the SDK:
 
 Multi-outcome events (e.g., "Who will win the election?" with 3+ candidates) use a different exchange contract called the **Neg Risk CTF Exchange**. When placing orders on these markets, you must pass `negRisk: true` in the order options.
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const response = await client.createAndPostOrder(
-    {
-      tokenID: "TOKEN_ID",
-      price: 0.5,
-      size: 10,
-      side: Side.BUY,
-    },
-    {
-      tickSize: "0.01",
-      negRisk: true, // Required for multi-outcome markets
-    },
-  );
-  ```
+```typescript TypeScript
+const response = await client.createAndPostOrder(
+  {
+    tokenID: "TOKEN_ID",
+    price: 0.5,
+    size: 10,
+    side: Side.BUY,
+  },
+  {
+    tickSize: "0.01",
+    negRisk: true, // Required for multi-outcome markets
+  },
+);
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
-  from py_clob_client_v2.order_builder.constants import BUY
+```python Python
+from py_clob_client_v2 import OrderArgs, PartialCreateOrderOptions
+from py_clob_client_v2.order_builder.constants import BUY
 
-  response = client.create_and_post_order(
-      OrderArgs(
-          token_id="TOKEN_ID",
-          price=0.50,
-          size=10,
-          side=BUY,
-      ),
-      options=PartialCreateOrderOptions(
-          tick_size="0.01",
-          neg_risk=True,  # Required for multi-outcome markets
-      )
-  )
-  ```
+response = client.create_and_post_order(
+    OrderArgs(
+        token_id="TOKEN_ID",
+        price=0.50,
+        size=10,
+        side=BUY,
+    ),
+    options=PartialCreateOrderOptions(
+        tick_size="0.01",
+        neg_risk=True,  # Required for multi-outcome markets
+    )
+)
+```
 
-  ```rust Rust theme={null}
-  // The Rust SDK auto-detects neg risk from the token ID — no flag needed.
-  // The order builder fetches neg_risk and uses the correct exchange contract.
-  let order = client
-      .limit_order()
-      .token_id("TOKEN_ID".parse()?)
-      .price(dec!(0.50))
-      .size(dec!(10))
-      .side(Side::Buy)
-      .build()
-      .await?;
-  let signed = client.sign(&signer, order).await?;
-  let response = client.post_order(signed).await?;
-  ```
-</CodeGroup>
+```rust Rust
+// The Rust SDK auto-detects neg risk from the token ID — no flag needed.
+// The order builder fetches neg_risk and uses the correct exchange contract.
+let order = client
+    .limit_order()
+    .token_id("TOKEN_ID".parse()?)
+    .price(dec!(0.50))
+    .size(dec!(10))
+    .side(Side::Buy)
+    .build()
+    .await?;
+let signed = client.sign(&signer, order).await?;
+let response = client.post_order(signed).await?;
+```
 
 You can check whether a market uses negative risk via the SDK or the market object's `neg_risk` field:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const isNegRisk = await client.getNegRisk(tokenID);
-  ```
+```typescript TypeScript
+const isNegRisk = await client.getNegRisk(tokenID);
+```
 
-  ```python Python theme={null}
-  is_neg_risk = client.get_neg_risk(token_id)
-  ```
+```python Python
+is_neg_risk = client.get_neg_risk(token_id)
+```
 
-  ```rust Rust theme={null}
-  let is_neg_risk = client.neg_risk(token_id).await?;
-  ```
-</CodeGroup>
+```rust Rust
+let is_neg_risk = client.neg_risk(token_id).await?;
+```
 
 ***
 
@@ -171,9 +154,7 @@ Orders are continually monitored to make sure they remain valid. This includes t
 * Underlying balances
 * Allowances
 
-<Warning>
-  Any maker caught intentionally abusing these checks will be blacklisted.
-</Warning>
+> **Warning:** Any maker caught intentionally abusing these checks will be blacklisted.
 
 There are also limits on order placement per market. You can only place orders that sum to less than or equal to your available balance for each market. For example, if you have 500 pUSD in your funding wallet, you can place one order to buy 1000 YES at \$0.50 — but any additional buy orders in that market will be rejected since your entire balance is reserved for the first order.
 
@@ -193,76 +174,72 @@ All query endpoints require [L2 authentication](/api-reference/authentication). 
 
 Retrieve details for a specific order by its ID:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  const order = await client.getOrder("0xb816482a...");
-  console.log(order);
-  ```
+```typescript TypeScript
+const order = await client.getOrder("0xb816482a...");
+console.log(order);
+```
 
-  ```python Python theme={null}
-  order = client.get_order("0xb816482a...")
-  print(order)
-  ```
+```python Python
+order = client.get_order("0xb816482a...")
+print(order)
+```
 
-  ```rust Rust theme={null}
-  let order = client.order("0xb816482a...").await?;
-  println!("{order:?}");
-  ```
-</CodeGroup>
+```rust Rust
+let order = client.order("0xb816482a...").await?;
+println!("{order:?}");
+```
 
 ### Get Open Orders
 
 Retrieve your open orders, optionally filtered by market or asset:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // All open orders
-  const orders = await client.getOpenOrders();
+```typescript TypeScript
+// All open orders
+const orders = await client.getOpenOrders();
 
-  // Filtered by market
-  const marketOrders = await client.getOpenOrders({
-    market: "0xbd31dc8a...",
-  });
+// Filtered by market
+const marketOrders = await client.getOpenOrders({
+  market: "0xbd31dc8a...",
+});
 
-  // Filtered by asset
-  const assetOrders = await client.getOpenOrders({
-    asset_id: "52114319501245...",
-  });
-  ```
+// Filtered by asset
+const assetOrders = await client.getOpenOrders({
+  asset_id: "52114319501245...",
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OpenOrderParams
+```python Python
+from py_clob_client_v2 import OpenOrderParams
 
-  # All open orders
-  orders = client.get_orders()
+# All open orders
+orders = client.get_orders()
 
-  # Filtered by market
-  market_orders = client.get_orders(
-      OpenOrderParams(
-          market="0xbd31dc8a...",
-      )
-  )
-  ```
+# Filtered by market
+market_orders = client.get_orders(
+    OpenOrderParams(
+        market="0xbd31dc8a...",
+    )
+)
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::types::request::OrdersRequest;
+```rust Rust
+use polymarket_client_sdk_v2::clob::types::request::OrdersRequest;
 
-  // All open orders
-  let orders = client.orders(&OrdersRequest::default(), None).await?;
+// All open orders
+let orders = client.orders(&OrdersRequest::default(), None).await?;
 
-  // Filtered by market
-  let request = OrdersRequest::builder()
-      .market("0xbd31dc8a...".parse()?)
-      .build();
-  let market_orders = client.orders(&request, None).await?;
+// Filtered by market
+let request = OrdersRequest::builder()
+    .market("0xbd31dc8a...".parse()?)
+    .build();
+let market_orders = client.orders(&request, None).await?;
 
-  // Filtered by asset
-  let request = OrdersRequest::builder()
-      .asset_id("52114319501245...".parse()?)
-      .build();
-  let asset_orders = client.orders(&request, None).await?;
-  ```
-</CodeGroup>
+// Filtered by asset
+let request = OrdersRequest::builder()
+    .asset_id("52114319501245...".parse()?)
+    .build();
+let asset_orders = client.orders(&request, None).await?;
+```
 
 ### OpenOrder Object
 
@@ -342,49 +319,47 @@ Each entry in the `maker_orders` array contains:
 
 Retrieve your trades with the SDK:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // All trades
-  const trades = await client.getTrades();
+```typescript TypeScript
+// All trades
+const trades = await client.getTrades();
 
-  // Filtered by market
-  const marketTrades = await client.getTrades({
-    market: "0xbd31dc8a...",
-  });
+// Filtered by market
+const marketTrades = await client.getTrades({
+  market: "0xbd31dc8a...",
+});
 
-  // With pagination
-  const paginatedTrades = await client.getTradesPaginated({
-    market: "0xbd31dc8a...",
-  });
-  ```
+// With pagination
+const paginatedTrades = await client.getTradesPaginated({
+  market: "0xbd31dc8a...",
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import TradeParams
+```python Python
+from py_clob_client_v2 import TradeParams
 
-  # All trades
-  trades = client.get_trades()
+# All trades
+trades = client.get_trades()
 
-  # Filtered by market
-  market_trades = client.get_trades(
-      TradeParams(
-          market="0xbd31dc8a...",
-      )
-  )
-  ```
+# Filtered by market
+market_trades = client.get_trades(
+    TradeParams(
+        market="0xbd31dc8a...",
+    )
+)
+```
 
-  ```rust Rust theme={null}
-  use polymarket_client_sdk_v2::clob::types::request::TradesRequest;
+```rust Rust
+use polymarket_client_sdk_v2::clob::types::request::TradesRequest;
 
-  // All trades
-  let trades = client.trades(&TradesRequest::default(), None).await?;
+// All trades
+let trades = client.trades(&TradesRequest::default(), None).await?;
 
-  // Filtered by market
-  let request = TradesRequest::builder()
-      .market("0xbd31dc8a...".parse()?)
-      .build();
-  let market_trades = client.trades(&request, None).await?;
-  ```
-</CodeGroup>
+// Filtered by market
+let request = TradesRequest::builder()
+    .market("0xbd31dc8a...".parse()?)
+    .build();
+let market_trades = client.trades(&request, None).await?;
+```
 
 ***
 
@@ -392,35 +367,33 @@ Retrieve your trades with the SDK:
 
 The heartbeat endpoint maintains session liveness for order safety. If a valid heartbeat is not received within **10 seconds** (with up to a 5-second buffer), **all of your open orders will be cancelled**.
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // Send heartbeats in a loop
-  let heartbeatId = "";
-  setInterval(async () => {
-    const resp = await client.postHeartbeat(heartbeatId);
-    heartbeatId = resp.heartbeat_id;
-  }, 5000);
-  ```
+```typescript TypeScript
+// Send heartbeats in a loop
+let heartbeatId = "";
+setInterval(async () => {
+  const resp = await client.postHeartbeat(heartbeatId);
+  heartbeatId = resp.heartbeat_id;
+}, 5000);
+```
 
-  ```python Python theme={null}
-  import time
+```python Python
+import time
 
-  heartbeat_id = ""
-  while True:
-      resp = client.post_heartbeat(heartbeat_id)
-      heartbeat_id = resp["heartbeat_id"]
-      time.sleep(5)
-  ```
+heartbeat_id = ""
+while True:
+    resp = client.post_heartbeat(heartbeat_id)
+    heartbeat_id = resp["heartbeat_id"]
+    time.sleep(5)
+```
 
-  ```rust Rust theme={null}
-  // With the `heartbeats` feature, auto-send in background:
-  Client::start_heartbeats(&mut client)?;
+```rust Rust
+// With the `heartbeats` feature, auto-send in background:
+Client::start_heartbeats(&mut client)?;
 
-  // Or manually:
-  let resp = client.post_heartbeat(None).await?; // None for first call
-  let resp = client.post_heartbeat(Some(resp.heartbeat_id)).await?;
-  ```
-</CodeGroup>
+// Or manually:
+let resp = client.post_heartbeat(None).await?; // None for first call
+let resp = client.post_heartbeat(Some(resp.heartbeat_id)).await?;
+```
 
 * On each request, include the most recent `heartbeat_id` you received. For your first request, use an empty string.
 * If you send an invalid or expired `heartbeat_id`, the server responds with a `400 Bad Request` and provides the correct `heartbeat_id` in the response. Update your client and retry.
@@ -431,41 +404,39 @@ The heartbeat endpoint maintains session liveness for order safety. If a valid h
 
 Check if your resting orders are eligible for [maker rebates](/market-makers/maker-rebates) scoring:
 
-<CodeGroup>
-  ```typescript TypeScript theme={null}
-  // Single order
-  const scoring = await client.isOrderScoring({ orderId: "0x..." });
-  console.log(scoring); // { scoring: true }
+```typescript TypeScript
+// Single order
+const scoring = await client.isOrderScoring({ orderId: "0x..." });
+console.log(scoring); // { scoring: true }
 
-  // Multiple orders
-  const batchScoring = await client.areOrdersScoring({
-    orderIds: ["0x...", "0x..."],
-  });
-  ```
+// Multiple orders
+const batchScoring = await client.areOrdersScoring({
+  orderIds: ["0x...", "0x..."],
+});
+```
 
-  ```python Python theme={null}
-  from py_clob_client_v2 import OrderScoringParams, OrdersScoringParams
+```python Python
+from py_clob_client_v2 import OrderScoringParams, OrdersScoringParams
 
-  # Single order
-  scoring = client.is_order_scoring(
-      OrderScoringParams(orderId="0x...")
-  )
+# Single order
+scoring = client.is_order_scoring(
+    OrderScoringParams(orderId="0x...")
+)
 
-  # Multiple orders
-  batch_scoring = client.are_orders_scoring(
-      OrdersScoringParams(orderIds=["0x...", "0x..."])
-  )
-  ```
+# Multiple orders
+batch_scoring = client.are_orders_scoring(
+    OrdersScoringParams(orderIds=["0x...", "0x..."])
+)
+```
 
-  ```rust Rust theme={null}
-  // Single order
-  let scoring = client.is_order_scoring("0x...").await?;
-  println!("Scoring: {}", scoring.scoring);
+```rust Rust
+// Single order
+let scoring = client.is_order_scoring("0x...").await?;
+println!("Scoring: {}", scoring.scoring);
 
-  // Multiple orders
-  let batch = client.are_orders_scoring(&["0x...", "0x..."]).await?;
-  ```
-</CodeGroup>
+// Multiple orders
+let batch = client.are_orders_scoring(&["0x...", "0x..."]).await?;
+```
 
 ***
 
@@ -529,12 +500,6 @@ The operator's privileges are limited to order matching and ensuring correct ord
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Create Order" icon="plus" href="/trading/orders/create">
-    Build, sign, and submit orders
-  </Card>
+- **[Create Order](/trading/orders/create)** — Build, sign, and submit orders
 
-  <Card title="Cancel Order" icon="xmark" href="/trading/orders/cancel">
-    Cancel single, multiple, or all orders
-  </Card>
-</CardGroup>
+- **[Cancel Order](/trading/orders/cancel)** — Cancel single, multiple, or all orders

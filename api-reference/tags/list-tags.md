@@ -1,7 +1,5 @@
 # List tags
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /tags

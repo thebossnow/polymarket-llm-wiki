@@ -8,14 +8,11 @@ After sending assets to your bridge address, use the status endpoint to track pr
 
 Query the status of all deposits to a specific bridge address.
 
-```bash theme={null}
+```bash
 curl https://bridge.polymarket.com/status/0x23566f8b2E82aDfCf01846E54899d110e97AC053
 ```
 
-<Note>
-  Use the bridge address from the `/deposit` response (EVM, SVM, or BTC), not
-  your Polymarket wallet address.
-</Note>
+> **Note:** Use the bridge address from the `/deposit` response (EVM, SVM, or BTC), not your Polymarket wallet address.
 
 ## Transaction Statuses
 
@@ -30,18 +27,13 @@ Each deposit progresses through these statuses:
 | `COMPLETED`           | Yes      | Funds arrived — transaction successful             |
 | `FAILED`              | Yes      | Transaction encountered an error                   |
 
-<Note>
-  If a bridge transaction fails, remains stuck, or funds are held due to a
-  compliance check, direct users to
-  [our Bridge API provider's support](https://intercom.help/funxyz/en/articles/10732578-contact-us)
-  to resolve the issue.
-</Note>
+> **Note:** If a bridge transaction fails, remains stuck, or funds are held due to a compliance check, direct users to [our Bridge API provider's support](https://intercom.help/funxyz/en/articles/10732578-contact-us) to resolve the issue.
 
 ## Response
 
 A response with active deposits:
 
-```json theme={null}
+```json
 {
   "transactions": [
     {
@@ -73,26 +65,16 @@ A response with active deposits:
 
 An empty `transactions` array means no deposits have been detected at this address yet:
 
-```json theme={null}
+```json
 {
   "transactions": []
 }
 ```
 
-<Tip>
-  Transactions typically complete within a few minutes, but may take longer
-  depending on network conditions. Poll every 10-30 seconds until `COMPLETED` or
-  `FAILED`.
-</Tip>
+> **Tip:** Transactions typically complete within a few minutes, but may take longer depending on network conditions. Poll every 10-30 seconds until `COMPLETED` or `FAILED`.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Create Deposit" icon="arrow-right-to-bracket" href="/trading/bridge/deposit">
-    Generate bridge addresses for your wallet.
-  </Card>
+- **[Create Deposit](/trading/bridge/deposit)** — Generate bridge addresses for your wallet.
 
-  <Card title="Supported Assets" icon="coins" href="/trading/bridge/supported-assets">
-    Check supported chains and minimum amounts.
-  </Card>
-</CardGroup>
+- **[Supported Assets](/trading/bridge/supported-assets)** — Check supported chains and minimum amounts.

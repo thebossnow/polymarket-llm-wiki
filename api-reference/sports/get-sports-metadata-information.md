@@ -1,7 +1,5 @@
 # Get sports metadata information
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /sports

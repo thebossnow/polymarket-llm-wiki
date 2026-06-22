@@ -1,7 +1,5 @@
 # Get valid sports market types
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /sports/market-types

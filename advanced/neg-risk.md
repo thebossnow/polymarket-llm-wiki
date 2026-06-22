@@ -37,7 +37,7 @@ This is capital-efficient because betting against one outcome is economically eq
 
 The Gamma API includes a `negRisk` boolean on events and markets:
 
-```json theme={null}
+```json
 {
   "id": "123",
   "title": "Who will win the 2024 Presidential Election?",
@@ -48,7 +48,7 @@ The Gamma API includes a `negRisk` boolean on events and markets:
 
 When placing orders on neg risk markets, you must specify this in your order options:
 
-```typescript theme={null}
+```typescript
 const response = await client.createAndPostOrder(
   {
     tokenID: "TOKEN_ID",
@@ -89,11 +89,7 @@ Standard negative risk requires the complete set of outcomes to be known at mark
 
 ### Trading Rules for Augmented Neg Risk
 
-<Warning>
-  Only trade on **named outcomes**. Placeholder outcomes should be ignored until
-  they are named or until resolution occurs. The Polymarket UI does not display
-  unnamed outcomes.
-</Warning>
+> **Warning:** Only trade on **named outcomes**. Placeholder outcomes should be ignored until they are named or until resolution occurs. The Polymarket UI does not display unnamed outcomes.
 
 * If the correct outcome at resolution is not named, the market resolves to "Other"
 * The "Other" outcome's definition changes as placeholders are clarified—avoid trading it directly
@@ -102,16 +98,14 @@ Standard negative risk requires the complete set of outcomes to be known at mark
 
 An event is augmented neg risk when both flags are true:
 
-```json theme={null}
+```json
 {
   "enableNegRisk": true,
   "negRiskAugmented": true
 }
 ```
 
-<Note>
-  The Gamma API includes a boolean field `negRisk` on events and markets, which indicates whether the event uses negative risk. For augmented neg risk events, an additional `enableNegRisk` field is also `true`. When placing orders, the SDK option is always `negRisk: true` / `neg_risk: True` regardless of whether the market is standard or augmented neg risk.
-</Note>
+> **Note:** The Gamma API includes a boolean field `negRisk` on events and markets, which indicates whether the event uses negative risk. For augmented neg risk events, an additional `enableNegRisk` field is also `true`. When placing orders, the SDK option is always `negRisk: true` / `neg_risk: True` regardless of whether the market is standard or augmented neg risk.
 
 ## Technical Details
 
@@ -130,12 +124,6 @@ The conversion operation is atomic and happens through the Neg Risk Adapter:
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Markets & Events" icon="calendar" href="/concepts/markets-events">
-    Understand how multi-market events are structured.
-  </Card>
+- **[Markets & Events](/concepts/markets-events)** — Understand how multi-market events are structured.
 
-  <Card title="Positions & Tokens" icon="coins" href="/concepts/positions-tokens">
-    Learn about token operations like split, merge, and redeem.
-  </Card>
-</CardGroup>
+- **[Positions & Tokens](/concepts/positions-tokens)** — Learn about token operations like split, merge, and redeem.

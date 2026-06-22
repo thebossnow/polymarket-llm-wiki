@@ -16,13 +16,7 @@ Before merging, you need:
 2. **Condition ID** of the market
 3. **Sufficient gas** for the transaction
 
-<Note>
-  Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions.
-  Approve the adapter once, then route split, merge, and redeem actions through
-  it. For merge flows, the adapter calls the underlying CTF contract, receives
-  the released USDC.e collateral, wraps it into pUSD, and returns pUSD to your
-  wallet automatically.
-</Note>
+> **Note:** Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions. Approve the adapter once, then route split, merge, and redeem actions through it. For merge flows, the adapter calls the underlying CTF contract, receives the released USDC.e collateral, wraps it into pUSD, and returns pUSD to your wallet automatically.
 
 ## How It Works
 
@@ -34,34 +28,23 @@ The operation is atomic — if you don't have enough of both tokens, the transac
 
 ## Function Parameters
 
-<ResponseField name="collateralToken" type="IERC20">
-  pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
-</ResponseField>
+**`collateralToken`** `IERC20`
+pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
 
-<ResponseField name="parentCollectionId" type="bytes32">
-  Always `0x0000...0000` (32 zero bytes) for Polymarket markets
-</ResponseField>
+**`parentCollectionId`** `bytes32`
+Always `0x0000...0000` (32 zero bytes) for Polymarket markets
 
-<ResponseField name="conditionId" type="bytes32">
-  The market's condition ID, available from the Markets API
-</ResponseField>
+**`conditionId`** `bytes32`
+The market's condition ID, available from the Markets API
 
-<ResponseField name="partition" type="uint[]">
-  Array of index sets: `[1, 2]` for binary markets
-</ResponseField>
+**`partition`** `uint[]`
+Array of index sets: `[1, 2]` for binary markets
 
-<ResponseField name="amount" type="uint256">
-  The number of full sets to merge. Also the amount of collateral to receive.
-</ResponseField>
+**`amount`** `uint256`
+The number of full sets to merge. Also the amount of collateral to receive.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Redeem Tokens" icon="hand-holding-dollar" href="/trading/ctf/redeem">
-    Exchange winning tokens for pUSD after resolution
-  </Card>
+- **[Redeem Tokens](/trading/ctf/redeem)** — Exchange winning tokens for pUSD after resolution
 
-  <Card title="CTF Overview" icon="book" href="/trading/ctf/overview">
-    Learn more about the Conditional Token Framework
-  </Card>
-</CardGroup>
+- **[CTF Overview](/trading/ctf/overview)** — Learn more about the Conditional Token Framework

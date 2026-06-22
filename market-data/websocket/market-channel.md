@@ -12,7 +12,7 @@ wss://ws-subscriptions-clob.polymarket.com/ws/market
 
 ## Subscription
 
-```json theme={null}
+```json
 {
   "assets_ids": ["<token_id_1>", "<token_id_2>"],
   "type": "market",
@@ -30,7 +30,7 @@ Each message includes an `event_type` field identifying the type.
 
 Emitted when first subscribed to a market and when there is a trade that affects the book.
 
-```json theme={null}
+```json
 {
   "event_type": "book",
   "asset_id": "65818619657568813474341868652308942079804919287380422192892211131408793125422",
@@ -54,7 +54,7 @@ Emitted when first subscribed to a market and when there is a trade that affects
 
 Emitted when a new order is placed or an order is cancelled.
 
-```json theme={null}
+```json
 {
   "market": "0x5f65177b394277fd294cd75650044e32ba009a95022d88a0c1d565897d72f8f1",
   "price_changes": [
@@ -88,7 +88,7 @@ A `size` of `"0"` means the price level has been removed from the book.
 
 Emitted when the minimum tick size of a market changes. This happens when the book's price reaches the limits: price > 0.96 or price \< 0.04.
 
-```json theme={null}
+```json
 {
   "event_type": "tick_size_change",
   "asset_id": "65818619657568813474341868652308942079804919287380422192892211131408793125422",
@@ -103,7 +103,7 @@ Emitted when the minimum tick size of a market changes. This happens when the bo
 
 Emitted when a maker and taker order is matched, creating a trade event.
 
-```json theme={null}
+```json
 {
   "asset_id": "114122071509644379678018727908709560226618148003371446110114509806601493071694",
   "event_type": "last_trade_price",
@@ -118,11 +118,11 @@ Emitted when a maker and taker order is matched, creating a trade event.
 
 ### best\_bid\_ask
 
-<Note>Requires `custom_feature_enabled: true`.</Note>
+> **Note:** Requires `custom_feature_enabled: true`.
 
 Emitted when the best bid or ask prices for a market change.
 
-```json theme={null}
+```json
 {
   "event_type": "best_bid_ask",
   "market": "0x0005c0d312de0be897668695bae9f32b624b4a1ae8b140c49f08447fcc74f442",
@@ -136,7 +136,7 @@ Emitted when the best bid or ask prices for a market change.
 
 ### new\_market
 
-<Note>Requires `custom_feature_enabled: true`.</Note>
+> **Note:** Requires `custom_feature_enabled: true`.
 
 Emitted when a new market is created.
 
@@ -154,7 +154,7 @@ Where a `FeeSchedule` object is of the form:
 | taker\_only  | boolean | whether fee applies to taker only |
 | rebate\_rate | string  | maker rebate rate                 |
 
-```json theme={null}
+```json
 {
   "id": "1031769",
   "question": "Will NVIDIA (NVDA) close above $240 end of January?",
@@ -200,11 +200,11 @@ Where a `FeeSchedule` object is of the form:
 
 ### market\_resolved
 
-<Note>Requires `custom_feature_enabled: true`.</Note>
+> **Note:** Requires `custom_feature_enabled: true`.
 
 Emitted when a market is resolved.
 
-```json theme={null}
+```json
 {
   "id": "1031769",
   "question": "Will NVIDIA (NVDA) close above $240 end of January?",

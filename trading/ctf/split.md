@@ -16,17 +16,9 @@ Before splitting, ensure you have:
 2. **pUSD approval** for the CTF collateral adapter to spend your tokens
 3. **Condition ID** of the market — the condition must already be prepared on the CTF contract (via `prepareCondition`)
 
-<Note>
-  Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions.
-  Approve the adapter once, then route split, merge, and redeem actions through
-  it. The adapter handles the CTF collateral plumbing so user-facing flows stay
-  in pUSD.
-</Note>
+> **Note:** Polymarket uses thin collateral adapter contracts for pUSD-native CTF actions. Approve the adapter once, then route split, merge, and redeem actions through it. The adapter handles the CTF collateral plumbing so user-facing flows stay in pUSD.
 
-<Note>
-  If the partition is trivial, invalid, or refers to more slots than the
-  condition is prepared with, the transaction will revert.
-</Note>
+> **Note:** If the partition is trivial, invalid, or refers to more slots than the condition is prepared with, the transaction will revert.
 
 ## How It Works
 
@@ -38,35 +30,24 @@ The operation is atomic — if any step fails, the entire transaction reverts.
 
 ## Function Parameters
 
-<ResponseField name="collateralToken" type="IERC20">
-  pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
-</ResponseField>
+**`collateralToken`** `IERC20`
+pUSD (Polymarket USD) contract address: `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`
 
-<ResponseField name="parentCollectionId" type="bytes32">
-  Always `0x0000...0000` (32 zero bytes) for Polymarket markets
-</ResponseField>
+**`parentCollectionId`** `bytes32`
+Always `0x0000...0000` (32 zero bytes) for Polymarket markets
 
-<ResponseField name="conditionId" type="bytes32">
-  The market's condition ID, available from the Markets API
-</ResponseField>
+**`conditionId`** `bytes32`
+The market's condition ID, available from the Markets API
 
-<ResponseField name="partition" type="uint[]">
-  Array of index sets: `[1, 2]` for binary markets (Yes = 1, No = 2)
-</ResponseField>
+**`partition`** `uint[]`
+Array of index sets: `[1, 2]` for binary markets (Yes = 1, No = 2)
 
-<ResponseField name="amount" type="uint256">
-  The amount of collateral or stake to split. Also the number of full sets to
-  receive.
-</ResponseField>
+**`amount`** `uint256`
+The amount of collateral or stake to split. Also the number of full sets to
+receive.
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Merge Tokens" icon="merge" href="/trading/ctf/merge">
-    Convert token pairs back to pUSD
-  </Card>
+- **[Merge Tokens](/trading/ctf/merge)** — Convert token pairs back to pUSD
 
-  <Card title="Trade on Orderbook" icon="chart-line" href="/trading/orders/create">
-    Place orders using your newly split tokens
-  </Card>
-</CardGroup>
+- **[Trade on Orderbook](/trading/orders/create)** — Place orders using your newly split tokens

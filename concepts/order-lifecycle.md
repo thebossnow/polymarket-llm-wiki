@@ -4,20 +4,11 @@
 
 Every trade on Polymarket follows a specific lifecycle. Orders are created offchain, matched by an operator, and settled onchain through smart contracts. This hybrid approach combines the speed of centralized matching with the security of blockchain settlement.
 
-<Frame>
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/core-concepts/order-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=4db07008193421bfe359afe44b5f604e" alt="" className="dark:hidden" width="2336" height="952" data-path="images/core-concepts/order-lifecycle.png" />
-
-  <img src="https://mintcdn.com/polymarket-292d1b1b/FOMte3ewbG-LVy3k/images/dark/core-concepts/order-lifecycle.png?fit=max&auto=format&n=FOMte3ewbG-LVy3k&q=85&s=5a0f3eba2f20c44471bae05c0670de4a" alt="" className="hidden dark:block" width="2336" height="952" data-path="images/dark/core-concepts/order-lifecycle.png" />
-</Frame>
-
 ## How Orders Work
 
 All orders on Polymarket are **limit orders**. A limit order specifies the price you're willing to pay (or accept) and the quantity you want to trade.
 
-<Note>
-  "Market orders" are simply limit orders with a price set to execute
-  immediately against the best available resting orders.
-</Note>
+> **Note:** "Market orders" are simply limit orders with a price set to execute immediately against the best available resting orders.
 
 Orders are **EIP712-signed messages**. When you place an order, you sign a structured message with your private key. This signature authorizes the Exchange contract to execute the trade on your behalf—without ever taking custody of your funds.
 
@@ -34,57 +25,50 @@ Orders are **EIP712-signed messages**. When you place an order, you sign a struc
 
 Post-only orders will only rest on the book. If a post-only order would match immediately (cross the spread), it's rejected instead of executed. This guarantees you're always the maker, never the taker.
 
-<Steps>
-  <Step title="Create and Sign">
-    Your client creates an order object containing:
+### Create and Sign
+Your client creates an order object containing:
 
-    * Token ID (which outcome you're trading)
-    * Side (buy or sell)
-    * Price and size
-    * Expiration time
-    * Timestamp (in milliseconds, used for order uniqueness)
+* Token ID (which outcome you're trading)
+* Side (buy or sell)
+* Price and size
+* Expiration time
+* Timestamp (in milliseconds, used for order uniqueness)
 
-    You sign this order with your private key, creating an EIP712 signature.
-  </Step>
+You sign this order with your private key, creating an EIP712 signature.
 
-  <Step title="Submit to CLOB">
-    The signed order is submitted to the Central Limit Order Book (CLOB) operator. The operator validates:
+### Submit to CLOB
+The signed order is submitted to the Central Limit Order Book (CLOB) operator. The operator validates:
 
-    * Signature is valid
-    * You have sufficient balance
-    * You have set the required allowances
-    * Price meets minimum tick size requirements
-  </Step>
+* Signature is valid
+* You have sufficient balance
+* You have set the required allowances
+* Price meets minimum tick size requirements
 
-  <Step title="Match or Rest">
-    **If the order is marketable** (your buy price ≥ lowest ask, or your sell price ≤ highest bid), it matches against resting orders. Some markets apply a short taker delay before matching:
+### Match or Rest
+**If the order is marketable** (your buy price ≥ lowest ask, or your sell price ≤ highest bid), it matches against resting orders. Some markets apply a short taker delay before matching:
 
-    * **Taker delay:** used on selected crypto and finance up/down markets. The order is held for 250 ms, then validation runs again and the order is matched or placed on the book. The API waits for this hold and returns the final order result. To check a specific market, call the public CLOB endpoint `GET https://clob.polymarket.com/clob-markets/{condition_id}` or SDK method `getClobMarketInfo(conditionID)` and look for `itode: true`.
-    * **Sports/game delay:** enabled on configured sports markets around live game conditions. The order waits for the market's configured delay window before matching.
+* **Taker delay:** used on selected crypto and finance up/down markets. The order is held for 250 ms, then validation runs again and the order is matched or placed on the book. The API waits for this hold and returns the final order result. To check a specific market, call the public CLOB endpoint `GET https://clob.polymarket.com/clob-markets/{condition_id}` or SDK method `getClobMarketInfo(conditionID)` and look for `itode: true`.
+* **Sports/game delay:** enabled on configured sports markets around live game conditions. The order waits for the market's configured delay window before matching.
 
-    During either delay, the order is pending and cannot be canceled. If the market, balance, allowance, or risk checks fail when the delay expires, the order is rejected instead of matching.
+During either delay, the order is pending and cannot be canceled. If the market, balance, allowance, or risk checks fail when the delay expires, the order is rejected instead of matching.
 
-    **If the order is not marketable**, it rests on the book waiting for a counterparty. It remains open until:
+**If the order is not marketable**, it rests on the book waiting for a counterparty. It remains open until:
 
-    * Another order matches against it
-    * You cancel it
-    * It expires (GTD orders only)
-  </Step>
+* Another order matches against it
+* You cancel it
+* It expires (GTD orders only)
 
-  <Step title="Settlement">
-    When orders match, the operator submits the trade to the blockchain. The Exchange contract:
+### Settlement
+When orders match, the operator submits the trade to the blockchain. The Exchange contract:
 
-    * Verifies both signatures
-    * Transfers tokens from seller to buyer
-    * Transfers pUSD from buyer to seller
+* Verifies both signatures
+* Transfers tokens from seller to buyer
+* Transfers pUSD from buyer to seller
 
-    Settlement is **atomic**—either the entire trade succeeds or nothing happens.
-  </Step>
+Settlement is **atomic**—either the entire trade succeeds or nothing happens.
 
-  <Step title="Confirmation">
-    The trade achieves finality on Polygon. Your token balances update and the trade appears in your history.
-  </Step>
-</Steps>
+### Confirmation
+The trade achieves finality on Polygon. Your token balances update and the trade appears in your history.
 
 ## Order Statuses
 
@@ -134,22 +118,10 @@ Before placing orders, ensure:
 | **Allowance**       | Approve the Exchange contract to spend your assets |
 | **API Credentials** | Valid API key for authenticated endpoints          |
 
-<Info>
-  Order size is limited by your available balance minus any amounts reserved by existing open orders.
-
-  $$
-  \text{maxOrderSize} = \text{balance} - \sum(\text{openOrderSize} - \text{filledAmount})
-  $$
-</Info>
+> **Info:** Order size is limited by your available balance minus any amounts reserved by existing open orders. $$ \text{maxOrderSize} = \text{balance} - \sum(\text{openOrderSize} - \text{filledAmount}) $$
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Resolution" icon="gavel" href="/concepts/resolution">
-    Learn how markets are resolved and winning tokens redeemed.
-  </Card>
+- **[Resolution](/concepts/resolution)** — Learn how markets are resolved and winning tokens redeemed.
 
-  <Card title="Trading Guide" icon="book" href="/trading/overview">
-    Start placing orders with our step-by-step guide.
-  </Card>
-</CardGroup>
+- **[Trading Guide](/trading/overview)** — Start placing orders with our step-by-step guide.

@@ -5,9 +5,6 @@ grouped by asset address.
 
 Requires CLOB L2 Auth headers.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml get /rewards/user/total

@@ -8,29 +8,13 @@ The Polymarket API provides programmatic access to the world's largest predictio
 
 ## APIs
 
-<CardGroup cols={1}>
-  <Card title="Gamma API" icon="database">
-    **`https://gamma-api.polymarket.com`**
+- **Gamma API** — **`https://gamma-api.polymarket.com`** Markets, events, tags, series, comments, sports, search, and public profiles. This is the primary API for discovering and browsing market data.
 
-    Markets, events, tags, series, comments, sports, search, and public profiles. This is the primary API for discovering and browsing market data.
-  </Card>
+- **Data API** — **`https://data-api.polymarket.com`** User positions, trades, activity, holder data, open interest, leaderboards, and builder analytics.
 
-  <Card title="Data API" icon="chart-line">
-    **`https://data-api.polymarket.com`**
+- **CLOB API** — **`https://clob.polymarket.com`** Orderbook data, pricing, midpoints, spreads, and price history. Also handles order placement, cancellation, and other trading operations. Trading endpoints require [authentication](/api-reference/authentication).
 
-    User positions, trades, activity, holder data, open interest, leaderboards, and builder analytics.
-  </Card>
-
-  <Card title="CLOB API" icon="arrows-rotate">
-    **`https://clob.polymarket.com`**
-
-    Orderbook data, pricing, midpoints, spreads, and price history. Also handles order placement, cancellation, and other trading operations. Trading endpoints require [authentication](/api-reference/authentication).
-  </Card>
-</CardGroup>
-
-<Info>
-  A separate **Bridge API** (`https://bridge.polymarket.com`) handles deposits and withdrawals. Bridges are not handled by Polymarket, it is a proxy of fun.xyz service.
-</Info>
+> **Info:** A separate **Bridge API** (`https://bridge.polymarket.com`) handles deposits and withdrawals. Bridges are not handled by Polymarket, it is a proxy of fun.xyz service.
 
 ***
 
@@ -44,12 +28,6 @@ The CLOB API has both public endpoints (orderbook, prices) and authenticated end
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Authentication" icon="key" href="/api-reference/authentication">
-    Learn how to authenticate requests for trading endpoints.
-  </Card>
+- **[Authentication](/api-reference/authentication)** — Learn how to authenticate requests for trading endpoints.
 
-  <Card title="Clients & SDKs" icon="cube" href="/api-reference/clients-sdks">
-    Official TypeScript, Python, and Rust libraries.
-  </Card>
-</CardGroup>
+- **[Clients & SDKs](/api-reference/clients-sdks)** — Official TypeScript, Python, and Rust libraries.

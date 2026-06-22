@@ -38,21 +38,19 @@ Here are a few simple queries to get started:
 
 Third-party blockchain analytics platforms that aggregate and visualize Polymarket data:
 
-<CardGroup cols={4}>
-  <Card title="Blockworks" img="https://pbs.twimg.com/profile_images/1651677302634483712/7s2FxV2K_400x400.jpg" href="https://blockworks.com/analytics/polymarket" />
+- **[Blockworks](https://blockworks.com/analytics/polymarket)**
 
-  <Card title="Artemis" img="https://pbs.twimg.com/profile_images/1896982195723546624/2XeO9mPb_400x400.png" href="https://app.artemisanalytics.com/asset/polymarket?from=assets" />
+- **[Artemis](https://app.artemisanalytics.com/asset/polymarket?from=assets)**
 
-  <Card title="Dune" img="https://pbs.twimg.com/profile_images/1986458079248986112/qq80s3hx_400x400.jpg" href="https://dune.com/discover/content/popular?q=polymarket&resource-type=dashboards" />
+- **[Dune](https://dune.com/discover/content/popular?q=polymarket&resource-type=dashboards)**
 
-  <Card title="DeFiLlama" img="https://pbs.twimg.com/profile_images/1915756547705036800/rAeLzZqs_400x400.jpg" href="https://defillama.com/protocol/polymarket" />
+- **[DeFiLlama](https://defillama.com/protocol/polymarket)**
 
-  <Card title="The Block" img="https://pbs.twimg.com/profile_images/1944749695525425152/9babG7Df_400x400.jpg" href="https://www.theblock.co/data/decentralized-finance/prediction-markets-and-betting" />
+- **[The Block](https://www.theblock.co/data/decentralized-finance/prediction-markets-and-betting)**
 
-  <Card title="Token Terminal" img="https://pbs.twimg.com/profile_images/1594678659222306817/SMum_RcQ_400x400.jpg" href="https://tokenterminal.com/explorer/projects/polymarket" />
+- **[Token Terminal](https://tokenterminal.com/explorer/projects/polymarket)**
 
-  <Card title="Allium" img="https://pbs.twimg.com/profile_images/1778926940407132160/UEwR3lHt_400x400.jpg" href="https://predictions.allium.so" />
-</CardGroup>
+- **[Allium](https://predictions.allium.so)**
 
 ### Community Dashboards
 

@@ -3,9 +3,6 @@
 > Retrieves spreads for multiple token IDs.
 The spread is the difference between the best ask and best bid prices.
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /spreads

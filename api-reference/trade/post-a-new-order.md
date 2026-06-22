@@ -2,9 +2,6 @@
 
 > Creates a new order in the order book
 
-
-
-
 ## OpenAPI
 
 ````yaml /api-spec/clob-openapi.yaml post /order

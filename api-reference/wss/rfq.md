@@ -2,8 +2,6 @@
 
 > Authenticated WebSocket for combinatorial RFQ quoters — receive requests, submit quotes, confirm last look, and track execution.
 
-
-
 ## AsyncAPI
 
 ````yaml asyncapi-rfq.json quoter

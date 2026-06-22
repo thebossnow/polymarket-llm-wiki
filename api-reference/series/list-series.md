@@ -1,7 +1,5 @@
 # List series
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /series

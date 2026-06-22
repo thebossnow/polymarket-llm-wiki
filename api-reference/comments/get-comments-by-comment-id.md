@@ -1,7 +1,5 @@
 # Get comments by comment id
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /comments/{id}

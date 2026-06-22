@@ -1,7 +1,5 @@
 # Get market by slug
 
-
-
 ## OpenAPI
 
 ````yaml /api-spec/gamma-openapi.yaml get /markets/slug/{slug}
