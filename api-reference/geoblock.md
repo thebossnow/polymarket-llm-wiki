@@ -68,6 +68,7 @@ The following countries are restricted from placing orders on Polymarket. Countr
 | PL           | Poland                               | Close-only             |
 | RU           | Russia                               | Blocked                |
 | SG           | Singapore                            | Close-only             |
+| SK           | Slovakia                             | Blocked                |
 | SO           | Somalia                              | Blocked                |
 | SS           | South Sudan                          | Blocked                |
 | SD           | Sudan                                | Blocked                |
@@ -89,6 +90,7 @@ In addition to fully blocked countries, the following specific regions within ot
 | Country      | Region  | Region Code |
 | ------------ | ------- | ----------- |
 | Canada (CA)  | Ontario | ON          |
+| Canada (CA)  | Quebec  | QC          |
 | Ukraine (UA) | Crimea  | 43          |
 | Ukraine (UA) | Donetsk | 14          |
 | Ukraine (UA) | Luhansk | 09          |

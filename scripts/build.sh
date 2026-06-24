@@ -27,7 +27,7 @@ xargs -P 8 -I{} bash -c 'fetch_one "$@"' _ {} < /tmp/poly_en_urls.txt
 curl -sL "$BASE/llms.txt" > "$ROOT/llms.txt"
 
 # Strip Mintlify MDX/JSX components -> plain Markdown for LLM consumption.
-find "$ROOT" -name '*.md' -not -name README.md -print0 \
+find "$ROOT" -name '*.md' -not -name README.md -not -name CLAUDE.md -print0 \
   | xargs -0 python3 "$ROOT/scripts/clean_mdx.py"
 
 # Concatenate the cleaned pages into a single full-text corpus.

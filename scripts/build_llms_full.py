@@ -24,7 +24,7 @@ def main(root: str):
     pages = []
     for dirpath, _, files in os.walk(root):
         for name in files:
-            if not name.endswith(".md") or name == "README.md":
+            if not name.endswith(".md") or name in ("README.md", "CLAUDE.md"):
                 continue
             full = os.path.join(dirpath, name)
             rel = os.path.relpath(full, root)

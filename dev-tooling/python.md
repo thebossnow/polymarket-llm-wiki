@@ -996,6 +996,11 @@ secure_client = await AsyncSecureClient.create(
 
 ## Changelog
 
+### `0.1.0b9`
+
+* RFQ quoter sessions now emit typed `RfqTradeEvent` events for confirmed Combos fills.
+* RFQ rejection errors now expose `error_id` values and parse `INVALID_SIGNATURE` and `INTERNAL_ERROR` codes.
+
 ### `0.1.0b8`
 
 * Added `parent_event_id` to `Event` so child events can link back to their parent event.

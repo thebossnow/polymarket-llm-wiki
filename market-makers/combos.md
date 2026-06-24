@@ -41,6 +41,7 @@ sequenceDiagram
     RFQ->>Execution: Execute accepted Combo
     Execution-->>Requester: Send execution update
     Execution-->>Quoter: Send execution update
+    RFQ-->>Quoter: Broadcast confirmed trade
 ```
 
 1. **User creates an unsigned Request** for a Combo price.
@@ -54,6 +55,7 @@ acceptance window.
 8. **RFQ system executes the accepted Combo**.
 9. **User receives execution updates**.
 10. **Market maker receives execution updates**.
+11. **Connected market makers receive confirmed trade broadcasts**.
 
 > **Note:** Combo position IDs are complementary to CLOB token IDs. A user can trade the market on the CLOB or can include the market as a leg of a Combo.
 
@@ -2865,6 +2867,152 @@ Execution updates are correlated by `rfq_id`.
 | `FAILED`    | Execution failed.                                 |
 
 Treat `CONFIRMED` and `FAILED` as terminal states.
+
+## Listen to Trade Broadcasts
+
+Confirmed trade broadcasts tell connected market makers when any Combo RFQ trade
+has completed successfully. Use them to build a public trade tape, update risk,
+or reconcile market activity that was filled by another maker.
+
+Trade broadcasts are best-effort and may be replayed after reconnects. Deduplicate
+them by RFQ ID: `rfqId` in TypeScript or `rfq_id` in Python and raw WebSocket
+messages.
+
+**TypeScript**
+
+### Switch on the Event Type
+First, switch on `event.type` to handle trade broadcasts from the same session
+stream.
+
+```ts
+switch (event.type) {
+  case "trade":
+    // event: RfqTradeEvent
+    handleTrade(event);
+    break;
+
+  // …
+}
+```
+
+### Inspect the Trade
+Then, inspect the confirmed trade before storing or applying it. Trade broadcasts
+exclude maker identity and per-maker fill allocations.
+
+```ts
+type RfqTradeEvent = {
+  type: "trade";
+  rfqId: RfqId;
+  requesterId: RfqRequestorPublicId;
+  conditionId: ComboConditionId;
+  legPositionIds: PositionId[];
+  direction: RfqDirection;
+  side: RfqSide.Yes;
+  price: DecimalString;
+  size: DecimalString;
+  executedAt: EpochMilliseconds;
+};
+```
+
+`price` is the accepted blended price in pUSD per YES Combo share. `size` is the
+matched Combo share size. Both values are normalized decimal strings.
+
+### Store the Trade
+Finally, persist the trade by RFQ ID and execution timestamp for downstream
+reconciliation.
+
+```ts
+function handleTrade(event: RfqTradeEvent) {
+  storeComboTrade({
+    rfqId: event.rfqId,
+    conditionId: event.conditionId,
+    legPositionIds: event.legPositionIds,
+    requesterId: event.requesterId,
+    price: event.price,
+    size: event.size,
+    executedAt: event.executedAt,
+  });
+}
+```
+
+**Python**
+
+### Check Event Type
+First, use `isinstance(...)` to handle trade broadcasts from the same session
+stream.
+
+```python
+from polymarket import RfqTradeEvent
+
+async for event in session:
+    if isinstance(event, RfqTradeEvent):
+        handle_trade(event)
+```
+
+### Inspect the Trade
+Then, inspect the confirmed trade before storing or applying it. Trade broadcasts
+exclude maker identity and per-maker fill allocations.
+
+```python
+from decimal import Decimal
+
+class RfqTradeEvent:
+    type: "trade"
+    rfq_id: RfqId
+    requester_id: RfqRequestorPublicId
+    condition_id: ComboConditionId
+    leg_position_ids: tuple[PositionId, ...]
+    direction: RfqDirection
+    side: RfqSide
+    price: Decimal
+    size: Decimal
+    executed_at: int
+```
+
+`price` is the accepted blended price in pUSD per YES Combo share. `size` is the
+matched Combo share size. Both values are `Decimal` instances.
+
+### Store the Trade
+Finally, persist the trade by RFQ ID and execution timestamp for downstream
+reconciliation.
+
+```python
+from polymarket import RfqTradeEvent
+
+def handle_trade(event: RfqTradeEvent) -> None:
+    store_combo_trade(
+        rfq_id=event.rfq_id,
+        condition_id=event.condition_id,
+        leg_position_ids=event.leg_position_ids,
+        requester_id=event.requester_id,
+        price=event.price,
+        size=event.size,
+        executed_at=event.executed_at,
+    )
+```
+
+**API**
+Listen for `RFQ_TRADE` messages on the RFQ WebSocket after Combo executions are
+confirmed. These messages are sent to authenticated quoter sessions and exclude
+maker identity and per-maker fill allocations.
+
+```json
+{
+  "type": "RFQ_TRADE",
+  "rfq_id": "<rfq_id>",
+  "requester_id": "<requester_id>",
+  "condition_id": "<combo_condition_id>",
+  "leg_position_ids": ["<leg_position_id_1>", "<leg_position_id_2>"],
+  "direction": "BUY",
+  "side": "YES",
+  "price_e6": "125000",
+  "size_e6": "800000",
+  "executed_at": 1780854786039
+}
+```
+
+`price_e6` is the accepted blended price in 6-decimal base units, and `size_e6`
+is the matched Combo share size in 6-decimal base units.
 
 ## Handle Errors
 
